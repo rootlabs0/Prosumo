@@ -1,0 +1,110 @@
+.platform__header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 720px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+.platform__tabs {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  margin-top: clamp(48px, 6vw, 72px);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 32px;
+}
+
+.platform__tablist {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--color-border);
+  padding-right: 16px;
+}
+
+.platform__tab {
+  text-align: left;
+  padding: 14px 12px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid transparent;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.platform__tab:hover {
+  color: var(--color-text-primary);
+}
+
+.platform__tab--active {
+  color: var(--color-text-primary);
+  border-left-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+
+.platform__pane {
+  position: relative;
+  min-height: 240px;
+  padding: 8px 8px 8px 16px;
+}
+
+.tabpane {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tabpane__title {
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tabpane__desc {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  max-width: 56ch;
+}
+
+.tabpane__illu {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.tabpane__svg {
+  width: 100%;
+  height: 140px;
+}
+
+@media (max-width: 820px) {
+  .platform__tabs {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+  .platform__tablist {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-right: 0;
+    padding-bottom: 8px;
+    gap: 4px;
+  }
+  .platform__tab {
+    flex-shrink: 0;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+  .platform__tab--active {
+    border-left: none;
+    border-bottom-color: var(--color-accent);
+  }
+  .platform__pane { padding: 8px 0; }
+}
