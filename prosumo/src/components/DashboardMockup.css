@@ -5,10 +5,14 @@
 
 .mockup__glow {
   position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  box-shadow: 0 0 80px rgba(232, 82, 26, 0.12);
+  bottom: -50px;
+  left: 5%;
+  right: 5%;
+  height: 80px;
+  background: radial-gradient(ellipse at center, rgba(232, 82, 26, 0.28) 0%, transparent 70%);
+  filter: blur(18px);
   pointer-events: none;
+  z-index: -1;
 }
 
 .mockup__card {

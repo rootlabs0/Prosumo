@@ -1,6 +1,9 @@
 .hero {
   background: var(--color-bg);
   padding: clamp(56px, 8vw, 96px) 0 clamp(72px, 10vw, 120px);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .hero__inner {
@@ -18,6 +21,10 @@
 
 .hero__title {
   max-width: 14ch;
+}
+
+.hero__accent {
+  color: var(--color-accent);
 }
 
 .hero__subline {
@@ -105,3 +112,4 @@
 @media (max-width: 600px) {
   .hero__ctas .btn-primary { width: 100%; }
 }
+min-height: 100vh;

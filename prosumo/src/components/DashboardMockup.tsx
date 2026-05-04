@@ -29,7 +29,7 @@ export default function DashboardMockup() {
           <div className="mockup__dots">
             <span /><span /><span />
           </div>
-          <div className="mockup__title mono">prosumo / live</div>
+          <div className="mockup__title mono">PROSUMO / LIVE</div>
         </header>
 
         <div className="mockup__chart">

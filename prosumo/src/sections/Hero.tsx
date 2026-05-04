@@ -24,8 +24,8 @@ export default function Hero() {
             animate="visible"
             variants={fadeUp}
           >
-            Energy management <br />
-            that pays for itself.
+            Energy that<br />
+            works for <span className="hero__accent">you</span>
           </motion.h1>
 
           <motion.p
@@ -51,30 +51,8 @@ export default function Hero() {
               Book a Demo <span aria-hidden>→</span>
             </a>
             <a href="#platform" className="btn btn-secondary hero__secondary">
-              See How It Works
+              See how it works
             </a>
-          </motion.div>
-
-          <motion.div
-            className="hero__proof"
-            custom={3}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-          >
-            <p className="hero__proof-label mono">
-              Trusted by energy operators across Central Europe
-            </p>
-            <div className="hero__proof-logos" aria-hidden>
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="hero__proof-logo">
-                  <svg viewBox="0 0 100 24" preserveAspectRatio="xMidYMid meet">
-                    <rect x="0" y="8" width="14" height="8" rx="2" />
-                    <rect x="20" y="6" width="76" height="12" rx="2" opacity="0.6" />
-                  </svg>
-                </div>
-              ))}
-            </div>
           </motion.div>
         </div>
 

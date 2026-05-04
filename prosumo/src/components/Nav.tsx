@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Nav.css'
 
@@ -12,15 +12,22 @@ const LINKS = [
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
-  const [pulse, setPulse] = useState(false)
+const [visible, setVisible] = useState(true)
+const [open, setOpen] = useState(false)
+const [pulse, setPulse] = useState(false)
+const lastScrollY = useRef(0)
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+useEffect(() => {
+  const onScroll = () => {
+    const currentY = window.scrollY
+    setScrolled(currentY > 8)
+    setVisible(currentY < lastScrollY.current || currentY < 50)
+    lastScrollY.current = currentY
+  }
+  onScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  return () => window.removeEventListener('scroll', onScroll)
+}, [])
 
   useEffect(() => {
     const t = window.setTimeout(() => setPulse(true), 3000)
@@ -32,9 +39,21 @@ export default function Nav() {
   }, [])
 
   return (
-    <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
+    <motion.header
+  className={`nav ${scrolled ? 'nav--scrolled' : ''}`}
+  animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -16 }}
+  transition={{ duration: 0.3, ease: 'easeInOut' }}
+>
       <div className="nav__inner container">
         <a href="#top" className="nav__logo" aria-label="PROSUMO home">
+          <svg className="nav__logo-wave" viewBox="0 0 28 18" fill="none" aria-hidden>
+            <rect x="0"  y="7"  width="3" height="4"  rx="1.5" fill="currentColor" />
+            <rect x="5"  y="4"  width="3" height="10" rx="1.5" fill="currentColor" />
+            <rect x="10" y="0"  width="3" height="18" rx="1.5" fill="currentColor" />
+            <rect x="15" y="3"  width="3" height="12" rx="1.5" fill="currentColor" />
+            <rect x="20" y="6"  width="3" height="6"  rx="1.5" fill="currentColor" />
+            <rect x="25" y="8"  width="3" height="3"  rx="1.5" fill="currentColor" />
+          </svg>
           PROSUMO<span className="nav__logo-dot">.</span>
         </a>
 
@@ -93,6 +112,6 @@ export default function Nav() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   )
 }
