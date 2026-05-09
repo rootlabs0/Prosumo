@@ -77,7 +77,7 @@ export default function ProblemFraming() {
           <p className="body-muted problem__sub">
             Since 2021, grid prices have moved with unprecedented volatility.
             Operators without real-time visibility have absorbed the full
-            shock — and most still are.
+            shock and most still are.
           </p>
         </div>
 

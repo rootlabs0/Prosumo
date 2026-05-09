@@ -29,6 +29,23 @@
   letter-spacing: 0.18em;
   font-size: 0.9375rem;
   color: var(--text);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav__logo {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+.nav__brand-name {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin-left: 10px;
 }
 
 .nav__links {

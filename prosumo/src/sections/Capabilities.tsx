@@ -414,7 +414,6 @@ export default function Capabilities() {
                 <span className="caps__line caps__line--light">Optimize.</span>
                 <span className="caps__line caps__line--amber">Flex.</span>
               </h2>
-              <p className="caps__intro-hint">Scroll to explore →</p>
             </div>
             <div className="caps__intro-art" aria-hidden>
               <IntroBg />

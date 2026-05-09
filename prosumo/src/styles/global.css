@@ -198,43 +198,6 @@ img, svg {
   color: #111;
 }
 
-/* custom cursor */
-.cursor-dot,
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  border-radius: 999px;
-  mix-blend-mode: difference;
-  will-change: transform;
-}
-
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  background: #ffffff;
-  transform: translate(-50%, -50%);
-}
-
-.cursor-ring {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #ffffff;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
-}
-
-.cursor-ring.is-active {
-  width: 48px;
-  height: 48px;
-  opacity: 0.6;
-}
-
-@media (max-width: 768px), (pointer: coarse) {
-  .cursor-dot, .cursor-ring { display: none; }
-}
 
 /* tighter mobile padding */
 @media (max-width: 768px) {

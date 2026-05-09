@@ -11,7 +11,7 @@ export default function CTA() {
         </h2>
         <p className="body-muted cta__sub reveal">
           Prosumo unlocks that intelligence. Book a 30-minute session with our
-          team — we'll map a deployment plan for your infrastructure.
+          team we'll map a deployment plan for your infrastructure.
         </p>
         <div className="cta__buttons reveal">
           <a href="mailto:hello@prosumo.cz" className="btn btn--solid">Request Demo</a>

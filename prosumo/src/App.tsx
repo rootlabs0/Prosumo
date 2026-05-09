@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 import Nav from './components/Nav'
-import CustomCursor from './components/CustomCursor'
 import Hero from './sections/Hero'
 import ProblemFraming from './sections/Stats'
 import Capabilities from './sections/Capabilities'
@@ -32,7 +31,6 @@ export default function App() {
 
   return (
     <>
-      <CustomCursor />
       <Nav />
       <main>
         <Hero />
