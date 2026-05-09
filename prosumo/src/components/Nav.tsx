@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
+import { useEffect, useState } from 'react'
 import './Nav.css'
 
 const links = [
@@ -11,7 +10,6 @@ const links = [
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
-  const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -20,17 +18,8 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => {
-    gsap.from(headerRef.current, {
-      y: -72,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-    })
-  }, [])
-
   return (
-    <header ref={headerRef} className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
+    <header className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="nav__inner container">
         <a href="#top" className="nav__brand">
           <img src="/images/prosumo-logo.svg" alt="Prosumo" className="nav__logo" />
