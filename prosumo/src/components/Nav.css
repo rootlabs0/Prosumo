@@ -1,139 +1,58 @@
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: saturate(180%) blur(8px);
-  -webkit-backdrop-filter: saturate(180%) blur(8px);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
+  transition: background 0.25s ease, border-color 0.25s ease;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.nav--scrolled {
-  border-bottom-color: var(--color-border);
-  background: rgba(255, 255, 255, 0.92);
+.nav.is-scrolled {
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: saturate(140%) blur(8px);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  border-bottom-color: var(--border);
 }
 
 .nav__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 72px;
   gap: 32px;
 }
 
-.nav__logo {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.0625rem;
-  letter-spacing: -0.02em;
-  color: var(--color-text-primary);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav__logo-wave {
-  width: 22px;
-  height: 14px;
-  flex-shrink: 0;
-}
-
-.nav__logo-dot {
-  color: var(--color-accent);
+.nav__brand {
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  font-size: 0.9375rem;
+  color: var(--text);
 }
 
 .nav__links {
   display: flex;
-  align-items: center;
-  gap: 28px;
+  gap: 32px;
   margin-left: auto;
-  margin-right: 24px;
+  margin-right: 32px;
 }
 
-.nav__link {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  transition: color 0.15s ease;
+.nav__links a {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  transition: color 0.18s ease;
 }
 
-.nav__link:hover {
-  color: var(--color-text-primary);
-}
+.nav__links a:hover { color: var(--text); }
 
 .nav__cta {
-  display: flex;
-  align-items: center;
-}
-
-.nav__demo {
+  padding: 10px 18px;
   font-size: 0.875rem;
 }
 
-@keyframes navPulse {
-  0%   { box-shadow: 0 0 0 0 rgba(232, 82, 26, 0.45); }
-  70%  { box-shadow: 0 0 0 12px rgba(232, 82, 26, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(232, 82, 26, 0); }
-}
-
-.nav__demo--pulse {
-  animation: navPulse 0.9s ease-out 1;
-}
-
-/* ---------- Mobile burger ---------- */
-.nav__burger {
-  display: none;
-  width: 36px;
-  height: 36px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  margin-left: auto;
-}
-
-.nav__burger span {
-  display: block;
-  width: 20px;
-  height: 1.5px;
-  background: var(--color-text-primary);
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.nav__burger--open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.nav__burger--open span:nth-child(2) { opacity: 0; }
-.nav__burger--open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-.nav__mobile {
-  border-top: 1px solid var(--color-border);
-  background: var(--color-bg);
-}
-
-.nav__mobile-inner {
-  display: flex;
-  flex-direction: column;
-  padding: 16px 24px 24px;
-  gap: 4px;
-}
-
-.nav__mobile-link {
-  padding: 14px 4px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--color-text-primary);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.nav__mobile-cta {
-  margin-top: 16px;
-  width: 100%;
-  padding: 14px 20px;
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 860px) {
+@media (max-width: 768px) {
   .nav__links { display: none; }
-  .nav__cta { display: none; }
-  .nav__burger { display: flex; }
+  .nav__inner { gap: 16px; height: 64px; }
 }

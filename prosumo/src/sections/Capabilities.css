@@ -1,89 +1,276 @@
-.products {
-  background: var(--color-bg);
+/* ─── Section (outer, tall container on desktop) ─── */
+.caps {
+  position: relative;
+  background: var(--bg-light);
+  /* height: 500vh set inline by JS on desktop; auto on mobile */
 }
 
-.products__header {
+/* ─── Sticky viewport wrapper ─── */
+.caps__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-light);
+}
+
+/* ─── Horizontal motion strip ─── */
+.caps__strip {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 720px;
-  margin-bottom: clamp(40px, 5vw, 64px);
+  align-items: center;
+  height: 100%;
+  /* translateX driven by Framer Motion on desktop */
+  will-change: transform;
 }
 
-.products__title {
-  margin-top: 4px;
-}
-
-.products__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-.products__card {
+/* ─── Individual panels ─── */
+.caps__panel {
+  flex: 0 0 80vw;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 40px;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.products__card:hover {
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-2px);
-}
-
-.products__card-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-top: 4px;
-}
-
-.products__card-desc {
-  font-size: 1rem;
-  color: var(--color-text-muted);
-  line-height: 1.65;
-}
-
-.products__features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 8px 0 12px;
-}
-
-.products__features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 0.9375rem;
-  color: var(--color-text-primary);
-}
-
-.check {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 2px;
+  padding: 0 clamp(24px, 4vw, 64px);
 }
 
-.check--orange {
-  background: var(--color-accent-light);
-  color: var(--color-accent);
+.caps__panel--intro {
+  flex: 0 0 100vw;
+  justify-content: space-between;
+  padding: 0 clamp(32px, 8vw, 112px);
+  gap: 4vw;
 }
 
-.check--dark {
-  background: #F3F4F6;
-  color: var(--color-text-primary);
+/* ─── Intro panel: text side ─── */
+.caps__intro-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 460px;
 }
 
-@media (max-width: 880px) {
-  .products__grid { grid-template-columns: 1fr; }
-  .products__card { padding: 32px; }
+.caps__intro-kicker {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #9ca3af;
 }
+
+.caps__intro-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.caps__line {
+  display: block;
+  font-family: var(--font);
+  font-size: clamp(3rem, 7vw, 6rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text-on-light);
+}
+
+.caps__line--bold  { font-weight: 900; }
+.caps__line--light { font-weight: 400; }
+.caps__line--amber { font-weight: 900; color: var(--accent); }
+
+.caps__intro-hint {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: #9ca3af;
+  margin-top: 8px;
+}
+
+/* ─── Intro panel: decorative art side ─── */
+.caps__intro-art {
+  flex: 0 0 auto;
+  width: min(42%, 460px);
+}
+
+.caps__intro-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── Solution card ─── */
+.cap-card {
+  width: 100%;
+  max-width: 620px;
+  height: clamp(400px, 72vh, 660px);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.25s ease;
+}
+
+.cap-card:hover {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.10);
+}
+
+/* Illustration area — top 50% of card */
+.cap-card__art {
+  flex: 0 0 50%;
+  background: #f5f5f4;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cap-card__art svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 1.25rem;
+}
+
+/* Text area — bottom half */
+.cap-card__content {
+  flex: 1;
+  padding: 1.75rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cap-card__label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  line-height: 1;
+}
+
+.cap-card__title {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.2;
+  color: var(--text-on-light);
+}
+
+.cap-card__body {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: #6b7280;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.cap-card__link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  transition: opacity 0.15s ease;
+  align-self: flex-start;
+}
+
+.cap-card__link:hover { opacity: 0.7; }
+
+/* ─── Panel counter (absolute, bottom-left of sticky) ─── */
+.caps__counter {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: #9ca3af;
+  display: flex;
+  align-items: baseline;
+  pointer-events: none;
+  user-select: none;
+}
+
+.caps__counter-num {
+  display: inline-block;
+  animation: counter-fade 0.25s ease;
+}
+
+@keyframes counter-fade {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Mobile ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Release the sticky pin */
+  .caps__sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Native horizontal scroll */
+  .caps__strip {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    align-items: flex-start;
+    padding: 28px 0 40px;
+  }
+
+  .caps__strip::-webkit-scrollbar { display: none; }
+
+  /* All panels same width on mobile */
+  .caps__panel,
+  .caps__panel--intro {
+    flex: 0 0 88vw;
+    height: auto;
+    padding: 20px 16px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    scroll-snap-align: start;
+  }
+
+  .caps__panel--intro {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .caps__intro-art {
+    width: 100%;
+    max-width: none;
+  }
+
+  .caps__line {
+    font-size: clamp(2.5rem, 11vw, 4rem);
+  }
+
+  /* Cards natural height on mobile */
+  .cap-card {
+    height: auto;
+    max-width: none;
+    width: 100%;
+  }
+
+  .cap-card__art {
+    flex: 0 0 180px;
+  }
+
+  .cap-card__body {
+    -webkit-line-clamp: 5;
+  }
+
+  /* Hide counter on mobile */
+  .caps__counter {
+    display: none;
+  }
+}
+

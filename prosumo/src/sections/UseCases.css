@@ -1,70 +1,40 @@
-.usecases__header {
+.cta {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  text-align: left;
+}
+
+.cta__inner {
+  max-width: 880px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+.cta__title {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.cta__sub {
+  font-size: 1.0625rem;
+  max-width: 56ch;
+  margin-bottom: 8px;
+}
+
+.cta__buttons {
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
-  max-width: 720px;
-  margin-bottom: clamp(40px, 5vw, 64px);
+  margin-bottom: 4px;
 }
 
-.usecases__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.usecases__card {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 32px;
-  align-items: flex-start;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.usecases__card:hover {
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-2px);
-}
-
-.usecases__title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-top: 4px;
-}
-
-.usecases__list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.9375rem;
-  color: var(--color-text-muted);
-  line-height: 1.55;
-}
-
-.usecases__list li {
-  position: relative;
-  padding-left: 16px;
-}
-
-.usecases__list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 9px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-}
-
-.usecases__cta {
-  margin-top: clamp(32px, 5vw, 48px);
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-width: 880px) {
-  .usecases__grid { grid-template-columns: 1fr; }
+.cta__fineprint {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
 }

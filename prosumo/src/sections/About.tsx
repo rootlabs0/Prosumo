@@ -1,105 +1,101 @@
-import { motion } from 'framer-motion'
-import HardwareIcon from '../components/HardwareIcon'
+import { useEffect, useRef, useState } from 'react'
 import './About.css'
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const, delay: i * 0.08 },
-  }),
-}
-
-type Kind = 'gateway' | 'sensor' | 'control'
-
-const PRODUCTS: {
-  kind: Kind
-  name: string
-  specs: string[]
-  tag: string
-  tagAvailable: boolean
-}[] = [
+const cases = [
   {
-    kind: 'gateway',
-    name: 'EMS Gateway G1',
-    specs: [
-      'DIN-rail mount',
-      '4× RS-485 / Modbus RTU',
-      'LTE + Ethernet fallback',
-      'Edge compute: ARM Cortex-A7',
-      'IP20 rated',
-    ],
-    tag: 'Available now',
-    tagAvailable: true,
+    industry: 'AUTOMOTIVE MANUFACTURING',
+    headline: '41% electricity cost reduction in Q1.',
+    body:
+      'A tier-1 component supplier deployed Prosumo across 3 plants in Czechia. Within 90 days, automated load shifting and predictive scheduling cut energy spend by €1.2M annualized — without changing production targets.',
+    metrics: ['41% cost reduction', '€1.2M / year', '3 sites'],
   },
   {
-    kind: 'sensor',
-    name: 'CS-100 Current Sensor',
-    specs: [
-      '100A split-core CT',
-      '±0.5% accuracy class',
-      'Plug-in terminal block',
-      'Compatible: G1 Gateway',
-    ],
-    tag: 'Available now',
-    tagAvailable: true,
+    industry: 'DATA CENTER OPERATOR',
+    headline: 'PUE down from 1.48 to 1.31 in 4 months.',
+    body:
+      'A regional colocation operator integrated Prosumo with their BMS. Real-time diagnostics surfaced 14 inefficiencies across cooling and UPS, while predictive control reshaped tariff exposure during Q3 peak windows.',
+    metrics: ['PUE 1.31', '17% efficiency gain', '14 anomalies'],
   },
   {
-    kind: 'control',
-    name: 'CM-4 Control Module',
-    specs: [
-      '4× relay outputs (16A)',
-      '2× analog inputs 0–10V',
-      'Modbus RTU slave',
-      'Mounts alongside G1',
-    ],
-    tag: 'Coming Q3 2025',
-    tagAvailable: false,
+    industry: 'COMMERCIAL REAL ESTATE',
+    headline: '€680K saved across 22 buildings, year one.',
+    body:
+      'A pan-European portfolio operator rolled out Prosumo to 22 commercial assets. Sub-metered visibility and demand response unlocked savings that exceeded the deployment cost within the first quarter.',
+    metrics: ['€680K saved', '22 buildings', '< 90 days payback'],
   },
 ]
 
-export default function Hardware() {
-  return (
-    <section className="hardware section" id="hardware">
-      <div className="container">
-        <motion.div
-          className="hardware__header"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          variants={fadeUp}
-        >
-          <span className="section-label">Hardware</span>
-          <h2 className="h2">Built for the industrial environment.</h2>
-          <p className="lead">
-            Every PROSUMO hardware component is engineered for reliability, accuracy, and seamless
-            cloud connectivity.
-          </p>
-        </motion.div>
+export default function Results() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [index, setIndex] = useState(0)
 
-        <div className="hardware__grid">
-          {PRODUCTS.map((p, i) => (
-            <motion.article
-              key={p.name}
-              className="card hardware__card"
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-80px' }}
-              variants={fadeUp}
-            >
-              <div className="hardware__icon">
-                <HardwareIcon kind={p.kind} />
-              </div>
-              <h3 className="hardware__name">{p.name}</h3>
-              <ul className="hardware__specs mono">
-                {p.specs.map((s) => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ul>
-              <span className={`tag ${p.tagAvailable ? 'tag-orange' : 'tag-gray'}`}>{p.tag}</span>
-            </motion.article>
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+    const card = track.children[index] as HTMLElement | undefined
+    if (!card) return
+    track.scrollTo({ left: card.offsetLeft - 24, behavior: 'smooth' })
+  }, [index])
+
+  const go = (dir: number) => {
+    setIndex(i => Math.max(0, Math.min(cases.length - 1, i + dir)))
+  }
+
+  return (
+    <section id="results" className="section section--light results">
+      <div className="container">
+        <div className="results__head reveal">
+          <div>
+            <p className="eyebrow results__kicker">In the Field</p>
+            <h2 className="h-section results__title">Prosumo in the Field</h2>
+          </div>
+          <a href="#cta" className="results__library">Full Library →</a>
+        </div>
+
+        <div className="results__carousel reveal">
+          <button
+            className="results__arrow results__arrow--prev"
+            onClick={() => go(-1)}
+            aria-label="Previous case study"
+            disabled={index === 0}
+          >
+            ‹
+          </button>
+
+          <div className="results__track" ref={trackRef}>
+            {cases.map((c, i) => (
+              <article key={c.headline} className={`case-card ${i === index ? 'is-active' : ''}`}>
+                <p className="eyebrow case-card__industry">{c.industry}</p>
+                <h3 className="case-card__headline">{c.headline}</h3>
+                <p className="case-card__body">{c.body}</p>
+                <div className="case-card__metrics">
+                  {c.metrics.map(m => (
+                    <span key={m} className="case-card__metric">{m}</span>
+                  ))}
+                </div>
+                <a href="#cta" className="case-card__link">Read case study →</a>
+              </article>
+            ))}
+          </div>
+
+          <button
+            className="results__arrow results__arrow--next"
+            onClick={() => go(1)}
+            aria-label="Next case study"
+            disabled={index === cases.length - 1}
+          >
+            ›
+          </button>
+        </div>
+
+        <div className="results__dots" role="tablist">
+          {cases.map((_, i) => (
+            <button
+              key={i}
+              className={`results__dot ${i === index ? 'is-active' : ''}`}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to case ${i + 1}`}
+            />
           ))}
         </div>
       </div>

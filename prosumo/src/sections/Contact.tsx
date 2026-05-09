@@ -1,88 +1,49 @@
-import { motion } from 'framer-motion'
 import './Contact.css'
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const } },
-}
-
-const FOOTER_COLS = [
-  {
-    title: 'Products',
-    links: ['Platform', 'Hardware', 'Pricing', 'Docs'],
-  },
-  {
-    title: 'Company',
-    links: ['About', 'Careers', 'Blog', 'Contact'],
-  },
-  {
-    title: 'Legal',
-    links: ['Privacy Policy', 'Terms of Service'],
-  },
-]
-
-export default function CtaFooter() {
+export default function Footer() {
   return (
-    <>
-      <motion.section
-        className="ctabanner"
-        id="book-demo"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-        variants={fadeUp}
-      >
-        <div className="container ctabanner__inner">
-          <h2 className="ctabanner__title">Ready to take control of your energy?</h2>
-          <p className="ctabanner__subline">
-            Talk to our team. We&rsquo;ll map out a deployment plan for your infrastructure in
-            30 minutes.
+    <footer className="footer">
+      <div className="container footer__inner">
+        <div className="footer__brand">
+          <div className="footer__wordmark">PROSUMO</div>
+          <p className="footer__tagline">
+            AI-driven energy intelligence for industrial operators.
           </p>
-          <a href="mailto:hello@prosumo.cz" className="btn btn-primary ctabanner__btn">
-            Book a Free Demo <span aria-hidden>→</span>
-          </a>
+          <p className="footer__addr">
+            Prosumo s.r.o. · Prague, Czech Republic ·
+            <a href="mailto:hello@prosumo.cz"> hello@prosumo.cz</a>
+          </p>
         </div>
-      </motion.section>
 
-      <footer className="footer" id="contact">
-        <div className="container footer__inner">
-          <div className="footer__brand">
-            <a href="#top" className="footer__logo">
-              PROSUMO<span className="footer__logo-dot">.</span>
-            </a>
-            <p className="footer__tagline">Smarter energy, by design.</p>
-            <address className="footer__address">
-              PROSUMO s.r.o.
-              <br />
-              Prague, Czech Republic
-              <br />
-              <a href="mailto:hello@prosumo.cz">hello@prosumo.cz</a>
-            </address>
+        <nav className="footer__cols" aria-label="Footer">
+          <div>
+            <p className="eyebrow">Platform</p>
+            <a href="#capabilities">Predict</a>
+            <a href="#capabilities">Diagnose</a>
+            <a href="#capabilities">Flex</a>
+            <a href="#industries">Industries</a>
           </div>
-
-          <div className="footer__cols">
-            {FOOTER_COLS.map((col) => (
-              <div key={col.title} className="footer__col">
-                <div className="footer__col-title mono">{col.title}</div>
-                <ul>
-                  {col.links.map((l) => (
-                    <li key={l}>
-                      <a href="#" onClick={(e) => e.preventDefault()}>
-                        {l}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div>
+            <p className="eyebrow">Company</p>
+            <a href="#cta">About</a>
+            <a href="#results">Case studies</a>
+            <a href="#cta">Careers</a>
+            <a href="#cta">Press</a>
           </div>
-        </div>
+          <div>
+            <p className="eyebrow">Contact</p>
+            <a href="mailto:hello@prosumo.cz">hello@prosumo.cz</a>
+            <a href="#cta">Request demo</a>
+            <a href="#cta">Partner program</a>
+            <a href="#cta">Support</a>
+          </div>
+        </nav>
+      </div>
 
-        <div className="container footer__bottom">
-          <span>&copy; {new Date().getFullYear()} PROSUMO s.r.o. All rights reserved.</span>
-          <span className="mono footer__bottom-meta">Built in Prague</span>
-        </div>
-      </footer>
-    </>
+      <div className="container footer__bottom">
+        <span>© {new Date().getFullYear()} Prosumo s.r.o. All rights reserved.</span>
+        <span className="footer__certs">ISO 27001 · EN 50160 · CE Certified</span>
+      </div>
+    </footer>
   )
 }
