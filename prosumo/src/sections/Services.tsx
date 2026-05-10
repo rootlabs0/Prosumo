@@ -22,7 +22,7 @@ export default function Services() {
           <MagicBento
             textAutoHide={false}
             enableStars={true}
-            enableSpotlight={false}
+            enableSpotlight={true}
             enableBorderGlow={true}
             enableTilt={false}
             enableMagnetism={false}
