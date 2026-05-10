@@ -12,6 +12,7 @@ interface CardDatum {
   title: string
   description: string
   label: string
+  image: string
 }
 
 const cardData: CardDatum[] = [
@@ -20,48 +21,56 @@ const cardData: CardDatum[] = [
     title: 'PV Production Forecasting',
     description: 'Accurate models based on meteorological data predict photovoltaic output up to tens of hours ahead.',
     label: 'Solar Forecasting',
+    image: 'https://images.unsplash.com/photo-1466611653966-4290d37bedd5?w=500&h=500&fit=crop',
   },
   {
     color: '#161616',
     title: 'PV Operations Diagnostics',
     description: 'Detects deviations in AC/DC output for early fault detection at string or inverter level.',
     label: 'PV Diagnostics',
+    image: 'https://images.unsplash.com/photo-1581092918484-74ce534e4957?w=500&h=500&fit=crop',
   },
   {
     color: '#161616',
     title: 'SPOT Market Optimization',
     description: 'Algorithms schedule device operation according to the SPOT market price curve for best economic outcomes.',
     label: 'SPOT Optimization',
+    image: 'https://images.unsplash.com/photo-1611974260368-30673fbe7aed?w=500&h=500&fit=crop',
   },
   {
     color: '#161616',
     title: 'Balance Point Forecasting',
     description: 'A 24-hour ahead consumption and supply model helps reduce imbalance costs.',
     label: 'Balance Forecasting',
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=500&fit=crop',
   },
   {
     color: '#161616',
     title: 'Energy Efficiency Audit',
     description: 'Dynamic management of consumption, generation, and storage minimizes forecast deviation.',
     label: 'Energy Efficiency',
+    image: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=500&h=500&fit=crop',
   },
   {
     color: '#161616',
     title: 'Flexibility Forecasting',
     description: 'Calculates available regulatory energy volume that can be offered to aggregators for additional revenue.',
     label: 'Flex Forecasting',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=500&fit=crop',
   },
   {
     color: '#161616',
     title: 'Flexibility Valuation',
     description: 'Economic assessment of regulatory energy provision for correct real-time decision-making.',
     label: 'Flex Valuation',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=500&fit=crop',
   },
   {
     color: '#161616',
     title: 'Sharing Group Optimization',
     description: 'Manages energy community consumption and generation to maximise self-consumption and member benefit.',
     label: 'Group Sharing',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=500&fit=crop',
   },
 ]
 
@@ -425,6 +434,7 @@ const MagicBento = ({
                 clickEffect={clickEffect}
                 enableMagnetism={enableMagnetism}
               >
+                <img src={card.image} alt={card.title} className="magic-bento-card__image" />
                 <div className="magic-bento-card__header">
                   <div className="magic-bento-card__label">{card.label}</div>
                 </div>
@@ -438,6 +448,7 @@ const MagicBento = ({
 
           return (
             <div key={index} className={baseClassName} style={cardStyle}>
+              <img src={card.image} alt={card.title} className="magic-bento-card__image" />
               <div className="magic-bento-card__header">
                 <div className="magic-bento-card__label">{card.label}</div>
               </div>
