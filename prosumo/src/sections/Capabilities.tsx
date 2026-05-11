@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-mot
 const DARK  = '#2a2a2a'
 const FAINT = 'rgba(42,42,42,0.16)'
 const GHOST = 'rgba(42,42,42,0.08)'
-const AMBER = '#ff5522'
+const AMBER = '#f5a30f'
 
 /* ══════════════════════════════════════════════════════════════════
    INLINE SVG ILLUSTRATIONS
