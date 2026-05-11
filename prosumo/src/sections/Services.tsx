@@ -21,7 +21,7 @@ export default function Services() {
         <div className="reveal">
           <MagicBento
             textAutoHide={false}
-            enableStars={true}
+            enableStars={false}
             enableSpotlight={true}
             enableBorderGlow={true}
             enableTilt={false}

@@ -5,44 +5,37 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer__inner">
         <div className="footer__brand">
-          <div className="footer__wordmark">PROSUMO</div>
-          <p className="footer__tagline">
-            AI-driven energy intelligence for industrial operators.
-          </p>
-          <p className="footer__addr">
-            Prosumo s.r.o. · Prague, Czech Republic ·
-            <a href="mailto:hello@prosumo.cz"> hello@prosumo.cz</a>
-          </p>
+          <div className="footer__logo-section">
+            <img src="/images/prosumo-logo.svg" alt="Prosumo" className="footer__logo" />
+            <div className="footer__wordmark">PROSUMO s.r.o.</div>
+          </div>
+          <div className="footer__details">
+            <div className="footer__section">
+              <p className="footer__label">Adresa</p>
+              <p className="footer__text">Plynární 1617/10</p>
+              <p className="footer__text">170 00 Praha 7</p>
+            </div>
+            <div className="footer__section">
+              <p className="footer__label">Telefon</p>
+              <p className="footer__text"><a href="tel:+420417631390">+420 417 631 390</a></p>
+            </div>
+            <div className="footer__section">
+              <p className="footer__label">Email</p>
+              <p className="footer__text"><a href="mailto:prosumo@prosumo.cz">prosumo@prosumo.cz</a></p>
+            </div>
+            <div className="footer__section">
+              <p className="footer__text">IČO: 09608192</p>
+              <p className="footer__text">DIČ: CZ09608192</p>
+              <p className="footer__text">Spisová značka:<br />C 338898/MSPH Městský soud v Praze</p>
+            </div>
+          </div>
         </div>
 
-        <nav className="footer__cols" aria-label="Footer">
-          <div>
-            <p className="eyebrow">Platform</p>
-            <a href="#capabilities">Predict</a>
-            <a href="#capabilities">Diagnose</a>
-            <a href="#capabilities">Flex</a>
-            <a href="#industries">Industries</a>
-          </div>
-          <div>
-            <p className="eyebrow">Company</p>
-            <a href="#cta">About</a>
-            <a href="#results">Case studies</a>
-            <a href="#cta">Careers</a>
-            <a href="#cta">Press</a>
-          </div>
-          <div>
-            <p className="eyebrow">Contact</p>
-            <a href="mailto:hello@prosumo.cz">hello@prosumo.cz</a>
-            <a href="#cta">Request demo</a>
-            <a href="#cta">Partner program</a>
-            <a href="#cta">Support</a>
-          </div>
-        </nav>
+        <div className="footer__empty"></div>
       </div>
 
       <div className="container footer__bottom">
         <span>© {new Date().getFullYear()} Prosumo s.r.o. All rights reserved.</span>
-        <span className="footer__certs">ISO 27001 · EN 50160 · CE Certified</span>
       </div>
     </footer>
   )

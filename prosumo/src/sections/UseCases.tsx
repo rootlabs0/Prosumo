@@ -17,7 +17,6 @@ export default function CTA() {
           <a href="mailto:hello@prosumo.cz" className="btn btn--solid">Request Demo</a>
           <a href="#" className="btn btn--ghost">Download Datasheet</a>
         </div>
-        <p className="cta__fineprint reveal">No commitment. No vendor lock-in.</p>
       </div>
     </section>
   )
