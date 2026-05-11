@@ -99,8 +99,8 @@ function DataCenterSVG() {
         <path d="M200 180 L250 200 L250 110 L200 90 Z" fill="none" stroke={FAINT} strokeWidth="0.75" strokeDasharray="2 3" />
       </g>
       {/* power line */}
-      <path d="M100 80 L100 60 L260 60 L260 80" fill="none" stroke="#f5a30f" strokeWidth="0.75" strokeDasharray="3 3" />
-      <circle cx="180" cy="60" r="2.5" fill="#f5a30f" />
+      <path d="M100 80 L100 60 L260 60 L260 80" fill="none" stroke="#ff5522" strokeWidth="0.75" strokeDasharray="3 3" />
+      <circle cx="180" cy="60" r="2.5" fill="#ff5522" />
     </svg>
   )
 }

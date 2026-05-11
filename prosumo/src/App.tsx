@@ -7,6 +7,7 @@ import Capabilities from './sections/Capabilities'
 import Industries from './sections/Platform'
 import Services from './sections/Services'
 import Results from './sections/About'
+import AboutUs from './sections/AboutUs'
 import CTA from './sections/UseCases'
 import FAQ from './sections/FAQ'
 import Footer from './sections/Contact'
@@ -39,6 +40,7 @@ export default function App() {
         <Services />
         <Industries />
         <Results />
+        <AboutUs />
         <FAQ />
         <CTA />
       </main>

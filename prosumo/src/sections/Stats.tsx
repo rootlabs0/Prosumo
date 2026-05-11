@@ -131,7 +131,7 @@ export default function ProblemFraming() {
               ref={pathRef}
               d={d}
               fill="none"
-              stroke="#f5a30f"
+              stroke="#ff5522"
               strokeWidth="2.25"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -141,14 +141,14 @@ export default function ProblemFraming() {
               cx={xs(7)}
               cy={ys(dataPoints[7].value)}
               r="4"
-              fill="#f5a30f"
+              fill="#ff5522"
             />
             <text
               x={xs(7)}
               y={ys(dataPoints[7].value) - 14}
               fontSize="10"
               fontWeight="600"
-              fill="#f5a30f"
+              fill="#ff5522"
               textAnchor="middle"
               fontFamily="Outfit"
               letterSpacing="0.08em"
