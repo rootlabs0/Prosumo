@@ -5,74 +5,138 @@ import './AboutUs.css'
 
 const team = [
   {
-    name: 'Joe Pizzella',
-    role: 'Founder | Vision & Experience',
-    photo: '/images/joe-pizzella.svg',
-    quote:
-      'God helps those who help themselves. Energy and persistence conquer all things. Well done is better than well said.',
-    attribution: 'Benjamin Franklin',
+    name: 'Jane Doe',
+    role: 'Founder & CEO',
   },
   {
-    name: 'Anton Chalk',
-    role: 'Co-Founder | Operations',
-    photo: '/images/anton-chalk.svg',
-    quote:
-      'Everything that is really great and inspiring is created by individuals who can labor in freedom.',
-    attribution: 'Albert Einstein',
+    name: 'John Smith',
+    role: 'Chief Technology Officer',
   },
   {
-    name: 'Ross Orr',
-    role: 'Co-Founder | Technology',
-    photo: '/images/ross-orr.svg',
-    quote:
-      "Our prime purpose in this life is to help others. And if you can't help them, at least don't hurt them.",
-    attribution: 'Dalai Lama',
+    name: 'Alex Lee',
+    role: 'Head of Engineering',
   },
 ]
 
-function TeamCard({ member }: { member: (typeof team)[0] }) {
-  const [hovered, setHovered] = useState(false)
+// 3-row pixel patterns. 1 = orange pixel present, 0 = absent (gap).
+const PIXEL_PATTERNS: number[][][] = [
+  [
+    [0,1,1,0,0,0,1,0,0,1,0,0],
+    [1,1,0,0,1,1,1,0,0,0,1,0],
+    [0,1,0,0,0,1,0,1,0,0,0,1],
+  ],
+  [
+    [1,0,0,0,1,1,0,0,1,1,1,0],
+    [0,1,1,0,1,0,0,1,0,1,0,0],
+    [1,0,0,1,0,0,1,0,1,0,0,1],
+  ],
+  [
+    [0,1,0,1,1,0,0,0,1,1,0,1],
+    [1,1,1,0,0,1,1,0,0,1,1,0],
+    [0,0,1,0,1,0,0,1,1,0,1,0],
+  ],
+]
+
+// Stable per-pixel distortion offsets (deterministic, not random)
+const DISTORT_DX = [ 1,-1, 2,-1, 1,-2, 1,-1, 2,-1, 1,-2, 1,-1, 2,-1, 1,-2, 1,-1, 2,-1]
+const DISTORT_DY = [ 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+
+const CELL_H = 20
+const HOVER_RADIUS_CELLS = 2.2
+
+function TeamCard({ member, idx }: { member: (typeof team)[0]; idx: number }) {
+  const pattern = PIXEL_PATTERNS[idx % PIXEL_PATTERNS.length]
+  const cols = pattern[0].length
+  const cellPct = 100 / cols
+  const photoRef = useRef<HTMLDivElement>(null)
+  const pixelRefs = useRef<(HTMLSpanElement | null)[]>([])
+  const distortedSet = useRef<Set<number>>(new Set())
+
+  // Build flat list of active pixels with stable distort offsets
+  const pixels = [] as { r: number; c: number; dx: number; dy: number }[]
+  pattern.forEach((row, r) =>
+    row.forEach((on, c) => {
+      if (on) {
+        const i = pixels.length
+        pixels.push({ r, c, dx: DISTORT_DX[i % DISTORT_DX.length], dy: DISTORT_DY[i % DISTORT_DY.length] })
+      }
+    })
+  )
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const photo = photoRef.current
+    if (!photo) return
+    const rect = photo.getBoundingClientRect()
+    const mx = e.clientX - rect.left
+    const my = e.clientY - rect.top
+    const cellW = rect.width / cols
+    const threshold = cellW * HOVER_RADIUS_CELLS
+
+    pixels.forEach((px, i) => {
+      const el = pixelRefs.current[i]
+      if (!el) return
+      const cx = (px.c + 0.5) * cellW
+      const cy = (px.r + 0.5) * CELL_H
+      const near = Math.hypot(mx - cx, my - cy) < threshold
+      const was = distortedSet.current.has(i)
+      if (near && !was) {
+        const nc = Math.max(0, Math.min(cols - 1, px.c + px.dx))
+        const nr = Math.max(0, px.r + px.dy)
+        el.style.left = `${nc * cellPct}%`
+        el.style.top  = `${nr * CELL_H}px`
+        distortedSet.current.add(i)
+      } else if (!near && was) {
+        el.style.left = `${px.c * cellPct}%`
+        el.style.top  = `${px.r * CELL_H}px`
+        distortedSet.current.delete(i)
+      }
+    })
+  }
+
+  const handleMouseLeave = () => {
+    pixels.forEach((px, i) => {
+      const el = pixelRefs.current[i]
+      if (!el) return
+      el.style.left = `${px.c * cellPct}%`
+      el.style.top  = `${px.r * CELL_H}px`
+    })
+    distortedSet.current.clear()
+  }
 
   return (
-    <div className="team-card-wrap">
-    <article
-      className="team-card"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div className="team-card__photo">
-        <img src={member.photo} alt={member.name} />
-        <motion.div
-          className="team-card__overlay"
-          initial={{ y: '100%' }}
-          animate={{ y: hovered ? '0%' : '100%' }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
-          aria-hidden="true"
-        >
-          <motion.p
-            className="team-card__quote"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.2, delay: hovered ? 0.15 : 0 }}
-          >
-            &ldquo;{member.quote}&rdquo;
-          </motion.p>
-          <motion.p
-            className="team-card__attribution"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.2, delay: hovered ? 0.15 : 0 }}
-          >
-            {member.attribution}
-          </motion.p>
-        </motion.div>
+    <article className="tc-card">
+      <div className="tc-card__bg" aria-hidden="true" />
+      <div
+        className="tc-card__photo"
+        ref={photoRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="tc-card__pixels" aria-hidden="true">
+          {pixels.map(({ r, c }, i) => (
+            <span
+              key={`${r}-${c}`}
+              className="tc-card__pixel"
+              ref={el => { pixelRefs.current[i] = el }}
+              style={{
+                left: `${c * cellPct}%`,
+                width: `${cellPct}%`,
+                top: `${r * CELL_H}px`,
+                height: `${CELL_H}px`,
+              }}
+            />
+          ))}
+        </div>
+        <svg viewBox="0 0 100 130" className="tc-card__avatar" aria-hidden="true">
+          <circle cx="50" cy="48" r="22" fill="#d0d0d0" />
+          <path d="M14 130 C14 92 34 78 50 78 S86 92 86 130 Z" fill="#d0d0d0" />
+        </svg>
       </div>
-      <div className="team-card__info">
-        <p className="team-card__name">{member.name}</p>
-        <p className="team-card__role">{member.role}</p>
+      <div className="tc-card__info">
+        <p className="tc-card__name">{member.name}</p>
+        <p className="tc-card__role">{member.role}</p>
       </div>
     </article>
-    </div>
   )
 }
 
@@ -237,7 +301,27 @@ export default function AboutUs() {
         </ScrollReveal>
       </div>
 
-      {/* Container 3 — Stats */}
+      {/* Container 4 — Team cards */}
+      <div className="container">
+        <div className="zz-stack">
+          <div ref={block4.ref}>
+            <motion.div
+              className="zz-block zz-block--center zz-block--no-bg"
+              initial={{ opacity: 0, y: 30 }}
+              animate={block4.visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+            >
+              <div className="zz-team">
+                {team.map((member, idx) => (
+                  <TeamCard key={member.name} member={member} idx={idx} />
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Container 3 — Stats (below cards) */}
       <div className="container">
         <div className="zz-stack">
           <div ref={block3.ref}>
@@ -257,26 +341,6 @@ export default function AboutUs() {
                     format={s.format}
                     started={block3.visible}
                   />
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-
-      {/* Container 4 — Team cards */}
-      <div className="container">
-        <div className="zz-stack">
-          <div ref={block4.ref}>
-            <motion.div
-              className="zz-block zz-block--center zz-block--no-bg"
-              initial={{ opacity: 0, y: 30 }}
-              animate={block4.visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
-            >
-              <div className="zz-team">
-                {team.map(member => (
-                  <TeamCard key={member.name} member={member} />
                 ))}
               </div>
             </motion.div>
