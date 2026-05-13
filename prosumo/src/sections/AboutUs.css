@@ -1,5 +1,19 @@
-﻿/* â”€â”€â”€ Section shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Black → white entry overlay ───────────────────────────────────── */
+.about-us__entry-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: #000000;
+  z-index: 5;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* ─── Section shell ──────────────────────────────────────────────────── */
 .about-us {
+  position: relative;
   background: var(--bg-light);
   padding-block: 6rem;
   width: 100%;
@@ -8,13 +22,17 @@
 
 .about-us > .container {
   margin-bottom: 5rem;
+  position: relative;
+  z-index: 6;
 }
 
 .about-us > .about-us__reveal {
   margin-bottom: 5rem;
+  position: relative;
+  z-index: 6;
 }
 
-/* â”€â”€â”€ Zigzag stack â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Zigzag stack ──────────────────────────────────────────────────── */
 .zz-stack {
   display: flex;
   flex-direction: column;
@@ -35,7 +53,7 @@
 .zz-block--stats  { max-width: 100%; padding: 0; background: transparent; box-shadow: none; }
 .zz-block--no-bg  { background: transparent; box-shadow: none; padding: 0; }
 
-/* â”€â”€â”€ Container 1 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Container 1 ──────────────────────────────────────────────────── */
 .zz-label {
   color: #f5a30f;
   font-weight: 600;
@@ -56,7 +74,7 @@
   display: inline;
 }
 
-/* â”€â”€â”€ Container 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Container 2 ──────────────────────────────────────────────────── */
 .zz-story {
   display: grid;
   grid-template-columns: 55% 45%;
@@ -101,7 +119,7 @@
   display: none; /* rendered inside SVG instead */
 }
 
-/* â”€â”€â”€ Container 3 â€” stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Container 3 – stats ──────────────────────────────────────────── */
 .zz-stats {
   display: flex;
   flex-direction: row;
@@ -137,9 +155,6 @@
   margin-top: 0.4rem;
 }
 
-/* â”€â”€â”€ Team row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-
-
 /* ─── Team row ─────────────────────────────────────────────────────── */
 .zz-team {
   display: flex;
@@ -149,14 +164,14 @@
   align-items: stretch;
 }
 
-/* ─── Pixelated team card ─────────────────────────────────────────── */
+/* ─── Pixelated team card ───────────────────────────────────────────── */
 .tc-card {
   flex: 1;
   min-width: 0;
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: 8px 6px 0; /* room for the orange bg to peek out */
+  margin: 8px 6px 0;
 }
 
 .tc-card__bg {
@@ -174,7 +189,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 60px; /* 3 rows × 20px */
+  height: 60px;
   pointer-events: none;
   z-index: 2;
 }

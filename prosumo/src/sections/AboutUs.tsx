@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import ScrollReveal from '../components/ScrollReveal'
 import './AboutUs.css'
 
@@ -259,8 +259,20 @@ export default function AboutUs() {
   const block3 = useFadeIn()
   const block4 = useFadeIn()
 
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress: sectionProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'start start'],
+  })
+  const overlayOpacity = useTransform(sectionProgress, [0, 1], [1, 0])
+
   return (
-    <section id="about-us" className="about-us">
+    <section id="about-us" className="about-us" ref={sectionRef}>
+      <motion.div
+        className="about-us__entry-overlay"
+        style={{ opacity: overlayOpacity }}
+        aria-hidden="true"
+      />
 
       {/* Container 1 — Identity */}
       <div className="container">
