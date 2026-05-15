@@ -4,7 +4,6 @@ import './Nav.css'
 const links = [
   { label: 'Platform', href: '#capabilities' },
   { label: 'Hardware', href: '#industries' },
-  { label: 'Results', href: '#results' },
   { label: 'About', href: '#cta' },
 ]
 
@@ -22,7 +21,7 @@ export default function Nav() {
     <header className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="nav__inner container">
         <a href="#top" className="nav__brand">
-          <img src="/images/prosumo-logo.svg" alt="Prosumo" className="nav__logo" />
+          <img src="/images/prosumo-logo.png" alt="Prosumo" className="nav__logo" />
           <span className="nav__brand-name">Prosumo</span>
         </a>
         <nav className="nav__links" aria-label="Primary">

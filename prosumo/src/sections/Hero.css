@@ -20,6 +20,11 @@
   color: #111111;
 }
 
+.hero__headline .accent {
+  color: #000000;
+  font-weight: 300;
+}
+
 .hero__subline {
   margin-bottom: 36px;
   max-width: 56ch;

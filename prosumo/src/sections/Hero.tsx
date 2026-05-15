@@ -26,9 +26,7 @@ export default function Hero() {
         </h1>
 
         <p className="hero__subline">
-          AI-driven energy optimization for industrial operations. Prosumo
-          reduces electricity costs by learning, predicting, and acting —
-          automatically.
+          Využijte sílu predikcí, diagnostiky a flexibility k dosažení vyšších výnosů a lepší návratnosti vašich energetických systémů.
         </p>
 
         <div className="hero__metrics" role="list">
