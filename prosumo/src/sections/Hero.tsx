@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import './Hero.css'
-// @ts-ignore
-import heroVideo from '../../video/6280768_Renewable Energy Desk Solar Panel Office_By_Pressmaster_Artlist_HD.mp4'
 
 export default function Hero() {
   const innerRef = useRef<HTMLDivElement>(null)
@@ -20,23 +18,11 @@ export default function Hero() {
 
   return (
     <section id="top" className="hero">
-      <div className="hero__bg" aria-hidden>
-        <video
-          className="hero__video"
-          src={heroVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
-        <div className="hero__overlay" />
-      </div>
-
       <div ref={innerRef} className="hero__inner container">
         <h1 className="h-display hero__headline">
-          <span className="thin">Harness the power of</span>
+          <span className="thin">Propojujeme svět</span>
           <br />
-          <span className="accent">Predictions.</span>
+          <span className="accent">Energií.</span>
         </h1>
 
         <p className="hero__subline">

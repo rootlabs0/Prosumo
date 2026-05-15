@@ -10,7 +10,7 @@
   --text-dim: #5b6068;
   --text-on-light: #1a1a1a;
   --text-on-light-muted: #545861;
-  --accent: #f5a30f;
+  --accent: #ff5522;
 
   --max-width: 1320px;
   --pad-x: clamp(24px, 6vw, 88px);
@@ -164,7 +164,7 @@ img, svg {
   color: #111;
 }
 
-.btn--accent:hover { background: #ffb733; }
+.btn--accent:hover { background: #ff7755; }
 
 /* link arrow */
 .linkout {
