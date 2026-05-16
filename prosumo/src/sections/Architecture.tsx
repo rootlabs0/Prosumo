@@ -1,6 +1,7 @@
 import './Architecture.css'
 import { useLang } from '../context/LangContext'
 import { translations } from '../i18n/translations'
+import diagramImg from '../../images/Prosumo_diagram.webp'
 
 export default function Architecture() {
   const { lang } = useLang()
@@ -15,15 +16,9 @@ export default function Architecture() {
         </h2>
 
         <div className="architecture__layout">
-          {/* Placeholder for graph/image */}
+          {/* Architecture diagram */}
           <div className="architecture__visual">
-            <div className="architecture__placeholder">
-              <svg viewBox="0 0 480 320" aria-label="Architecture diagram placeholder" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="478" height="318" rx="3" stroke="rgba(0,0,0,0.12)" strokeWidth="1" strokeDasharray="6 4" />
-                <text x="240" y="155" textAnchor="middle" fontSize="13" fill="rgba(0,0,0,0.25)" fontFamily="'Courier New', monospace" letterSpacing="0.12em">DIAGRAM</text>
-                <text x="240" y="174" textAnchor="middle" fontSize="13" fill="rgba(0,0,0,0.25)" fontFamily="'Courier New', monospace" letterSpacing="0.12em">PLACEHOLDER</text>
-              </svg>
-            </div>
+            <img src={diagramImg} alt="Prosumo Architecture Diagram" className="architecture__diagram" />
           </div>
 
           {/* Description text */}
