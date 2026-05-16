@@ -5,7 +5,7 @@
   align-items: center;
   overflow: hidden;
   isolation: isolate;
-  background: #ffffff;
+  background: #f7f7f5;
 }
 
 .hero__inner {

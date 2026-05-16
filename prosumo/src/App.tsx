@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import Nav from './components/Nav'
 import Hero from './sections/Hero'
-import ProblemFraming from './sections/Stats'
+import Products from './sections/Products'
 import Capabilities from './sections/Capabilities'
 import Industries from './sections/Platform'
 import Services from './sections/Services'
@@ -35,7 +35,7 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <ProblemFraming />
+        <Products />
         <Capabilities />
         <Services />
         <Industries />

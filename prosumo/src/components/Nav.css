@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: #ffffff;
+  background: #f7f7f5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -19,7 +19,7 @@
 .nav__brand {
   font-weight: 600;
   letter-spacing: 0.18em;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #111111;
   display: flex;
   align-items: center;
@@ -33,7 +33,7 @@
 }
 
 .nav__brand-name {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: #111111;
