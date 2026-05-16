@@ -1,0 +1,168 @@
+/* ── Traveling Cube — fixed-position layer ─────────────── */
+.tc-stage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+/* Hidden once the user has scrolled past the platform section */
+.tc-stage.is-hidden {
+  opacity: 0;
+}
+
+/* Cube + glow — sits above the ghost word (z-index 6) */
+.tc-cube-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 7;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.tc-cube-layer.is-hidden {
+  opacity: 0;
+}
+
+/* Dark background overlay — fades in during hero→platform transition */
+.tc-stage__bg {
+  position: absolute;
+  inset: 0;
+  background: #111111;
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* Wrap holds the scene; CSS vars driven by GSAP for travel/scale */
+.tc-stage__wrap {
+  --cube-tx: 24vw;
+  --cube-ty: 0vh;
+  --cube-scale: 0.45;
+  --cube-base: clamp(420px, 60vmin, 600px);
+
+  opacity: 0; /* GSAP fades this in at 1.6s to sync with hero content entrance */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--cube-base);
+  height: var(--cube-base);
+  transform: translate(-50%, -50%) translate(var(--cube-tx), var(--cube-ty)) scale(var(--cube-scale));
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Radial glow orb — sits behind the cube, scales with the wrap */
+.tc-stage__glow {
+  position: absolute;
+  inset: 0; /* same footprint as the cube so shadow extends from its edges */
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: -1;
+  box-shadow:
+    0 0 40px  20px  rgba(255, 85, 34, 0.18),
+    0 0 90px  50px  rgba(255, 85, 34, 0.09),
+    0 0 180px 90px  rgba(255, 85, 34, 0.04);
+}
+
+.tc-stage__scene {
+  width: 100%;
+  height: 100%;
+  /* Perspective is applied via GSAP transformPerspective on the cube itself
+     to avoid being flattened by the parent wrap's CSS transform. */
+}
+
+.tc-stage__cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ── Faces — rotateX geometry (top/bottom walls, vertical barrel roll) ─ */
+.tc-face {
+  position: absolute;
+  inset: 0;
+  background: #161616;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  transition: border-color 0.45s ease, box-shadow 0.5s ease;
+}
+
+.tc-face.is-active {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.65);
+}
+
+/* face N visible when cube.rotateX = -(N-1)*90  (negative = rolls toward viewer) */
+.tc-face--1 { transform: rotateX(0deg)   translateZ(calc(var(--cube-base) / 2)); }
+.tc-face--2 { transform: rotateX(-90deg) translateZ(calc(var(--cube-base) / 2)); }
+.tc-face--3 { transform: rotateX(-180deg) translateZ(calc(var(--cube-base) / 2)); }
+.tc-face--4 { transform: rotateX(-270deg) translateZ(calc(var(--cube-base) / 2)); }
+
+/* ── Face content ──────────────────────────────────────── */
+.tc-face__art {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 3vw, 32px) clamp(20px, 3vw, 32px) 0;
+  opacity: 0.9;
+}
+
+.tc-face__art svg {
+  width: 100%;
+  height: 100%;
+  max-height: 220px;
+}
+
+.tc-face__content {
+  padding: clamp(20px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tc-face__number {
+  color: #e8411a;
+  opacity: 0.75;
+  font-size: 10px;
+}
+
+.tc-face__label {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+.tc-face__title {
+  color: #fff;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.tc-face__desc {
+  font-size: clamp(0.78rem, 1.3vw, 0.88rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 300;
+}
+
+/* ── Reduced motion ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .tc-stage__cube,
+  .tc-stage__wrap,
+  .tc-stage__bg {
+    transition: none !important;
+  }
+}

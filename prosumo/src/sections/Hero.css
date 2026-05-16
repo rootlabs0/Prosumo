@@ -5,13 +5,21 @@
   align-items: center;
   overflow: hidden;
   isolation: isolate;
-  background: #f7f7f5;
+  background: #f0eeea;
 }
 
 .hero__inner {
   padding-top: 120px;
   padding-bottom: 96px;
   max-width: var(--max-width);
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 100px);
+}
+
+.hero__text {
+  flex: 1;
+  min-width: 0;
 }
 
 .hero__headline {
@@ -77,8 +85,18 @@
 
 .hero__cta .btn--ghost:hover { border-color: #111111; }
 
+/* ── Hero cube anchor (layout placeholder) ──────────── */
+/* Empty spacer that reserves the right-column slot where the TravelingCube
+   visually appears. The cube itself is rendered as a fixed-position layer in App. */
+.hero__cube-anchor {
+  flex-shrink: 0;
+  width: clamp(240px, 32vmin, 420px);
+  height: clamp(240px, 32vmin, 420px);
+}
+
 @media (max-width: 768px) {
-  .hero { height: 100vh; }
-  .hero__inner { padding-top: 110px; padding-bottom: 64px; }
+  .hero { height: auto; min-height: 100vh; }
+  .hero__inner { padding-top: 110px; padding-bottom: 64px; flex-direction: column; gap: 40px; }
   .hero__metrics { gap: 14px 24px; font-size: 0.9375rem; }
+  .hero__cube-anchor { width: 100%; max-width: 340px; height: 340px; margin: 0 auto; }
 }

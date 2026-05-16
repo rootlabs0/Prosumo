@@ -6,12 +6,21 @@ import { translations } from '../i18n/translations'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
+  const [dark, setDark] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
   const { lang, toggleLang } = useLang()
   const T = translations.nav
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const heroEl = document.getElementById('top')
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 24)
+      // Go dark once the hero's bottom edge has fully cleared the navbar (80px tall)
+      if (heroEl) {
+        setDark(y >= heroEl.offsetTop + heroEl.offsetHeight - 80)
+      }
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -25,7 +34,7 @@ export default function Nav() {
   }, [])
 
   return (
-    <header ref={headerRef} className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
+    <header ref={headerRef} className={`nav${scrolled ? ' is-scrolled' : ''}${dark ? ' is-dark' : ''}`}>
       <div className="nav__inner container">
         <a href="#top" className="nav__brand">
           <img src="/images/prosumo-logo.png" alt="Prosumo" className="nav__logo" />
