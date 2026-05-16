@@ -26,7 +26,7 @@ export default function CTA() {
         <div className="cta__bar" style={{ height: '26vh' }} />
         <div className="cta__bar" style={{ height: '38vh' }} />
         <div className="cta__bar" style={{ height: '58vh' }} />
-        <div className="cta__bar" style={{ height: '48vh' }} />
+        <div className="cta__bar" style={{ height: '18vh' }} />
       </div>
     </section>
   )
