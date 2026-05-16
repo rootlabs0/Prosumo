@@ -3,6 +3,7 @@
   border-top: 1px solid var(--border);
   text-align: left;
   position: relative;
+  z-index: 1;
 }
 
 .cta__inner {
@@ -62,7 +63,7 @@
   align-items: flex-end;
   gap: 20px;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
 }
 
 .cta__bar {

@@ -3,6 +3,8 @@
   border-top: 1px solid var(--border);
   padding-top: 64px;
   padding-bottom: 32px;
+  position: relative;
+  z-index: 3;
 }
 
 .footer__inner {
