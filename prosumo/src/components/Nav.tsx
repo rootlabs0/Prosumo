@@ -72,9 +72,7 @@ export default function Nav() {
           onClick={toggleLang}
           aria-label="Switch language"
         >
-          <span className={lang === 'cs' ? 'active' : ''}>CZ</span>
-          <span className="nav__lang-sep">|</span>
-          <span className={lang === 'en' ? 'active' : ''}>EN</span>
+          {lang === 'cs' ? 'EN' : 'CZ'}
         </button>
         <a href="#cta" className="btn btn--solid nav__cta">{T.cta[lang]}</a>
       </div>

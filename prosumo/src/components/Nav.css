@@ -29,18 +29,10 @@
 }
 
 .nav.is-dark .nav__lang-toggle {
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.nav.is-dark .nav__lang-toggle:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.nav.is-dark .nav__lang-toggle span {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.nav.is-dark .nav__lang-toggle span.active {
+.nav.is-dark .nav__lang-toggle:hover {
   color: #ffffff;
 }
 
@@ -111,32 +103,17 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   padding: 6px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.14);
   border-radius: 4px;
   cursor: pointer;
   background: transparent;
   color: #9ca3af;
-  transition: border-color 0.2s, color 0.2s;
+  transition: color 0.2s;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .nav__lang-toggle:hover {
-  border-color: rgba(0, 0, 0, 0.28);
-}
-
-.nav__lang-toggle span {
-  color: #9ca3af;
-  transition: color 0.2s;
-}
-
-.nav__lang-toggle span.active {
   color: #111111;
-}
-
-.nav__lang-sep {
-  color: rgba(0, 0, 0, 0.18) !important;
-  font-weight: 300;
 }
 
 .nav__cta {
