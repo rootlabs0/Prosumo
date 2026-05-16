@@ -13,14 +13,13 @@
 .architecture__layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(32px, 5vw, 80px);
+  gap: clamp(32px, 5vw, 56px);
   align-items: start;
 }
 
-/* Placeholder visual */
+/* Diagram container */
 .architecture__visual {
-  position: sticky;
-  top: 100px;
+  position: static;
 }
 
 .architecture__diagram {
@@ -35,6 +34,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  justify-content: center;
 }
 
 .architecture__body {
@@ -42,12 +42,23 @@
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   line-height: 1.75;
   font-weight: 300;
+  opacity: 0;
+  animation: fade-in-body 0.6s ease forwards 0.8s;
+}
+
+@keyframes fade-in-body {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .architecture__layout {
     grid-template-columns: 1fr;
+  }
+
+  .pdiag {
+    max-width: 100%;
   }
 
   .architecture__visual {

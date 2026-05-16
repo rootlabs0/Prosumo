@@ -1,7 +1,7 @@
 import './Architecture.css'
 import { useLang } from '../context/LangContext'
 import { translations } from '../i18n/translations'
-import diagramImg from '../../images/Prosumo_diagram.webp'
+import ProsumoArchitectureDiagram from '../components/ProsumoArchitectureDiagram'
 
 export default function Architecture() {
   const { lang } = useLang()
@@ -18,7 +18,7 @@ export default function Architecture() {
         <div className="architecture__layout">
           {/* Architecture diagram */}
           <div className="architecture__visual">
-            <img src={diagramImg} alt="Prosumo Architecture Diagram" className="architecture__diagram" />
+            <ProsumoArchitectureDiagram />
           </div>
 
           {/* Description text */}
