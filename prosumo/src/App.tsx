@@ -35,10 +35,10 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
+        <Industries />
         <Products />
         <Capabilities />
         <Services />
-        <Industries />
         <Results />
         <AboutUs />
         <FAQ />
