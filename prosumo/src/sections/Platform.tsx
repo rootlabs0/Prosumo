@@ -26,6 +26,8 @@ export default function Industries({
   useEffect(() => {
     const el = labelRef.current
     if (!el) return
+
+    // Fade in when entering view
     gsap.fromTo(
       el.children,
       { opacity: 0, y: 24 },
@@ -42,6 +44,19 @@ export default function Industries({
         },
       },
     )
+
+    // Fade out as cube finishes scaling (hero bottom → platform top)
+    gsap.to(el, {
+      opacity: 0,
+      y: -20,
+      ease: 'power2.in',
+      scrollTrigger: {
+        trigger: '#industries',
+        start: 'top 60%',
+        end: 'top top',
+        scrub: 0.6,
+      },
+    })
   }, [])
 
   const handleDotClick = (i: number) => {
@@ -62,7 +77,9 @@ export default function Industries({
       {/* Ghost word sticky layer — z-index 6, between bg overlay (5) and cube (7) */}
       <div className="cube-word-sticky">
         <p key={current} className="cube-bg-word" aria-hidden="true">
-          {SLIDES[current].label}
+          {SLIDES[current].label.split(' ').map((word, i, arr) => (
+            <span key={i}>{word}{i < arr.length - 1 && <br />}</span>
+          ))}
         </p>
       </div>
 

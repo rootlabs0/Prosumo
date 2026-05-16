@@ -1,7 +1,7 @@
 /* ── Platform section — pinned runway for the TravelingCube ──── */
 /* Tall enough to hold 4 scroll milestones (one per cube face). */
 .cube-section {
-  height: 400vh;
+  height: 320vh;
   background: transparent; /* dark bg is provided by TravelingCube's overlay layer */
   color: #fff;
   position: relative;
@@ -121,11 +121,14 @@
   position: absolute;
   top: 50%;
   left: clamp(24px, 4vw, 80px);
+  right: clamp(24px, 4vw, 80px);
   transform: translateY(-50%);
-  white-space: nowrap;
-  font-size: clamp(5.2rem, 4.5vw, 5rem);
+  white-space: normal;
+  word-break: break-word;
+  font-size: clamp(5rem, 10vw, 12rem);
+  line-height: 1.0;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.18);
   pointer-events: none;

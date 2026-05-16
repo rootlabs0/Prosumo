@@ -31,7 +31,7 @@
 .tc-stage__bg {
   position: absolute;
   inset: 0;
-  background: #111111;
+  background: #0d0b0a;
   opacity: 0;
   will-change: opacity;
 }
@@ -57,14 +57,11 @@
 /* Radial glow orb — sits behind the cube, scales with the wrap */
 .tc-stage__glow {
   position: absolute;
-  inset: 0; /* same footprint as the cube so shadow extends from its edges */
-  border-radius: 2px;
+  inset: 0;
+  border-radius: 4px;
   pointer-events: none;
   z-index: -1;
-  box-shadow:
-    0 0 40px  20px  rgba(255, 85, 34, 0.18),
-    0 0 90px  50px  rgba(255, 85, 34, 0.09),
-    0 0 180px 90px  rgba(255, 85, 34, 0.04);
+  box-shadow: none;
 }
 
 .tc-stage__scene {
