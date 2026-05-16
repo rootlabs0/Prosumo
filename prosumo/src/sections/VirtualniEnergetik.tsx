@@ -13,9 +13,8 @@ export default function VirtualniEnergetik() {
     if (!el) return
 
     const ctx = gsap.context(() => {
-      // ── Slide-up transition over the dark Platform/cube layer ──
-      // Starts rising when Platform's bottom edge is 60% down the viewport,
-      // fully covering the cube by the time Platform's bottom hits the top.
+      // ── Slide-up transition — starts as cube snaps to face 5 (Y rotation) ──
+      // Platform = 400vh, runway = 300vh, face-5 zone = 225vh–300vh in.
       gsap.fromTo(
         el,
         { y: '100vh' },
@@ -24,8 +23,8 @@ export default function VirtualniEnergetik() {
           ease: 'none',
           scrollTrigger: {
             trigger: '#industries',
-            start: 'bottom 60%',
-            end: 'bottom -10%',
+            start: () => `top+=${window.innerHeight * 2.25} top`,
+            end: () => `top+=${window.innerHeight * 3.0} top`,
             scrub: 0.6,
           },
         },

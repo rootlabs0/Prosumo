@@ -105,6 +105,101 @@
 .tc-face--3 { transform: rotateX(-180deg) translateZ(calc(var(--cube-base) / 2)); }
 .tc-face--4 { transform: rotateX(-270deg) translateZ(calc(var(--cube-base) / 2)); }
 
+/* Face 5 — revealed by a -90deg Y rotation after the 4 X-axis faces */
+.tc-face--5 {
+  transform: rotateY(90deg) translateZ(calc(var(--cube-base) / 2));
+  background: #ff5522;
+  border-color: transparent;
+}
+
+/* Face 5 — VE panel layout */
+.tc-face__ve {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 3vw, 28px);
+  padding: clamp(24px, 4vw, 36px);
+  height: 100%;
+  align-content: center;
+  /* Rotate content 90° counter-clockwise (to the left) inside the face */
+  transform: rotate(-90deg);
+  /* Since the face is square, width=height so no overflow adjustment needed */
+  transform-origin: center center;
+}
+
+.tc-face__ve-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.tc-face__ve-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tc-face__ve-heading {
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.tc-face__ve-desc {
+  font-size: clamp(0.72rem, 1.2vw, 0.82rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+}
+
+.tc-face__ve-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 2px;
+  width: fit-content;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tc-face__ve-cta:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.tc-face__ve-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(12px, 2vw, 20px);
+  border-left: 1.5px solid rgba(255, 255, 255, 0.25);
+  padding-left: clamp(12px, 2vw, 20px);
+}
+
+.tc-face__ve-stat-value {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.tc-face__ve-stat-label {
+  font-size: clamp(0.65rem, 1.1vw, 0.75rem);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+  margin-top: 3px;
+}
+
 /* ── Face content ──────────────────────────────────────── */
 .tc-face__art {
   flex: 1;

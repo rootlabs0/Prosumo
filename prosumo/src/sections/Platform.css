@@ -1,7 +1,7 @@
 /* ── Platform section — pinned runway for the TravelingCube ──── */
-/* Tall enough to hold 4 scroll milestones (one per cube face). */
+/* Tall enough to hold 5 scroll milestones (4 X-axis faces + 1 Y-axis face). */
 .cube-section {
-  height: 320vh;
+  height: 400vh;
   background: transparent; /* dark bg is provided by TravelingCube's overlay layer */
   color: #fff;
   position: relative;
@@ -119,26 +119,26 @@
 
 .cube-bg-word {
   position: absolute;
-  top: 50%;
+  top: clamp(120px, 16vh, 180px);
   left: clamp(24px, 4vw, 80px);
   right: clamp(24px, 4vw, 80px);
-  transform: translateY(-50%);
+  transform: none;
   white-space: normal;
   word-break: break-word;
-  font-size: clamp(5rem, 10vw, 12rem);
-  line-height: 1.0;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.25rem, 2.2vw, 2.1rem);
+  line-height: 1.65;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.18);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
   pointer-events: none;
   user-select: none;
-  animation: cube-word-in 0.45s ease both;
+  max-width: 720px;
 }
 
 @keyframes cube-word-in {
-  from { opacity: 0; transform: translateY(calc(-50% + 12px)); }
-  to   { opacity: 1; transform: translateY(-50%); }
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 700px) {

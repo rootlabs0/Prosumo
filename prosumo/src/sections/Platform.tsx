@@ -22,6 +22,7 @@ export default function Industries({
   onSelect: (index: number) => void
 }) {
   const labelRef = useRef<HTMLDivElement>(null)
+  const bgTextRef = useRef<HTMLParagraphElement>(null)
 
   useEffect(() => {
     const el = labelRef.current
@@ -57,6 +58,27 @@ export default function Industries({
         scrub: 0.6,
       },
     })
+
+    // Fade in the ghost description text AFTER the label has gone
+    const bgEl = bgTextRef.current
+    if (bgEl) {
+      gsap.fromTo(
+        bgEl,
+        { opacity: 0, y: 16 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#industries',
+            // heading is fully gone at 'top top'; fade in over the next 8vh of scroll
+            start: 'top top',
+            end: () => `top+=${window.innerHeight * 0.08} top`,
+            scrub: 0.4,
+          },
+        },
+      )
+    }
   }, [])
 
   const handleDotClick = (i: number) => {
@@ -67,19 +89,17 @@ export default function Industries({
     const sectionHeight = section.offsetHeight
     const viewportHeight = window.innerHeight
     const scrollable = sectionHeight - viewportHeight
-    // 4 evenly-spaced snap stops: 0, 1/3, 2/3, 1
-    const targetY = sectionTop + (scrollable * i) / 3
+    // 5 evenly-spaced snap stops: 0, 1/4, 2/4, 3/4, 1
+    const targetY = sectionTop + (scrollable * i) / 4
     window.scrollTo({ top: targetY, behavior: 'smooth' })
   }
 
   return (
     <section id="industries" className="cube-section">
-      {/* Ghost word sticky layer — z-index 6, between bg overlay (5) and cube (7) */}
+      {/* Ghost text sticky layer — z-index 6, between bg overlay (5) and cube (7) */}
       <div className="cube-word-sticky">
-        <p key={current} className="cube-bg-word" aria-hidden="true">
-          {SLIDES[current].label.split(' ').map((word, i, arr) => (
-            <span key={i}>{word}{i < arr.length - 1 && <br />}</span>
-          ))}
+        <p ref={bgTextRef} className="cube-bg-word" aria-hidden="true" style={{ opacity: 0 }}>
+          PROSUMO s.r.o. vyvíjí pokročilé algoritmy pro optimalizaci energetických toků a agregaci flexibility. Cloudová platforma PROSUMO vytváří zastřešující vrstvu pro EMS, RTU a MaR, kterým poskytujeme přesné predikce a optimalizační podklady, na jejichž základě řídí lokální energetiku. Naše technologie jsou stavěny na kombinaci hlubokých znalostí z oblasti energetiky, umělé inteligence a kybernetické bezpečnosti.
         </p>
       </div>
 

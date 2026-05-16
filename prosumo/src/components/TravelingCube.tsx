@@ -72,6 +72,7 @@ const SLIDES = [
   { id: 'grid', number: '04', label: 'Predikce', title: 'Virtuální energetik', description: 'Vypočítáváme dostupnou flexibilitu na každém odběrném místě, oceníme ji a propojíme operátory přímo s agregátory — přeměňujeme volatilitu sítě na příležitost k výnosu.', Svg: GridSVG },
   { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', description: 'Prosumo poskytuje prediktivní řízení potřebné pro provoz hyperscale a kolokačních datových center na maximální efektivitu — s plným přehledem o PUE, zátěži a tarifu.', Svg: DataCenterSVG },
   { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby a AI diagnostika', description: 'Od kancelářských věží po obchodní komplexy, Prosumo rozvrhuje zátěže budov dle cen SPOT a přináší měřitelné úspory na každém účtu za energii.', Svg: CRESVG },
+  { id: 'face5', number: '05', label: '', title: '', description: '', Svg: () => null },
 ]
 
 export { SLIDES }
@@ -158,6 +159,15 @@ export default function TravelingCube({
             idleTweenRef.current?.pause()
             isInTransition = true
           },
+          onEnterBack: () => {
+            // Scrolling back up from platform into Phase 2 — re-engage rotation
+            // so the cube barrel-rolls as it shrinks back toward the hero anchor.
+            // capturedRotX is the angle at progress=0 (hero side); set it to a
+            // full rotation so the cube spins through 360° during the scrub.
+            capturedRotX = -360
+            idleTweenRef.current?.pause()
+            isInTransition = true
+          },
           onLeaveBack: () => {
             // Scrolled back above hero bottom — resume idle spin.
             // rotateX has been scrubbed back toward capturedRotX by the onUpdate,
@@ -183,42 +193,42 @@ export default function TravelingCube({
         )
         .fromTo(bg, { opacity: 0 }, { opacity: 1, ease: 'none' }, 0)
 
-      // ── Phase 3: pinned platform — scroll-driven rotateX snap between 4 faces ──
-      // On entering the platform pin, pause the idle spin and reset rotateX to 0
-      // so the snap progression starts cleanly from face 1.
-      gsap.to(cube, {
-        rotateX: -270, // 4 faces = 3 × -90deg rotations, rolling downward
-        ease: 'none',
+      // ── Phase 3: pinned platform — X snap for faces 1-4, then Y rotation reveals face 5 ──
+      // Timeline: duration 4 units → progress 0–3 = rotateX, progress 3–4 = rotateY.
+      // Snap points at [0, 0.25, 0.5, 0.75, 1] map to the 5 faces.
+      const phase3Tl = gsap.timeline({
         scrollTrigger: {
           trigger: platformEl,
           start: 'top top',
           end: 'bottom bottom',
           scrub: 1.2,
           snap: {
-            snapTo: [0, 1 / 3, 2 / 3, 1],
+            snapTo: [0, 0.25, 0.5, 0.75, 1],
             duration: { min: 0.2, max: 0.5 },
             ease: 'power2.inOut',
           },
           onEnter: () => {
-            // Idle already paused + rotateX already 0 from Phase 2 scrub — no hard reset.
-            // Only clean up Y/Z in case of any accumulated drift.
             isInTransition = false
             idleTweenRef.current?.pause()
             gsap.set(cube, { rotateY: 0, rotateZ: 0 })
           },
           onLeaveBack: () => {
-            // Leaving platform back toward hero — reset rotateX to 0 and restart
-            // the idle spin from scratch so the hero always shows a clean spin.
             gsap.set(cube, { rotateX: 0, rotateY: 0, rotateZ: 0 })
             idleTweenRef.current?.restart()
             onCurrentChange(0)
           },
           onUpdate(self) {
-            const idx = Math.min(3, Math.round(self.progress * 3))
+            const idx = Math.min(4, Math.round(self.progress * 4))
             onCurrentChange(idx)
           },
         },
       })
+
+      phase3Tl
+        // First 3 units: X rotation 0 → -270 (faces 1-4)
+        .to(cube, { rotateX: -270, ease: 'none', duration: 3 }, 0)
+        // Last 1 unit: Y rotation 0 → -90 (face 5)
+        .to(cube, { rotateY: -90, ease: 'none', duration: 1 }, 3)
     }, stageRef)
 
     return () => ctx.revert()
@@ -235,8 +245,14 @@ export default function TravelingCube({
     if (!activeFace) return
     const art = activeFace.querySelector('.tc-face__art')
     const txt = activeFace.querySelectorAll<HTMLElement>('.tc-face__number, .tc-face__label, .tc-face__title, .tc-face__desc')
-    gsap.fromTo(art, { scale: 0.9, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.4)', overwrite: true })
-    gsap.fromTo(txt, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.06, overwrite: true })
+    if (art) gsap.fromTo(art, { scale: 0.9, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.4)', overwrite: true })
+    if (txt.length) gsap.fromTo(txt, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.06, overwrite: true })
+
+    // Face 5 — animate VE panel elements
+    if (current === 4) {
+      const veEls = activeFace.querySelectorAll<HTMLElement>('.tc-face__ve-eyebrow, .tc-face__ve-heading, .tc-face__ve-desc, .tc-face__ve-cta, .tc-face__ve-stat')
+      gsap.fromTo(veEls, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.08, overwrite: true })
+    }
   }, [current])
 
   return (
@@ -255,15 +271,47 @@ export default function TravelingCube({
           <div ref={cubeRef} className="tc-stage__cube">
             {SLIDES.map((slide, i) => (
               <div key={slide.id} className={`tc-face tc-face--${i + 1}`}>
-                <div className="tc-face__art">
-                  <slide.Svg />
-                </div>
-                <div className="tc-face__content">
-                  <p className="tc-face__number eyebrow">{slide.number} / 04</p>
-                  <p className="tc-face__label eyebrow">{slide.label}</p>
-                  <h3 className="tc-face__title h-card">{slide.title}</h3>
-                  <p className="tc-face__desc">{slide.description}</p>
-                </div>
+                {i === 4 ? (
+                  // Face 5 — orange VirtualniEnergetik panel
+                  <div className="tc-face__ve">
+                    <div className="tc-face__ve-left">
+                      <p className="tc-face__ve-eyebrow">Náš přístup</p>
+                      <h3 className="tc-face__ve-heading">Virtuální<br />energetik</h3>
+                      <p className="tc-face__ve-desc">
+                        Vypočítáváme dostupnou flexibilitu na každém odběrném místě,
+                        oceníme ji a propojíme operátory přímo s agregátory —
+                        přeměňujeme volatilitu sítě na příležitost k výnosu.
+                      </p>
+                      <a href="#cta" className="tc-face__ve-cta">Zjistit více →</a>
+                    </div>
+                    <div className="tc-face__ve-right">
+                      <div className="tc-face__ve-stat">
+                        <p className="tc-face__ve-stat-value">38%</p>
+                        <p className="tc-face__ve-stat-label">průměrná úspora nákladů na elektřinu</p>
+                      </div>
+                      <div className="tc-face__ve-stat">
+                        <p className="tc-face__ve-stat-value">2&thinsp;400+</p>
+                        <p className="tc-face__ve-stat-label">nasazených odběrných míst</p>
+                      </div>
+                      <div className="tc-face__ve-stat">
+                        <p className="tc-face__ve-stat-value">&lt;15 min</p>
+                        <p className="tc-face__ve-stat-label">od zapojení k první aktivní flexibilitě</p>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="tc-face__art">
+                      <slide.Svg />
+                    </div>
+                    <div className="tc-face__content">
+                      <p className="tc-face__number eyebrow">{slide.number} / 04</p>
+                      <p className="tc-face__label eyebrow">{slide.label}</p>
+                      <h3 className="tc-face__title h-card">{slide.title}</h3>
+                      <p className="tc-face__desc">{slide.description}</p>
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
