@@ -1,6 +1,7 @@
 import './Contact.css'
 import { useLang } from '../context/LangContext'
 import { translations } from '../i18n/translations'
+import logoImg from '../../images/prosumo-white.webp'
 
 export default function Footer() {
   const { lang } = useLang()
@@ -10,7 +11,7 @@ export default function Footer() {
       <div className="container footer__inner">
         <div className="footer__brand">
           <div className="footer__logo-section">
-            <img src="/images/prosumo-logo.svg" alt="Prosumo" className="footer__logo" />
+            <img src={logoImg} alt="Prosumo" className="footer__logo" />
             <div className="footer__wordmark">PROSUMO s.r.o.</div>
           </div>
           <div className="footer__details">

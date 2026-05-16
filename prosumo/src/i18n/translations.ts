@@ -6,13 +6,13 @@ export const translations = {
   nav: {
     links: {
       cs: [
-        { label: 'Platforma', href: '#capabilities' },
-        { label: 'Hardware', href: '#industries' },
+        { label: 'Platforma', href: '#industries' },
+        { label: 'Služby', href: '#services' },
         { label: 'O nás', href: '#cta' },
       ],
       en: [
-        { label: 'Platform', href: '#capabilities' },
-        { label: 'Hardware', href: '#industries' },
+        { label: 'Platform', href: '#industries' },
+        { label: 'Services', href: '#services' },
         { label: 'About', href: '#cta' },
       ],
     } as Bilingual<{ label: string; href: string }[]>,
@@ -199,8 +199,8 @@ export const translations = {
     heading1: { cs: 'Vaše energetické systémy vědí víc,', en: 'Your energy systems know more' } as Bilingual<string>,
     heading2: { cs: 'než si myslíte.', en: 'than you think.' } as Bilingual<string>,
     sub: {
-      cs: 'Prosumo tuto inteligenci odemkne. Zarezervujte si 30minutovou schůzku s naším týmem — společně zmapujeme plán nasazení pro vaši infrastrukturu.',
-      en: "Prosumo unlocks that intelligence. Book a 30-minute session with our team — we'll map a deployment plan for your infrastructure.",
+      cs: 'Prosumo tuto inteligenci odemkne. Zarezervujte si 30minutovou schůzku s naším týmem společně zmapujeme plán nasazení pro vaši infrastrukturu.',
+      en: "Prosumo unlocks that intelligence. Book a 30-minute session with our team we'll map a deployment plan for your infrastructure.",
     } as Bilingual<string>,
     btn1: { cs: 'Kontaktujte nás', en: 'Request Demo' } as Bilingual<string>,
     btn2: { cs: 'Stáhnout přehled', en: 'Download Datasheet' } as Bilingual<string>,

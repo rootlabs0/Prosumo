@@ -2,6 +2,12 @@
    SERVICES — horizontal scroll, white background
 ══════════════════════════════════════════════════════════════════ */
 
+:root {
+  --orange-primary: #ff5522;
+  --orange-glow: rgba(255, 85, 34, 0.2);
+  --orange-border: rgba(255, 85, 34, 0.8);
+}
+
 .services {
   position: relative;
   background: #ffffff;
@@ -36,7 +42,7 @@
   font-weight: 900;
   line-height: 0.92;
   letter-spacing: -0.04em;
-  color: #f5a30f;
+  color: var(--orange-primary);
   text-transform: uppercase;
   z-index: 2;
   pointer-events: none;
@@ -146,7 +152,7 @@
 
 /* Orange highlight within a line */
 .svc-hl {
-  color: #f5a30f;
+  color: var(--orange-primary);
   font-style: normal;
 }
 
@@ -182,7 +188,7 @@
   content: '';
   position: absolute;
   inset: -2px 0;
-  background: #f5a30f;
+  background: var(--orange-primary);
   transform: translateX(-102%);
   z-index: 1;
 }
@@ -217,7 +223,7 @@
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: -0.03em;
-  color: #f5a30f;
+  color: var(--orange-primary);
   text-transform: uppercase;
   margin: 0 20px 48px;
   white-space: normal;

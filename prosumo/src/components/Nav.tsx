@@ -3,6 +3,8 @@ import gsap from 'gsap'
 import './Nav.css'
 import { useLang } from '../context/LangContext'
 import { translations } from '../i18n/translations'
+import logoBlack from '../../images/prosumo-black.webp'
+import logoWhite from '../../images/prosumo-white.webp'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -12,14 +14,34 @@ export default function Nav() {
   const T = translations.nav
 
   useEffect(() => {
-    const heroEl = document.getElementById('top')
     const onScroll = () => {
       const y = window.scrollY
       setScrolled(y > 24)
-      // Go dark once the hero's bottom edge has fully cleared the navbar (80px tall)
-      if (heroEl) {
-        setDark(y >= heroEl.offsetTop + heroEl.offsetHeight - 80)
+      
+      // Determine which section is currently in view
+      const industriesEl = document.getElementById('industries')
+      const ctaEl = document.getElementById('cta')
+      
+      let isDarkSection = false
+      
+      // Check if Industries section is in view
+      if (industriesEl) {
+        const industriesStart = industriesEl.offsetTop
+        const industriesEnd = industriesStart + industriesEl.offsetHeight
+        if (y >= industriesStart - 80 && y < industriesEnd) {
+          isDarkSection = true
+        }
       }
+      
+      // Check if CTA section is in view
+      if (ctaEl && !isDarkSection) {
+        const ctaStart = ctaEl.offsetTop
+        if (y >= ctaStart - 80) {
+          isDarkSection = true
+        }
+      }
+      
+      setDark(isDarkSection)
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -37,7 +59,7 @@ export default function Nav() {
     <header ref={headerRef} className={`nav${scrolled ? ' is-scrolled' : ''}${dark ? ' is-dark' : ''}`}>
       <div className="nav__inner container">
         <a href="#top" className="nav__brand">
-          <img src="/images/prosumo-logo.png" alt="Prosumo" className="nav__logo" />
+          <img src={dark ? logoWhite : logoBlack} alt="Prosumo" className="nav__logo" />
           <span className="nav__brand-name">Prosumo</span>
         </a>
         <nav className="nav__links" aria-label="Primary">
