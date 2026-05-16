@@ -5,6 +5,7 @@ import logoImg from '../../images/prosumo-white.webp'
 
 export default function Footer() {
   const { lang } = useLang()
+  const T = translations.footer
 
   return (
     <footer className="footer">
@@ -16,22 +17,22 @@ export default function Footer() {
           </div>
           <div className="footer__details">
             <div className="footer__section">
-              <p className="footer__label">Adresa</p>
+              <p className="footer__label">{T.address[lang]}</p>
               <p className="footer__text">Plynární 1617/10</p>
               <p className="footer__text">170 00 Praha 7</p>
             </div>
             <div className="footer__section">
-              <p className="footer__label">Telefon</p>
+              <p className="footer__label">{T.phone[lang]}</p>
               <p className="footer__text"><a href="tel:+420417631390">+420 417 631 390</a></p>
             </div>
             <div className="footer__section">
-              <p className="footer__label">Email</p>
+              <p className="footer__label">{T.email[lang]}</p>
               <p className="footer__text"><a href="mailto:prosumo@prosumo.cz">prosumo@prosumo.cz</a></p>
             </div>
             <div className="footer__section">
               <p className="footer__text">IČO: 09608192</p>
               <p className="footer__text">DIČ: CZ09608192</p>
-              <p className="footer__text">Spisová značka:<br />C 338898/MSPH Městský soud v Praze</p>
+              <p className="footer__text">{T.registerRef[lang]}<br />{T.courtRef[lang]}</p>
             </div>
           </div>
         </div>
@@ -40,7 +41,7 @@ export default function Footer() {
       </div>
 
       <div className="container footer__bottom">
-        <span>© {new Date().getFullYear()} Prosumo s.r.o. {translations.footer.rights[lang]}</span>
+        <span>© {new Date().getFullYear()} Prosumo s.r.o. {T.rights[lang]}</span>
       </div>
     </footer>
   )

@@ -208,5 +208,33 @@ export const translations = {
 
   footer: {
     rights: { cs: 'Všechna práva vyhrazena.', en: 'All rights reserved.' } as Bilingual<string>,
+    address: { cs: 'Adresa', en: 'Address' } as Bilingual<string>,
+    phone: { cs: 'Telefon', en: 'Phone' } as Bilingual<string>,
+    email: { cs: 'Email', en: 'Email' } as Bilingual<string>,
+    registerRef: { cs: 'Spisová značka:', en: 'Register Reference:' } as Bilingual<string>,
+    courtRef: { cs: 'C 338898/MSPH Městský soud v Praze', en: 'C 338898/MSPH Municipal Court in Prague' } as Bilingual<string>,
+  },
+
+  diagram: {
+    cloudSub: { cs: 'Predikce · Diagnostika · Optimalizace · Subagregace', en: 'Forecasting · Diagnostics · Optimization · Subaggregation' } as Bilingual<string>,
+    location1: { cs: 'Odběrné místo 1', en: 'Consumption Site 1' } as Bilingual<string>,
+    location2: { cs: 'Odběrné místo 2', en: 'Consumption Site 2' } as Bilingual<string>,
+    location3: { cs: 'Odběrné místo 3', en: 'Consumption Site 3' } as Bilingual<string>,
+    location4: { cs: 'Odběrné místo 4', en: 'Consumption Site 4' } as Bilingual<string>,
+    energoTitle: { cs: 'EnergoStation\nEMS', en: 'EnergoStation\nEMS' } as Bilingual<string>,
+    energoNote: { cs: 'RTU gateway integrováno', en: 'RTU gateway integrated' } as Bilingual<string>,
+    gatewayTitle: { cs: 'ProsumoBox\nGateway', en: 'ProsumoBox\nGateway' } as Bilingual<string>,
+    modbus: { cs: 'Modbus', en: 'Modbus' } as Bilingual<string>,
+    tcp: { cs: 'TCP', en: 'TCP' } as Bilingual<string>,
+    controlsDevices: { cs: 'řídí zařízení', en: 'controls devices' } as Bilingual<string>,
+    gatewayPart: { cs: 'Gateway součástí EMS', en: 'Gateway part of EMS' } as Bilingual<string>,
+    legend: { cs: 'Legenda', en: 'Legend' } as Bilingual<string>,
+    legendCloud: { cs: 'PROSUMO.cloud — cloudové služby (predikce, optimalizace, diagnostika)', en: 'PROSUMO.cloud — cloud services (forecasting, optimization, diagnostics)' } as Bilingual<string>,
+    legendEnergo: { cs: 'EnergoStation EMS — obsahuje gateway i RTU/MaR, přímé napojení na cloud', en: 'EnergoStation EMS — includes gateway and RTU/SCADA, direct cloud connection' } as Bilingual<string>,
+    legendProsumoBox: { cs: 'ProsumoBox — MQTT/Modbus TCP gateway pro připojení běžných RTU / EMS / MaR', en: 'ProsumoBox — MQTT/Modbus TCP gateway for connecting standard RTU / EMS / SCADA' } as Bilingual<string>,
+    legendController: { cs: 'RTU / EMS / MaR — přímé řízení zařízení (PROSUMO toto neprovádí)', en: 'RTU / EMS / SCADA — direct device control (PROSUMO does not perform this)' } as Bilingual<string>,
+    legendDevices: { cs: 'Zařízení — elektroměr, PV invertor, BESS, EV charger, heat pump, senzory', en: 'Devices — smart meter, PV inverter, BESS, EV charger, heat pump, sensors' } as Bilingual<string>,
+    legendMQTT: { cs: 'MQTT / HTTPS', en: 'MQTT / HTTPS' } as Bilingual<string>,
+    legendModbus: { cs: 'Modbus TCP / lokální sběrnice', en: 'Modbus TCP / local bus' } as Bilingual<string>,
   },
 }
