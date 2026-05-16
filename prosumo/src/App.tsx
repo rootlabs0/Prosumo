@@ -5,7 +5,6 @@ import Nav from './components/Nav'
 import TravelingCube from './components/TravelingCube'
 import Hero from './sections/Hero'
 import Industries from './sections/Platform'
-import VirtualniEnergetik from './sections/VirtualniEnergetik'
 import Architecture from './sections/Architecture'
 import CTA from './sections/UseCases'
 import Footer from './sections/Contact'
@@ -39,7 +38,6 @@ export default function App() {
       <main>
         <Hero />
         <Industries current={current} onSelect={handleCurrentChange} />
-        <VirtualniEnergetik />
         <Architecture />
         <CTA />
       </main>

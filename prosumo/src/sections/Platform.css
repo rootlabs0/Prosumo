@@ -1,8 +1,8 @@
 /* ── Platform section — pinned runway for the TravelingCube ──── */
-/* Tall enough to hold 5 scroll milestones (4 X-axis faces + 1 Y-axis face). */
+/* Tall enough to hold 4 scroll milestones (4 X-axis faces). */
 .cube-section {
-  height: 400vh;
-  background: transparent; /* dark bg is provided by TravelingCube's overlay layer */
+  height: 300vh;
+  background: transparent;
   color: #fff;
   position: relative;
 }
@@ -22,26 +22,26 @@
   z-index: 10; /* must exceed tc-stage's z-index: 5 so heading/dots paint above the fixed overlay */
 }
 
-/* Left heading column — absolutely positioned top-left of the sticky viewport */
+/* Left heading column — top-left of the sticky viewport */
 .cube-label {
   position: absolute;
-  top: clamp(72px, 10vh, 120px);
+  top: clamp(72px, 10vh, 110px);
   left: clamp(24px, 4vw, 80px);
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 340px;
+  max-width: clamp(340px, 40vw, 580px);
   z-index: 10;
 }
 
-/* Children start invisible — GSAP ScrollTrigger fades them in on enter */
+/* Children start visible */
 .cube-label > * {
-  opacity: 0;
+  opacity: 1;
 }
 
 /* Override .h-section size — 30 % larger than the global clamp */
 .cube-label__title.h-section {
-  font-size: clamp(6.6rem, 5.72vw, 4.875rem);
+  font-size: clamp(5.28rem, 4.576vw, 3.9rem);
 }
 
 .cube-label .eyebrow {
@@ -51,10 +51,11 @@
 .cube-label__title {
   color: #fff;
   line-height: 1.0;
+  font-weight: 300 !important;
 }
 
 .cube-label__accent {
-  color: #e8411a;
+  color: #ffffff;
 }
 
 /* Center anchor placeholder — the TravelingCube overlays this slot.
@@ -106,35 +107,18 @@
 
 /* ── Responsive ────────────────────────────────────────── */
 
-/* Big ghost word — sticky layer between bg overlay (z-5) and cube (z-7) */
-.cube-word-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  z-index: 6;
-  pointer-events: none;
-  /* negative margin pulls the cube-wrapper back up so sections don't double-stack */
-  margin-bottom: -100vh;
-}
-
 .cube-bg-word {
-  position: absolute;
-  top: clamp(120px, 16vh, 180px);
-  left: clamp(24px, 4vw, 80px);
-  right: clamp(24px, 4vw, 80px);
-  transform: none;
   white-space: normal;
   word-break: break-word;
   font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-  font-size: clamp(1.25rem, 2.2vw, 2.1rem);
+  font-size: clamp(0.875rem, 1.54vw, 1.47rem);
   line-height: 1.65;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.55);
-  -webkit-text-stroke: 0;
+  color: rgba(255, 255, 255, 0.82);
   pointer-events: none;
   user-select: none;
-  max-width: 720px;
+  max-width: 100%;
 }
 
 @keyframes cube-word-in {

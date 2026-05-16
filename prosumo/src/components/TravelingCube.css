@@ -40,7 +40,7 @@
 .tc-stage__wrap {
   --cube-tx: 24vw;
   --cube-ty: 0vh;
-  --cube-scale: 0.45;
+  --cube-scale: 0.64;
   --cube-base: clamp(420px, 60vmin, 600px);
 
   opacity: 0; /* GSAP fades this in at 1.6s to sync with hero content entrance */
@@ -54,14 +54,25 @@
   will-change: transform;
 }
 
-/* Radial glow orb — sits behind the cube, scales with the wrap */
+/* Gradient glow — sits behind the cube, blends purple/blue like a neon border bloom */
 .tc-stage__glow {
   position: absolute;
-  inset: 0;
-  border-radius: 4px;
+  inset: -80px;
+  border-radius: 16px;
   pointer-events: none;
   z-index: -1;
-  box-shadow: none;
+  /* Full-surround conic gradient — purple → blue → cyan → blue → purple, all 360° */
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #ff5522 0deg,
+    #3b82f6 80deg,
+    #06b6d4 150deg,
+    #3b82f6 220deg,
+    #ff5522 290deg,
+    #ff5522 360deg
+  );
+  filter: blur(72px);
+  opacity: 0.85;
 }
 
 .tc-stage__scene {
@@ -100,19 +111,16 @@
 }
 
 /* face N visible when cube.rotateX = -(N-1)*90  (negative = rolls toward viewer) */
-.tc-face--1 { transform: rotateX(0deg)   translateZ(calc(var(--cube-base) / 2)); }
-.tc-face--2 { transform: rotateX(-90deg) translateZ(calc(var(--cube-base) / 2)); }
-.tc-face--3 { transform: rotateX(-180deg) translateZ(calc(var(--cube-base) / 2)); }
-.tc-face--4 { transform: rotateX(-270deg) translateZ(calc(var(--cube-base) / 2)); }
-
-/* Face 5 — revealed by a -90deg Y rotation after the 4 X-axis faces */
-.tc-face--5 {
-  transform: rotateY(90deg) translateZ(calc(var(--cube-base) / 2));
+.tc-face--1 { transform: rotateX(0deg)    translateZ(calc(var(--cube-base) / 2)); }
+.tc-face--2 {
+  transform: rotateX(90deg) translateZ(calc(var(--cube-base) / 2));
   background: #ff5522;
   border-color: transparent;
 }
+.tc-face--3 { transform: rotateX(180deg)  translateZ(calc(var(--cube-base) / 2)); }
+.tc-face--4 { transform: rotateX(270deg)  translateZ(calc(var(--cube-base) / 2)); }
 
-/* Face 5 — VE panel layout */
+/* Face 4 — VE panel layout (standard X-axis face, no rotation compensation needed) */
 .tc-face__ve {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -120,10 +128,6 @@
   padding: clamp(24px, 4vw, 36px);
   height: 100%;
   align-content: center;
-  /* Rotate content 90° counter-clockwise (to the left) inside the face */
-  transform: rotate(-90deg);
-  /* Since the face is square, width=height so no overflow adjustment needed */
-  transform-origin: center center;
 }
 
 .tc-face__ve-left {
@@ -134,7 +138,7 @@
 }
 
 .tc-face__ve-eyebrow {
-  font-size: 10px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -142,7 +146,7 @@
 }
 
 .tc-face__ve-heading {
-  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  font-size: clamp(2.1rem, 4.8vw, 3rem);
   font-weight: 800;
   line-height: 1.05;
   color: #fff;
@@ -150,7 +154,7 @@
 }
 
 .tc-face__ve-desc {
-  font-size: clamp(0.72rem, 1.2vw, 0.82rem);
+  font-size: clamp(1.08rem, 1.8vw, 1.23rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 400;
@@ -164,7 +168,7 @@
   border: 1.5px solid rgba(255, 255, 255, 0.85);
   color: #fff;
   text-decoration: none;
-  font-size: 0.78rem;
+  font-size: 1.17rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   border-radius: 2px;
@@ -186,7 +190,7 @@
 }
 
 .tc-face__ve-stat-value {
-  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-size: clamp(2.1rem, 4.5vw, 2.85rem);
   font-weight: 800;
   color: #fff;
   line-height: 1;
@@ -194,7 +198,7 @@
 }
 
 .tc-face__ve-stat-label {
-  font-size: clamp(0.65rem, 1.1vw, 0.75rem);
+  font-size: clamp(0.975rem, 1.65vw, 1.125rem);
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.4;
   margin-top: 3px;
@@ -226,25 +230,25 @@
 .tc-face__number {
   color: #e8411a;
   opacity: 0.75;
-  font-size: 10px;
+  font-size: 15px;
 }
 
 .tc-face__label {
   color: rgba(255, 255, 255, 0.55);
-  font-size: 10px;
+  font-size: 15px;
   margin-bottom: 4px;
 }
 
 .tc-face__title {
   color: #fff;
-  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-size: clamp(1.5rem, 3.3vw, 1.8rem);
   font-weight: 600;
   line-height: 1.25;
   margin-bottom: 6px;
 }
 
 .tc-face__desc {
-  font-size: clamp(0.78rem, 1.3vw, 0.88rem);
+  font-size: clamp(1.17rem, 1.95vw, 1.32rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 300;

@@ -1,3 +1,9 @@
+/* Sit above the fixed cube layers (z-index 7) so it overlaps them on scroll */
+.architecture {
+  position: relative;
+  z-index: 15;
+}
+
 .architecture__eyebrow {
   margin-bottom: 16px;
 }

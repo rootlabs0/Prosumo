@@ -5,12 +5,13 @@
   align-items: center;
   overflow: hidden;
   isolation: isolate;
-  background: #f0eeea;
+  background: transparent ;
 }
 
 .hero__inner {
-  padding-top: 120px;
+  padding-top: 80px;
   padding-bottom: 96px;
+  padding-inline-start: 0 !important;
   max-width: var(--max-width);
   display: flex;
   align-items: center;
@@ -25,11 +26,14 @@
 .hero__headline {
   max-width: 18ch;
   margin-bottom: 28px;
-  color: #111111;
+  color: #ffffff;
+  font-size: clamp(4rem, 10vw, 6rem) !important;
+  line-height: 0.95;
+  font-weight: 300 !important;
 }
 
 .hero__headline .accent {
-  color: #000000;
+  color: #ffffff;
   font-weight: 300;
 }
 

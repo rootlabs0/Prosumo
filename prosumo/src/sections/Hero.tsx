@@ -14,7 +14,6 @@ export default function Hero() {
       const tl = gsap.timeline({ delay: 0.5 })
       tl.from('.hero__headline', { y: 56, opacity: 0, duration: 1.1, ease: 'power3.out' })
         .from('.hero__subline', { y: 32, opacity: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6')
-        .from('.hero__metric', { y: 24, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.1 }, '-=0.5')
         .from('.hero__cta > *', { y: 20, opacity: 0, duration: 0.65, ease: 'power3.out', stagger: 0.12 }, '-=0.35')
     }, innerRef)
     return () => ctx.revert()
@@ -25,20 +24,12 @@ export default function Hero() {
       <div ref={innerRef} className="hero__inner container">
         <div className="hero__text">
           <h1 className="h-display hero__headline">
-            <span className="thin">{T.headline1[lang]}</span>
-            <br />
-            <span className="accent">{T.headline2[lang]}</span>
+            Propojujeme<br />
+            Svět<br />
+            <span className="accent">Energií.</span>
           </h1>
 
           <p className="hero__subline">{T.subline[lang]}</p>
-
-          <div className="hero__metrics" role="list">
-            {T.metrics[lang].map(m => (
-              <div key={m.label} className="hero__metric">
-                <span className="accent">{m.value}</span> {m.label}
-              </div>
-            ))}
-          </div>
 
           <div className="hero__cta">
             <a href="#cta" className="btn btn--solid">{T.cta1[lang]}</a>

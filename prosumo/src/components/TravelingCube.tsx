@@ -51,28 +51,11 @@ function DataCenterSVG() {
   )
 }
 
-function GridSVG() {
-  return (
-    <svg viewBox="0 0 360 240" role="img" aria-label="Transmission tower">
-      <line x1="20" y1="220" x2="340" y2="220" stroke={STROKE} strokeWidth="1" />
-      <path d="M180 30 L180 220" stroke={STROKE} strokeWidth="1" />
-      <path d="M140 220 L180 50 L220 220" fill="none" stroke={STROKE} strokeWidth="1" />
-      {[60, 90, 120, 150, 180, 210].map((y, i) => {
-        const hw = ((y - 50) / 170) * 40
-        return <line key={i} x1={180 - hw} y1={y} x2={180 + hw} y2={y} stroke={FAINT} strokeWidth="0.75" />
-      })}
-      <line x1="120" y1="80" x2="240" y2="80" stroke={STROKE} strokeWidth="1" />
-      <line x1="110" y1="110" x2="250" y2="110" stroke={STROKE} strokeWidth="1" />
-    </svg>
-  )
-}
-
 const SLIDES = [
   { id: 'manufacturing', number: '01', label: 'Flexibilita', title: 'Poskytování flexibility', description: 'Prosumo optimalizuje spotřebu energie na výrobních linkách, kompresorech a klimatizaci — snižuje náklady na elektřinu bez dopadu na výrobu.', Svg: FactorySVG },
-  { id: 'grid', number: '04', label: 'Predikce', title: 'Virtuální energetik', description: 'Vypočítáváme dostupnou flexibilitu na každém odběrném místě, oceníme ji a propojíme operátory přímo s agregátory — přeměňujeme volatilitu sítě na příležitost k výnosu.', Svg: GridSVG },
-  { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', description: 'Prosumo poskytuje prediktivní řízení potřebné pro provoz hyperscale a kolokačních datových center na maximální efektivitu — s plným přehledem o PUE, zátěži a tarifu.', Svg: DataCenterSVG },
+  { id: 've', number: '', label: '', title: '', description: '', Svg: () => null },
   { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby a AI diagnostika', description: 'Od kancelářských věží po obchodní komplexy, Prosumo rozvrhuje zátěže budov dle cen SPOT a přináší měřitelné úspory na každém účtu za energii.', Svg: CRESVG },
-  { id: 'face5', number: '05', label: '', title: '', description: '', Svg: () => null },
+  { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', description: 'Prosumo poskytuje prediktivní řízení potřebné pro provoz hyperscale a kolokačních datových center na maximální efektivitu — s plným přehledem o PUE, zátěži a tarifu.', Svg: DataCenterSVG },
 ]
 
 export { SLIDES }
@@ -113,7 +96,7 @@ export default function TravelingCube({
       gsap.set(cube, { transformPerspective: 1600, rotateY: 0, rotateZ: 0 })
 
       idleTweenRef.current = gsap.to(cube, {
-        rotateX: '-=360',
+        rotateX: '+=360',
         duration: 22,
         ease: 'none',
         repeat: -1,
@@ -164,7 +147,7 @@ export default function TravelingCube({
             // so the cube barrel-rolls as it shrinks back toward the hero anchor.
             // capturedRotX is the angle at progress=0 (hero side); set it to a
             // full rotation so the cube spins through 360° during the scrub.
-            capturedRotX = -360
+            capturedRotX = 360
             idleTweenRef.current?.pause()
             isInTransition = true
           },
@@ -187,7 +170,7 @@ export default function TravelingCube({
       transitionTl
         .fromTo(
           wrap,
-          { '--cube-scale': 0.45 },
+          { '--cube-scale': 0.54 },
           { '--cube-scale': 1, ease: 'none' },
           0,
         )
@@ -203,7 +186,7 @@ export default function TravelingCube({
           end: 'bottom bottom',
           scrub: 1.2,
           snap: {
-            snapTo: [0, 0.25, 0.5, 0.75, 1],
+            snapTo: [0, 0.333, 0.667, 1],
             duration: { min: 0.2, max: 0.5 },
             ease: 'power2.inOut',
           },
@@ -218,17 +201,15 @@ export default function TravelingCube({
             onCurrentChange(0)
           },
           onUpdate(self) {
-            const idx = Math.min(4, Math.round(self.progress * 4))
+            const idx = Math.min(3, Math.round(self.progress * 3))
             onCurrentChange(idx)
           },
         },
       })
 
       phase3Tl
-        // First 3 units: X rotation 0 → -270 (faces 1-4)
-        .to(cube, { rotateX: -270, ease: 'none', duration: 3 }, 0)
-        // Last 1 unit: Y rotation 0 → -90 (face 5)
-        .to(cube, { rotateY: -90, ease: 'none', duration: 1 }, 3)
+        // X rotation 0 → 270 covers all 4 faces (3 × 90° steps)
+        .to(cube, { rotateX: 270, ease: 'none', duration: 3 }, 0)
     }, stageRef)
 
     return () => ctx.revert()
@@ -248,8 +229,8 @@ export default function TravelingCube({
     if (art) gsap.fromTo(art, { scale: 0.9, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.4)', overwrite: true })
     if (txt.length) gsap.fromTo(txt, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.06, overwrite: true })
 
-    // Face 5 — animate VE panel elements
-    if (current === 4) {
+    // Face 2 — animate VE panel elements
+    if (current === 1) {
       const veEls = activeFace.querySelectorAll<HTMLElement>('.tc-face__ve-eyebrow, .tc-face__ve-heading, .tc-face__ve-desc, .tc-face__ve-cta, .tc-face__ve-stat')
       gsap.fromTo(veEls, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.08, overwrite: true })
     }
@@ -271,8 +252,8 @@ export default function TravelingCube({
           <div ref={cubeRef} className="tc-stage__cube">
             {SLIDES.map((slide, i) => (
               <div key={slide.id} className={`tc-face tc-face--${i + 1}`}>
-                {i === 4 ? (
-                  // Face 5 — orange VirtualniEnergetik panel
+                {i === 1 ? (
+                  // Face 2 — orange VirtualniEnergetik panel
                   <div className="tc-face__ve">
                     <div className="tc-face__ve-left">
                       <p className="tc-face__ve-eyebrow">Náš přístup</p>
@@ -305,7 +286,7 @@ export default function TravelingCube({
                       <slide.Svg />
                     </div>
                     <div className="tc-face__content">
-                      <p className="tc-face__number eyebrow">{slide.number} / 04</p>
+                      <p className="tc-face__number eyebrow">{slide.number} / 03</p>
                       <p className="tc-face__label eyebrow">{slide.label}</p>
                       <h3 className="tc-face__title h-card">{slide.title}</h3>
                       <p className="tc-face__desc">{slide.description}</p>

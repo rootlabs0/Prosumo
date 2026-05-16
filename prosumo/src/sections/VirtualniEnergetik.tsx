@@ -13,8 +13,8 @@ export default function VirtualniEnergetik() {
     if (!el) return
 
     const ctx = gsap.context(() => {
-      // ── Slide-up transition — starts as cube snaps to face 5 (Y rotation) ──
-      // Platform = 400vh, runway = 300vh, face-5 zone = 225vh–300vh in.
+      // ── Slide-up transition — orange face is face 2 (rotateX 90°), 1/3 through platform ──
+      // Platform = 300vh, face-2 zone = 50vh–100vh in.
       gsap.fromTo(
         el,
         { y: '100vh' },
@@ -23,8 +23,8 @@ export default function VirtualniEnergetik() {
           ease: 'none',
           scrollTrigger: {
             trigger: '#industries',
-            start: () => `top+=${window.innerHeight * 2.25} top`,
-            end: () => `top+=${window.innerHeight * 3.0} top`,
+            start: () => `top+=${window.innerHeight * 0.5} top`,
+            end: () => `top+=${window.innerHeight * 1.0} top`,
             scrub: 0.6,
           },
         },

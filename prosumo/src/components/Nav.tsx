@@ -19,13 +19,22 @@ export default function Nav() {
       setScrolled(y > 24)
       
       // Determine which section is currently in view
+      const heroEl = document.getElementById('top')
       const industriesEl = document.getElementById('industries')
       const ctaEl = document.getElementById('cta')
       
       let isDarkSection = false
       
+      // Hero is dark
+      if (heroEl) {
+        const heroEnd = heroEl.offsetTop + heroEl.offsetHeight
+        if (y < heroEnd) {
+          isDarkSection = true
+        }
+      }
+
       // Check if Industries section is in view
-      if (industriesEl) {
+      if (industriesEl && !isDarkSection) {
         const industriesStart = industriesEl.offsetTop
         const industriesEnd = industriesStart + industriesEl.offsetHeight
         if (y >= industriesStart - 80 && y < industriesEnd) {
