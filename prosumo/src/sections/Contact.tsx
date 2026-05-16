@@ -1,6 +1,10 @@
 import './Contact.css'
+import { useLang } from '../context/LangContext'
+import { translations } from '../i18n/translations'
 
 export default function Footer() {
+  const { lang } = useLang()
+
   return (
     <footer className="footer">
       <div className="container footer__inner">
@@ -35,7 +39,7 @@ export default function Footer() {
       </div>
 
       <div className="container footer__bottom">
-        <span>© {new Date().getFullYear()} Prosumo s.r.o. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} Prosumo s.r.o. {translations.footer.rights[lang]}</span>
       </div>
     </footer>
   )

@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import './Nav.css'
-
-const links = [
-  { label: 'Platform', href: '#capabilities' },
-  { label: 'Hardware', href: '#industries' },
-  { label: 'About', href: '#cta' },
-]
+import { useLang } from '../context/LangContext'
+import { translations } from '../i18n/translations'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
+  const { lang, toggleLang } = useLang()
+  const T = translations.nav
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -34,11 +32,20 @@ export default function Nav() {
           <span className="nav__brand-name">Prosumo</span>
         </a>
         <nav className="nav__links" aria-label="Primary">
-          {links.map(l => (
+          {T.links[lang].map(l => (
             <a key={l.href} href={l.href}>{l.label}</a>
           ))}
         </nav>
-        <a href="#cta" className="btn btn--solid nav__cta">Request Demo</a>
+        <button
+          className="nav__lang-toggle"
+          onClick={toggleLang}
+          aria-label="Switch language"
+        >
+          <span className={lang === 'cs' ? 'active' : ''}>CZ</span>
+          <span className="nav__lang-sep">|</span>
+          <span className={lang === 'en' ? 'active' : ''}>EN</span>
+        </button>
+        <a href="#cta" className="btn btn--solid nav__cta">{T.cta[lang]}</a>
       </div>
     </header>
   )

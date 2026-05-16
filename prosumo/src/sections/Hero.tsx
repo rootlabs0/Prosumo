@@ -1,9 +1,13 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import './Hero.css'
+import { useLang } from '../context/LangContext'
+import { translations } from '../i18n/translations'
 
 export default function Hero() {
   const innerRef = useRef<HTMLDivElement>(null)
+  const { lang } = useLang()
+  const T = translations.hero
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -20,25 +24,24 @@ export default function Hero() {
     <section id="top" className="hero">
       <div ref={innerRef} className="hero__inner container">
         <h1 className="h-display hero__headline">
-          <span className="thin">Propojujeme svět</span>
+          <span className="thin">{T.headline1[lang]}</span>
           <br />
-          <span className="accent">Energií.</span>
+          <span className="accent">{T.headline2[lang]}</span>
         </h1>
 
-        <p className="hero__subline">
-          Využijte sílu predikcí, diagnostiky a flexibility k dosažení vyšších výnosů a lepší návratnosti vašich energetických systémů.
-        </p>
+        <p className="hero__subline">{T.subline[lang]}</p>
 
         <div className="hero__metrics" role="list">
-          <div className="hero__metric"><span className="accent">38%</span> cost reduction</div>
-          <div className="hero__metric"><span className="accent">2,400+</span> deployments</div>
-          <div className="hero__metric"><span className="accent">&lt;15 min</span> setup</div>
-          <div className="hero__metric"><span className="accent">99.97%</span> uptime</div>
+          {T.metrics[lang].map(m => (
+            <div key={m.label} className="hero__metric">
+              <span className="accent">{m.value}</span> {m.label}
+            </div>
+          ))}
         </div>
 
         <div className="hero__cta">
-          <a href="#cta" className="btn btn--solid">Request Demo</a>
-          <a href="#capabilities" className="btn btn--ghost">See How It Works</a>
+          <a href="#cta" className="btn btn--solid">{T.cta1[lang]}</a>
+          <a href="#capabilities" className="btn btn--ghost">{T.cta2[lang]}</a>
         </div>
       </div>
     </section>

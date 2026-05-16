@@ -33,68 +33,6 @@
   padding: 0 clamp(24px, 4vw, 64px);
 }
 
-.caps__panel--intro {
-  flex: 0 0 100vw;
-  justify-content: space-between;
-  padding: 0 clamp(32px, 8vw, 112px);
-  gap: 4vw;
-}
-
-/* ─── Intro panel: text side ─── */
-.caps__intro-text {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 460px;
-}
-
-.caps__intro-kicker {
-  font-family: 'Courier New', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #9ca3af;
-}
-
-.caps__intro-headline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.caps__line {
-  display: block;
-  font-family: var(--font);
-  font-size: clamp(3rem, 7vw, 6rem);
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: var(--text-on-light);
-}
-
-.caps__line--bold  { font-weight: 900; }
-.caps__line--light { font-weight: 400; }
-.caps__line--amber { font-weight: 900; color: var(--accent); }
-
-.caps__intro-hint {
-  font-family: 'Courier New', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  color: #9ca3af;
-  margin-top: 8px;
-}
-
-/* ─── Intro panel: decorative art side ─── */
-.caps__intro-art {
-  flex: 0 0 auto;
-  width: min(42%, 460px);
-}
-
-.caps__intro-bg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 /* ─── Solution card ─── */
 .cap-card {
   width: 100%;
@@ -229,28 +167,13 @@
   .caps__strip::-webkit-scrollbar { display: none; }
 
   /* All panels same width on mobile */
-  .caps__panel,
-  .caps__panel--intro {
+  .caps__panel {
     flex: 0 0 88vw;
     height: auto;
     padding: 20px 16px;
     align-items: flex-start;
     justify-content: flex-start;
     scroll-snap-align: start;
-  }
-
-  .caps__panel--intro {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .caps__intro-art {
-    width: 100%;
-    max-width: none;
-  }
-
-  .caps__line {
-    font-size: clamp(2.5rem, 11vw, 4rem);
   }
 
   /* Cards natural height on mobile */

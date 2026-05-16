@@ -12,70 +12,7 @@ const AMBER = '#f5a30f'
    INLINE SVG ILLUSTRATIONS
 ══════════════════════════════════════════════════════════════════ */
 
-/* Panel 0 — Decorative energy-flow graphic */
-function IntroBg() {
-  return (
-    <svg
-      viewBox="0 0 420 380"
-      aria-hidden
-      className="caps__intro-bg"
-      fill="none"
-    >
-      {/* Dot grid */}
-      {Array.from({ length: 11 }, (_, row) =>
-        Array.from({ length: 11 }, (_, col) => (
-          <circle
-            key={`${row}-${col}`}
-            cx={col * 42}
-            cy={row * 38}
-            r="1.5"
-            fill={GHOST}
-          />
-        ))
-      )}
-
-      {/* Energy arcs */}
-      <path d="M0 340 Q160 60 420 140"  stroke={`${AMBER}22`} strokeWidth="2"  />
-      <path d="M0 360 Q140 100 420 180" stroke={`${AMBER}14`} strokeWidth="1.5" />
-      <path d="M0 380 Q180 140 420 220" stroke="rgba(42,42,42,0.07)" strokeWidth="1" />
-
-      {/* Nodes on first arc */}
-      {([
-        [0, 340], [90, 210], [200, 152], [310, 146], [420, 140],
-      ] as [number, number][]).map(([cx, cy], i) => (
-        <circle
-          key={i}
-          cx={cx}
-          cy={cy}
-          r={i === 2 ? 5.5 : 3}
-          fill={i === 2 ? AMBER : 'rgba(42,42,42,0.22)'}
-          opacity={i === 2 ? 0.55 : 0.4}
-        />
-      ))}
-
-      {/* Decorative mini bar chart */}
-      {([38, 58, 42, 72, 50, 65, 44] as number[]).map((h, i) => (
-        <rect
-          key={i}
-          x={268 + i * 18}
-          y={290 - h}
-          width={13}
-          height={h}
-          fill={i === 3 ? `${AMBER}25` : GHOST}
-          stroke={i === 3 ? `${AMBER}55` : FAINT}
-          strokeWidth="0.8"
-        />
-      ))}
-
-      {/* Circuit trace */}
-      <path d="M30 40 H90 V100 H150 V70" stroke={GHOST} strokeWidth="1" />
-      <circle cx="90"  cy="100" r="2.5" fill={GHOST} />
-      <circle cx="150" cy="70"  r="2"   fill={GHOST} />
-    </svg>
-  )
-}
-
-/* Panel 1 — Solar PV string-level forecast */
+/* Panel 0 — Solar PV string-level forecast */
 function SolarSVG() {
   const CX = 50
   const CW = 460
@@ -379,16 +316,15 @@ export default function Capabilities() {
   })
 
   /*
-   * Strip layout: Panel 0 (100vw) + Panels 1–3 (80vw × 3) = 340vw total.
-   * End x = -(340 − 100) = -240vw → Panel 3 fully visible at scroll end.
+   * Strip layout: Panels 0–2 (80vw × 3) = 240vw total.
+   * End x = -(240 − 100) = -140vw → Panel 2 fully visible at scroll end.
    */
-  const x = useTransform(scrollYProgress, [0, 1], ['0vw', '-240vw'])
+  const x = useTransform(scrollYProgress, [0, 1], ['0vw', '-140vw'])
 
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    if      (latest < 0.30) setActivePanel(0)
-    else if (latest < 0.56) setActivePanel(1)
-    else if (latest < 0.82) setActivePanel(2)
-    else                    setActivePanel(3)
+    if      (latest < 0.33) setActivePanel(0)
+    else if (latest < 0.66) setActivePanel(1)
+    else                    setActivePanel(2)
   })
 
   return (
@@ -396,7 +332,7 @@ export default function Capabilities() {
       id="capabilities"
       className="caps"
       ref={containerRef}
-      style={isMobile ? undefined : { height: '500vh' }}
+      style={isMobile ? undefined : { height: '400vh' }}
     >
       <div className="caps__sticky">
 
@@ -405,22 +341,7 @@ export default function Capabilities() {
           style={isMobile ? undefined : { x }}
         >
 
-          {/* ── Panel 0: Title ── */}
-          <div className="caps__panel caps__panel--intro">
-            <div className="caps__intro-text">
-              <p className="caps__intro-kicker">Our Solutions</p>
-              <h2 className="caps__intro-headline">
-                <span className="caps__line caps__line--bold">FVE.</span>
-                <span className="caps__line caps__line--light">Optimize.</span>
-                <span className="caps__line caps__line--amber">Flex.</span>
-              </h2>
-            </div>
-            <div className="caps__intro-art" aria-hidden>
-              <IntroBg />
-            </div>
-          </div>
-
-          {/* ── Panels 1–3: Solution cards ── */}
+          {/* ── Panels 0–2: Solution cards ── */}
           {CARDS.map((card) => (
             <div key={card.label} className="caps__panel caps__panel--card">
               <article className="cap-card">
@@ -444,7 +365,7 @@ export default function Capabilities() {
           <span key={activePanel} className="caps__counter-num">
             {String(activePanel + 1).padStart(2, '0')}
           </span>
-          <span className="caps__counter-sep">&thinsp;/&thinsp;04</span>
+          <span className="caps__counter-sep">&thinsp;/&thinsp;03</span>
         </div>
 
       </div>

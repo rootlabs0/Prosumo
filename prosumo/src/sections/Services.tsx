@@ -2,6 +2,8 @@ import './Services.css'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../context/LangContext'
+import { translations } from '../i18n/translations'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -82,6 +84,8 @@ export default function Services() {
   const stickyRef  = useRef<HTMLDivElement>(null)
   const stripRef   = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
+  const { lang } = useLang()
+  const T = translations.services
 
   const [isMobile, setIsMobile] = useState<boolean>(
     () => typeof window !== 'undefined' && window.innerWidth <= 900,
@@ -171,25 +175,32 @@ export default function Services() {
   if (isMobile) {
     return (
       <section id="services" className="services services--mobile">
-        <h2 className="services__heading services__heading--mobile">Eight ways<br />to master<br />your energy.</h2>
+        <h2 className="services__heading services__heading--mobile">
+          {T.heading[lang][0]}<br />{T.heading[lang][1]}<br />{T.heading[lang][2]}
+        </h2>
         <div className="services__mobile-scroll">
-          {BLOCKS.map(block => (
-            <div key={block.id} className="svc-block-mobile is-visible">
-              <div className="svc-block-mobile__rect" />
-              <div className="svc-block-mobile__info" style={{ textAlign: block.textAlign ?? 'left' }}>
-                <div className="svc-block__lines">
-                  {block.lines.map((line, i) => (
-                    <div key={i} className={`svc-block__line svc-block__line--${i + 1}`}>
-                      <span>{renderLine(line)}</span>
-                    </div>
-                  ))}
+          {BLOCKS.map((block, i) => {
+            const bt = T.blocks[i]
+            const lines = bt ? bt.lines[lang] : block.lines
+            const bodyText = bt ? bt.bodyText[lang] : block.bodyText
+            return (
+              <div key={block.id} className="svc-block-mobile is-visible">
+                <div className="svc-block-mobile__rect" />
+                <div className="svc-block-mobile__info" style={{ textAlign: block.textAlign ?? 'left' }}>
+                  <div className="svc-block__lines">
+                    {lines.map((line, li) => (
+                      <div key={li} className={`svc-block__line svc-block__line--${li + 1}`}>
+                        <span>{renderLine(line)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {bodyText && (
+                    <p className="svc-block__body">{bodyText}</p>
+                  )}
                 </div>
-                {block.bodyText && (
-                  <p className="svc-block__body">{block.bodyText}</p>
-                )}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </section>
     )
@@ -200,30 +211,35 @@ export default function Services() {
       <div ref={stickyRef} className="services__sticky">
         <div ref={stripRef} className="services__strip" style={{ width: STRIP_WIDTH }}>
           <h2 ref={headingRef} className="services__heading">
-            Eight ways<br />to master<br />your energy.
+            {T.heading[lang][0]}<br />{T.heading[lang][1]}<br />{T.heading[lang][2]}
           </h2>
 
-          {BLOCKS.map(block => (
-            <div
-              key={block.id}
-              className={`svc-block svc-block--${block.textSide}`}
-              style={{ left: block.x, top: block.y, width: block.w, height: block.h }}
-            >
-              <div className="svc-block__rect" />
-              <div className={`svc-block__info svc-block__info--${block.mode} svc-block__info--${block.textSize ?? 'md'}`} style={{ textAlign: block.textAlign ?? 'left' }}>
-                <div className="svc-block__lines" style={block.id === '07' ? { marginLeft: '150px' } : undefined}>
-                  {block.lines.map((line, i) => (
-                    <div key={i} className={`svc-block__line svc-block__line--${i + 1}`}>
-                      <span>{renderLine(line)}</span>
-                    </div>
-                  ))}
+          {BLOCKS.map((block, i) => {
+            const bt = T.blocks[i]
+            const lines = bt ? bt.lines[lang] : block.lines
+            const bodyText = bt ? bt.bodyText[lang] : block.bodyText
+            return (
+              <div
+                key={block.id}
+                className={`svc-block svc-block--${block.textSide}`}
+                style={{ left: block.x, top: block.y, width: block.w, height: block.h }}
+              >
+                <div className="svc-block__rect" />
+                <div className={`svc-block__info svc-block__info--${block.mode} svc-block__info--${block.textSize ?? 'md'}`} style={{ textAlign: block.textAlign ?? 'left' }}>
+                  <div className="svc-block__lines" style={block.id === '07' ? { marginLeft: '150px' } : undefined}>
+                    {lines.map((line, li) => (
+                      <div key={li} className={`svc-block__line svc-block__line--${li + 1}`}>
+                        <span>{renderLine(line)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {bodyText && (
+                    <p className="svc-block__body">{bodyText}</p>
+                  )}
                 </div>
-                {block.bodyText && (
-                  <p className="svc-block__body">{block.bodyText}</p>
-                )}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

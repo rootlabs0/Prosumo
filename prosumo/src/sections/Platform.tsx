@@ -1,6 +1,8 @@
 import './Platform.css'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLang } from '../context/LangContext'
+import { translations } from '../i18n/translations'
 
 const STROKE = 'rgba(255,255,255,0.85)'
 const FAINT = 'rgba(255,255,255,0.22)'
@@ -154,64 +156,29 @@ function GridSVG() {
 
 /* ─── Card data ─── */
 
-interface SectorItem {
-  id: string
-  label: string
-  title: string
-  description: string
-  Svg: () => JSX.Element
-}
-
-const SECTORS: SectorItem[] = [
-  {
-    id: 'manufacturing',
-    label: 'MANUFACTURING',
-    title: 'Powering the production floor.',
-    description:
-      'Prosumo optimizes energy consumption across production lines, compressors, and HVAC — reducing electricity costs without touching throughput.',
-    Svg: FactorySVG,
-  },
-  {
-    id: 'cre',
-    label: 'COMMERCIAL REAL ESTATE',
-    title: 'Smarter buildings, lower OPEX.',
-    description:
-      'From office towers to retail complexes, Prosumo schedules building loads around SPOT prices and delivers measurable savings on every energy bill.',
-    Svg: CRESVG,
-  },
-  {
-    id: 'datacenters',
-    label: 'DATA CENTERS',
-    title: 'Ensuring uptime at scale.',
-    description:
-      'Prosumo unlocks the predictive control required to run hyperscale and colocation facilities at peak efficiency — with full visibility on PUE, load, and tariff exposure.',
-    Svg: DataCenterSVG,
-  },
-  {
-    id: 'grid',
-    label: 'UTILITIES & GRID',
-    title: 'Flexibility for a volatile grid.',
-    description:
-      'We calculate available flexibility at each consumption point, value it, and connect operators directly with aggregators — turning grid volatility into a revenue opportunity.',
-    Svg: GridSVG,
-  },
-]
+const SECTORS_SVG = [FactorySVG, CRESVG, DataCenterSVG, GridSVG]
+const SECTOR_IDS = ['manufacturing', 'cre', 'datacenters', 'grid']
 
 export default function Industries() {
   const [active, setActive] = useState<string | null>('datacenters')
+  const { lang } = useLang()
+  const T = translations.platform
+  const sectorTexts = T.sectors[lang]
 
   return (
     <section id="industries" className="section industries">
       <div className="container">
-        <p className="eyebrow industries__kicker reveal">Built For</p>
+        <p className="eyebrow industries__kicker reveal">{T.kicker[lang]}</p>
         <h2 className="h-display industries__title reveal">
-          4 Sectors.
+          {T.title1[lang]}
           <br />
-          One Platform.
+          {T.title2[lang]}
         </h2>
 
         <div className="industries__grid" onMouseLeave={() => setActive(null)}>
-          {SECTORS.map(({ id, label, title, description, Svg }) => {
+          {sectorTexts.map(({ label, title, description }, i) => {
+            const id = SECTOR_IDS[i]
+            const Svg = SECTORS_SVG[i]
             const isActive = id === active
             return (
               <motion.article
@@ -229,16 +196,8 @@ export default function Industries() {
                 style={{ overflow: 'hidden', minWidth: 0 }}
               >
                 <p className="eyebrow ind-card__label">{label}</p>
-
-                {/* SVG illustration — always visible */}
-                <div className="ind-card__art">
-                  <Svg />
-                </div>
-
-                {/* Headline — always visible */}
+                <div className="ind-card__art"><Svg /></div>
                 <h3 className="h-card ind-card__title">{title}</h3>
-
-                {/* Description — fades in only when active */}
                 <AnimatePresence>
                   {isActive && (
                     <motion.p
