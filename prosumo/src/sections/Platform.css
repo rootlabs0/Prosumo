@@ -1,15 +1,14 @@
 /* ── Platform section — pinned runway for the TravelingCube ──── */
-/* Tall enough to hold 4 scroll milestones (4 X-axis faces). */
+/* Just enough runway for ScrollTrigger entry/exit detection. */
+/* Face cycling is driven by wheel events (no page scroll needed). */
 .cube-section {
-  height: 300vh;
+  height: 150vh;
   background: transparent;
   color: #fff;
   position: relative;
 }
 
-/* The wrapper is pinned (sticky-equivalent via ScrollTrigger.pin in TravelingCube
-   indirectly) — we use sticky here as a simple, self-contained pin so the heading
-   and dots stay visible while the user scrolls through the 400vh runway. */
+/* Sticky pin — heading and dots stay visible during the 50vh runway. */
 .cube-wrapper {
   position: sticky;
   top: 0;
@@ -19,7 +18,7 @@
   justify-content: center;
   gap: clamp(32px, 5vw, 80px);
   padding-inline: clamp(24px, 4vw, 80px);
-  z-index: 10; /* must exceed tc-stage's z-index: 5 so heading/dots paint above the fixed overlay */
+  z-index: 20; /* must exceed tc-stage (5), tc-cube-layer (7), and Architecture/Contact (15) */
 }
 
 /* Left heading column — vertically centered in the sticky viewport */
@@ -30,8 +29,8 @@
   left: clamp(24px, 4vw, 80px);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: clamp(340px, 40vw, 580px);
+  gap: 36px;
+  max-width: clamp(380px, 48vw, 620px);
   z-index: 10;
 }
 
@@ -119,7 +118,7 @@
   color: rgba(255, 255, 255, 0.45);
   pointer-events: none;
   user-select: none;
-  max-width: 72%;
+  max-width: 100%;
 }
 
 @keyframes cube-word-in {

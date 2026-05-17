@@ -171,9 +171,11 @@ export { SLIDES }
 export default function TravelingCube({
   current,
   onCurrentChange,
+  scrollTo,
 }: {
   current: number
   onCurrentChange: (i: number) => void
+  scrollTo: (target: number, opts?: object) => void
 }) {
   const cubeRef = useRef<HTMLDivElement>(null)
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -181,9 +183,100 @@ export default function TravelingCube({
   const stageRef = useRef<HTMLDivElement>(null)
   const cubeLayerRef = useRef<HTMLDivElement>(null)
   const idleTweenRef = useRef<gsap.core.Tween | null>(null)
+  const faceIndexRef = useRef(0)
+  const isAnimating3Ref = useRef(false)
+  const isActive3Ref = useRef(false)
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
+    let touchStartY = 0
+    let wheelAccumulator = 0
+
+    const handleWheel = (e: WheelEvent) => {
+      if (!isActive3Ref.current) return
+
+      // During animation: swallow the event entirely so neither the page nor
+      // the accumulator advances.
+      if (isAnimating3Ref.current) {
+        e.stopImmediatePropagation()
+        e.preventDefault()
+        wheelAccumulator = 0
+        return
+      }
+
+      wheelAccumulator += e.deltaY
+
+      // Still accumulating intent — block the page scroll but don't rotate yet.
+      if (Math.abs(wheelAccumulator) < 50) {
+        e.stopImmediatePropagation()
+        e.preventDefault()
+        return
+      }
+
+      const dir = wheelAccumulator > 0 ? 1 : -1
+      wheelAccumulator = 0
+      const newIndex = faceIndexRef.current + dir
+
+      // Scrolling back past face 0 — let Lenis handle the upward exit naturally.
+      if (newIndex < 0) return
+
+      // Scrolling past the last face — exit forward with a single smooth scroll.
+      if (newIndex > SLIDES.length - 1) {
+        e.stopImmediatePropagation()
+        e.preventDefault()
+        isActive3Ref.current = false
+        const platformEl = document.getElementById('industries')
+        if (platformEl) {
+          const target = platformEl.offsetTop + platformEl.offsetHeight - window.innerHeight + 2
+          scrollTo(target, { duration: 0.9 })
+        }
+        return
+      }
+
+      // Inner face rotation: consume the event so the page stays put.
+      e.stopImmediatePropagation()
+      e.preventDefault()
+
+      const cube = cubeRef.current
+      if (!cube) return
+      faceIndexRef.current = newIndex
+      isAnimating3Ref.current = true
+      onCurrentChange(newIndex)
+      gsap.to(cube, {
+        rotateX: newIndex * 90,
+        duration: 0.8,
+        ease: 'power2.inOut',
+        overwrite: 'auto',
+        onComplete: () => { isAnimating3Ref.current = false },
+      })
+    }
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (!isActive3Ref.current) return
+      touchStartY = e.touches[0].clientY
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!isActive3Ref.current || isAnimating3Ref.current) return
+      const deltaY = touchStartY - e.changedTouches[0].clientY
+      if (Math.abs(deltaY) < 30) return
+      const cube = cubeRef.current
+      if (!cube) return
+      const dir = deltaY > 0 ? 1 : -1
+      const newIndex = faceIndexRef.current + dir
+      if (newIndex < 0 || newIndex > SLIDES.length - 1) return
+      faceIndexRef.current = newIndex
+      isAnimating3Ref.current = true
+      onCurrentChange(newIndex)
+      gsap.to(cube, {
+        rotateX: newIndex * 90,
+        duration: 0.8,
+        ease: 'power2.inOut',
+        overwrite: 'auto',
+        onComplete: () => { isAnimating3Ref.current = false },
+      })
+    }
+
     const ctx = gsap.context(() => {
       const cube = cubeRef.current!
       const wrap = wrapRef.current!
@@ -242,18 +335,17 @@ export default function TravelingCube({
             isInTransition = true
           },
           onEnterBack: () => {
-            // Scrolling back up from platform into Phase 2 — re-engage rotation
-            // so the cube barrel-rolls as it shrinks back toward the hero anchor.
-            // capturedRotX is the angle at progress=0 (hero side); set it to a
-            // full rotation so the cube spins through 360° during the scrub.
-            capturedRotX = 360
+            // Scrolling back up from platform into Phase 2.
+            // Keep capturedRotX from onEnter so the backward scrub is the
+            // exact mirror of the forward scrub (no extra 360° spin).
             idleTweenRef.current?.pause()
             isInTransition = true
           },
           onLeaveBack: () => {
             // Scrolled back above hero bottom — resume idle spin.
-            // rotateX has been scrubbed back toward capturedRotX by the onUpdate,
-            // so restore it fully to capturedRotX then let idle continue from there.
+            // capturedRotX is the angle that was captured going forward, so
+            // setting rotateX to it here puts the cube right where the idle
+            // tween was paused — play() then resumes without any jump.
             isInTransition = false
             gsap.set(cube, { rotateX: capturedRotX })
             idleTweenRef.current?.play()
@@ -275,49 +367,67 @@ export default function TravelingCube({
         )
         .fromTo(bg, { opacity: 0 }, { opacity: 1, ease: 'none' }, 0)
 
-      // ── Phase 3: pinned platform — X snap for faces 1-4, then Y rotation reveals face 5 ──
-      // Timeline: duration 4 units → progress 0–3 = rotateX, progress 3–4 = rotateY.
-      // Snap points at [0, 0.25, 0.5, 0.75, 1] map to the 5 faces.
-      const phase3Tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: platformEl,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1.2,
-          snap: {
-            snapTo: [0, 0.333, 0.667, 1],
-            duration: { min: 0.2, max: 0.5 },
-            ease: 'power2.inOut',
-          },
-          onEnter: () => {
-            isInTransition = false
-            idleTweenRef.current?.pause()
-            gsap.set(cube, { rotateY: 0, rotateZ: 0 })
-          },
-          onLeaveBack: () => {
-            gsap.set(cube, { rotateX: 0, rotateY: 0, rotateZ: 0 })
-            idleTweenRef.current?.restart()
-            onCurrentChange(0)
-          },
-          onUpdate(self) {
-            const idx = Math.min(3, Math.round(self.progress * 3))
-            onCurrentChange(idx)
-          },
+      // ── Phase 3: state-tracking only — rotation driven by wheel/touch events ──
+      ScrollTrigger.create({
+        trigger: platformEl,
+        start: 'top top',
+        end: 'bottom bottom',
+        onEnter: () => {
+          isInTransition = false
+          idleTweenRef.current?.pause()
+          gsap.set(cube, { rotateY: 0, rotateZ: 0, rotateX: 0 })
+          faceIndexRef.current = 0
+          isActive3Ref.current = true
+          onCurrentChange(0)
+        },
+        onLeave: () => {
+          isActive3Ref.current = false
+        },
+        onEnterBack: () => {
+          isActive3Ref.current = true
+        },
+        onLeaveBack: () => {
+          isActive3Ref.current = false
+          gsap.set(cube, { rotateX: 0, rotateY: 0, rotateZ: 0 })
+          // Do NOT restart idle here — Phase 2 onEnterBack already paused it and
+          // Phase 2 onLeaveBack will restart it cleanly once the scrub completes.
+          faceIndexRef.current = 0
+          onCurrentChange(0)
         },
       })
-
-      phase3Tl
-        // X rotation 0 → 270 covers all 4 faces (3 × 90° steps)
-        .to(cube, { rotateX: 270, ease: 'none', duration: 3 }, 0)
     }, stageRef)
 
-    return () => ctx.revert()
-  }, [onCurrentChange])
+    document.addEventListener('wheel', handleWheel, { capture: true, passive: false })
+    document.addEventListener('touchstart', handleTouchStart, { passive: true })
+    document.addEventListener('touchend', handleTouchEnd, { passive: true })
+
+    return () => {
+      ctx.revert()
+      document.removeEventListener('wheel', handleWheel, { capture: true })
+      document.removeEventListener('touchstart', handleTouchStart)
+      document.removeEventListener('touchend', handleTouchEnd)
+    }
+  }, [onCurrentChange, scrollTo])
 
   // Highlight active face with accent border (CSS toggle)
   useEffect(() => {
     if (!cubeRef.current) return
-    const faces = cubeRef.current.querySelectorAll<HTMLElement>('.tc-face')
+    const cube = cubeRef.current
+    const faces = cube.querySelectorAll<HTMLElement>('.tc-face')
+
+    // Sync cube rotation when current changes externally (e.g., dot click)
+    if (isActive3Ref.current && faceIndexRef.current !== current) {
+      faceIndexRef.current = current
+      isAnimating3Ref.current = true
+      gsap.to(cube, {
+        rotateX: current * 90,
+        duration: 0.8,
+        ease: 'power2.inOut',
+        overwrite: 'auto',
+        onComplete: () => { isAnimating3Ref.current = false },
+      })
+    }
+
     faces.forEach((f, i) => f.classList.toggle('is-active', i === current))
 
     // Animate content of active face

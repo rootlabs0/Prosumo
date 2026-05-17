@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import Lenis from 'lenis'
 import { LangProvider } from './context/LangContext'
 import Nav from './components/Nav'
@@ -18,8 +18,11 @@ export default function App() {
     setCurrent(prev => (prev === i ? prev : i))
   }, [])
 
+  const lenisRef = useRef<Lenis | null>(null)
+
   useEffect(() => {
     const lenis = new Lenis({ duration: 0.9, smoothWheel: true })
+    lenisRef.current = lenis
     let rafId = 0
     const raf = (time: number) => {
       lenis.raf(time)
@@ -29,7 +32,12 @@ export default function App() {
     return () => {
       cancelAnimationFrame(rafId)
       lenis.destroy()
+      lenisRef.current = null
     }
+  }, [])
+
+  const scrollTo = useCallback((target: number, opts?: object) => {
+    lenisRef.current?.scrollTo(target, opts as Parameters<Lenis['scrollTo']>[1])
   }, [])
 
   return (
@@ -45,7 +53,7 @@ export default function App() {
 
       {/* Fixed-position cube that travels from hero-right slot into the
           platform-center slot as the user scrolls. */}
-      <TravelingCube current={current} onCurrentChange={handleCurrentChange} />
+      <TravelingCube current={current} onCurrentChange={handleCurrentChange} scrollTo={scrollTo} />
     </LangProvider>
   )
 }
