@@ -6,12 +6,12 @@ export const translations = {
   nav: {
     links: {
       cs: [
-        { label: 'Platforma', href: '#industries' },
+        { label: 'Naše řešení', href: '#industries' },
         { label: 'Služby', href: '#services' },
         { label: 'O nás', href: '#cta' },
       ],
       en: [
-        { label: 'Platform', href: '#industries' },
+        { label: 'Our Solutions', href: '#industries' },
         { label: 'Services', href: '#services' },
         { label: 'About', href: '#cta' },
       ],

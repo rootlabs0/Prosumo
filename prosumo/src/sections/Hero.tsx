@@ -31,8 +31,7 @@ export default function Hero() {
           <p className="hero__subline">{T.subline[lang]}</p>
 
           <div className="hero__cta">
-            <a href="#cta" className="btn btn--solid">{T.cta1[lang]}</a>
-            <a href="#capabilities" className="btn btn--ghost">{T.cta2[lang]}</a>
+            <a href="#industries" className="btn btn--ghost">{T.cta2[lang]}</a>
           </div>
         </div>
 

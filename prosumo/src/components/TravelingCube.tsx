@@ -14,14 +14,14 @@ function FactorySVG() {
     <svg viewBox="0 0 360 240" role="img" aria-label="Factory cross-section">
       <line x1="20" y1="200" x2="340" y2="200" stroke={STROKE} strokeWidth="1" />
       <path d="M40 200 L40 130 L120 130 L120 100 L200 100 L200 130 L320 130 L320 200 Z" fill="none" stroke={STROKE} strokeWidth="1" />
-      <path d="M40 130 L60 110 L80 130 L100 110 L120 130" fill="none" stroke={ACCENT} strokeWidth="1" />
-      <path d="M200 130 L220 110 L240 130 L260 110 L280 130 L300 110 L320 130" fill="none" stroke={ACCENT} strokeWidth="1" />
+      <path d="M40 130 L60 110 L80 130 L100 110 L120 130" fill="none" stroke={STROKE} strokeWidth="1" />
+      <path d="M200 130 L220 110 L240 130 L260 110 L280 130 L300 110 L320 130" fill="none" stroke={STROKE} strokeWidth="1" />
       <rect x="140" y="60" width="20" height="40" fill="none" stroke={STROKE} strokeWidth="1" />
-      {/* Grey garage door — centre section */}
-      <rect x="128" y="148" width="64" height="52" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
-      <line x1="128" y1="161" x2="192" y2="161" stroke="rgba(255,255,255,0.25)" strokeWidth="0.75" />
-      <line x1="128" y1="174" x2="192" y2="174" stroke="rgba(255,255,255,0.25)" strokeWidth="0.75" />
-      <line x1="128" y1="187" x2="192" y2="187" stroke="rgba(255,255,255,0.25)" strokeWidth="0.75" />
+      {/* Orange garage door — centre section */}
+      <rect x="128" y="148" width="64" height="52" fill="none" stroke={ACCENT} strokeWidth="1.5" />
+      <line x1="128" y1="161" x2="192" y2="161" stroke={ACCENT} strokeWidth="0.75" />
+      <line x1="128" y1="174" x2="192" y2="174" stroke={ACCENT} strokeWidth="0.75" />
+      <line x1="128" y1="187" x2="192" y2="187" stroke={ACCENT} strokeWidth="0.75" />
       {/* Grey windows — left wing */}
       <rect x="52"  y="148" width="20" height="16" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
       <rect x="82"  y="148" width="20" height="16" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
@@ -486,7 +486,7 @@ export default function TravelingCube({
                     </div>
                     <div className="tc-face__content">
                       <h3 className="tc-face__title h-card">Virtuální Energetik</h3>
-                      <p className="tc-face__desc">{SLIDES[2].description}</p>
+                      <p className="tc-face__desc">Váš expert na energie, který neúnavně kontroluje, že vše ve vaší firmě funguje správně, hospodárně a efektivně. Hlídá spotřebu, smlouvy, investice i provozní rizika — 24 hodin denně, na datech, bez závislosti na jednom člověku.</p>
                       <button className="tc-face__cta">Vědět více</button>
                     </div>
                   </>
