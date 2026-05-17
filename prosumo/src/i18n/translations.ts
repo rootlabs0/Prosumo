@@ -20,7 +20,7 @@ export const translations = {
   hero: {
     headline1: { cs: 'Propojujeme', en: 'We Connect' } as Bilingual<string>,
     headline1b: { cs: 'Svět', en: 'The World' } as Bilingual<string>,
-    headline2: { cs: 'Energií.', en: 'Of Energy' } as Bilingual<string>,
+    headline2: { cs: 'Energií', en: 'Of Energy' } as Bilingual<string>,
     subline: {
       cs: 'Využijte sílu predikcí, diagnostiky a flexibility k dosažení vyšších výnosů a lepší návratnosti vašich energetických systémů.',
       en: 'Harness the power of forecasting, diagnostics and flexibility to increase returns and improve the performance of your energy systems.',
@@ -101,7 +101,7 @@ export const translations = {
         },
       ],
     } as Bilingual<{ label: string; title: string; description: string }[]>,
-    platformHeading: { cs: 'Naše řešení.', en: 'Our Solutions.' } as Bilingual<string>,
+    platformHeading: { cs: 'Naše řešení', en: 'Our Solutions' } as Bilingual<string>,
     platformBody: {
       cs: 'PROSUMO s.r.o. vyvíjí pokročilé algoritmy pro optimalizaci energetických toků a agregaci flexibility. Cloudová platforma PROSUMO vytváří zastřešující vrstvu pro EMS, RTU a MaR, kterým poskytujeme přesné predikce a optimalizační podklady, na jejichž základě řídí lokální energetiku. Naše technologie jsou stavěny na kombinaci hlubokých znalostí z oblasti energetiky, umělé inteligence a kybernetické bezpečnosti.',
       en: 'PROSUMO develops advanced algorithms for energy flow optimization and flexibility aggregation. The PROSUMO cloud platform provides an overarching layer for EMS, RTU, and MaR systems, offering precise forecasts and optimization data that guide their local energy management. Our technology combines deep energy expertise, artificial intelligence, and cybersecurity.',
