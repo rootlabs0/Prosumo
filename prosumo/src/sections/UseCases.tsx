@@ -20,14 +20,6 @@ export default function CTA() {
           <a href="#" className="btn btn--ghost">{T.btn2[lang]}</a>
         </div>
       </div>
-      <div className="cta__bars" aria-hidden="true">
-        <div className="cta__bar" style={{ height: '28vh' }} />
-        <div className="cta__bar" style={{ height: '44vh' }} />
-        <div className="cta__bar" style={{ height: '26vh' }} />
-        <div className="cta__bar" style={{ height: '38vh' }} />
-        <div className="cta__bar" style={{ height: '58vh' }} />
-        <div className="cta__bar" style={{ height: '18vh' }} />
-      </div>
     </section>
   )
 }
