@@ -290,3 +290,25 @@
     transition: none !important;
   }
 }
+
+/* ── Register --cube-ty for smooth CSS transition on mobile ── */
+@property --cube-ty {
+  syntax: '<length-percentage>';
+  initial-value: 0px;
+  inherits: false;
+}
+
+/* ── Mobile layout ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Cube peeks from bottom of viewport during hero; slides up on platform enter */
+  .tc-stage__wrap {
+    --cube-tx: 0vw;
+    --cube-ty: calc(50vh - 40px);
+    --cube-base: clamp(260px, 80vw, 340px);
+  }
+
+  /* Center cube once platform phase activates */
+  .tc-cube-layer--large .tc-stage__wrap {
+    --cube-ty: 0px;
+  }
+}

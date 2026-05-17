@@ -9,6 +9,7 @@ import logoWhite from '../../images/prosumo-white.webp'
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [dark, setDark] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
   const { lang, toggleLang } = useLang()
   const T = translations.nav
@@ -64,8 +65,16 @@ export default function Nav() {
     return () => ctx.revert()
   }, [])
 
+  // Close mobile menu on scroll
+  useEffect(() => {
+    if (!menuOpen) return
+    const close = () => setMenuOpen(false)
+    window.addEventListener('scroll', close, { once: true, passive: true })
+    return () => window.removeEventListener('scroll', close)
+  }, [menuOpen])
+
   return (
-    <header ref={headerRef} className={`nav${scrolled ? ' is-scrolled' : ''}${dark ? ' is-dark' : ''}`}>
+    <header ref={headerRef} className={`nav${scrolled ? ' is-scrolled' : ''}${dark ? ' is-dark' : ''}${menuOpen ? ' menu-open' : ''}`}>
       <div className="nav__inner container">
         <a href="#top" className="nav__brand">
           <img src={dark ? logoWhite : logoBlack} alt="Prosumo" className="nav__logo" />
@@ -84,7 +93,37 @@ export default function Nav() {
           {lang === 'cs' ? 'EN' : 'CZ'}
         </button>
         <a href="#cta" className="btn btn--solid nav__cta">{T.cta[lang]}</a>
+
+        {/* Hamburger — mobile only */}
+        <button
+          className={`nav__hamburger${menuOpen ? ' is-open' : ''}`}
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="nav-mobile-menu"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
+
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <div id="nav-mobile-menu" className="nav__mobile-menu">
+          <nav className="nav__mobile-links">
+            {T.links[lang].map(l => (
+              <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
+            ))}
+          </nav>
+          <div className="nav__mobile-bottom">
+            <button className="nav__lang-toggle" onClick={() => { toggleLang(); setMenuOpen(false) }} aria-label="Switch language">
+              {lang === 'cs' ? 'EN' : 'CZ'}
+            </button>
+            <a href="#cta" className="btn btn--solid nav__mobile-cta" onClick={() => setMenuOpen(false)}>{T.cta[lang]}</a>
+          </div>
+        </div>
+      )}
     </header>
   )
 }

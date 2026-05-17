@@ -1,5 +1,7 @@
 import './Platform.css'
 import { SLIDES } from '../components/TravelingCube'
+import { useLang } from '../context/LangContext'
+import { translations } from '../i18n/translations'
 
 /**
  * Platform section — provides the pinned scroll runway and side UI for the
@@ -16,6 +18,7 @@ export default function Industries({
   current: number
   onSelect: (index: number) => void
 }) {
+  const { lang } = useLang()
   const handleDotClick = (i: number) => {
     onSelect(i)
     const section = document.getElementById('industries')
@@ -30,15 +33,16 @@ export default function Industries({
   }
 
   return (
+    <>
     <section id="industries" className="cube-section">
       <div className="cube-wrapper">
-        {/* Left heading + description column */}
+        {/* Left heading + description column (desktop only) */}
         <div className="cube-label">
           <h2 className="h-section cube-label__title">
-            Naše <span className="cube-label__accent">řešení.</span>
+            {translations.platform.platformHeading[lang]}
           </h2>
           <p className="cube-bg-word">
-            PROSUMO s.r.o. vyvíjí pokročilé algoritmy pro optimalizaci energetických toků a agregaci flexibility. Cloudová platforma PROSUMO vytváří zastřešující vrstvu pro EMS, RTU a MaR, kterým poskytujeme přesné predikce a optimalizační podklady, na jejichž základě řídí lokální energetiku. Naše technologie jsou stavěny na kombinaci hlubokých znalostí z oblasti energetiky, umělé inteligence a kybernetické bezpečnosti.
+            {translations.platform.platformBody[lang]}
           </p>
         </div>
 
@@ -60,5 +64,16 @@ export default function Industries({
         </nav>
       </div>
     </section>
+
+    {/* Mobile-only: 'Naše řešení.' section appears below the cube scroll section */}
+    <section className="platform__mobile-header">
+      <h2 className="h-section cube-label__title">
+        {translations.platform.platformHeading[lang]}
+      </h2>
+      <p className="cube-bg-word">
+        {translations.platform.platformBody[lang]}
+      </p>
+    </section>
+    </>
   )
 }

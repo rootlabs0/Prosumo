@@ -368,6 +368,18 @@ export default function TravelingCube({
         )
         .fromTo(bg, { opacity: 0 }, { opacity: 1, ease: 'none' }, 0)
 
+      // Mobile: scrub cube from bottom-peek position to centre during Phase 2.
+      // scrub:1.2 already provides the "slower than scroll" lag naturally.
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        const startTyPx = window.innerHeight * 0.5 - 40
+        transitionTl.fromTo(
+          wrap,
+          { '--cube-ty': `${startTyPx}px` },
+          { '--cube-ty': '0px', ease: 'none' },
+          0,
+        )
+      }
+
       // ── Phase 3: state-tracking only — rotation driven by wheel/touch events ──
       ScrollTrigger.create({
         trigger: platformEl,

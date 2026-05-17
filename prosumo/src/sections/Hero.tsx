@@ -25,8 +25,7 @@ export default function Hero() {
         <div className="hero__text">
           <h1 className="h-display hero__headline">
             {T.headline1[lang]}<br />
-            {T.headline2[lang]}<br />
-            <span className="accent">{T.headline3[lang]}</span>
+            <span className="accent">{T.headline2[lang]}</span>
           </h1>
 
           <p className="hero__subline">{T.subline[lang]}</p>

@@ -7,12 +7,19 @@
 }
 
 .cta__inner {
-  max-width: 880px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
   position: relative;
   z-index: 1;
+}
+
+/* ── Left column ─────────────────────────────────────── */
+.cta__left {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
 .cta__title {
@@ -24,32 +31,128 @@
 
 .cta__sub {
   font-size: 1.0625rem;
-  max-width: 56ch;
-  margin-bottom: 8px;
+  max-width: 44ch;
 }
 
 .cta__buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 4px;
 }
 
 .cta__buttons .btn--solid {
-  background: var(--orange-primary, #ff5522);
+  background: var(--accent, #ff5522);
   color: #ffffff;
-  border-color: var(--orange-primary, #ff5522);
+  border: none;
 }
 
 .cta__buttons .btn--solid:hover {
   background: #e64508;
-  border-color: #e64508;
 }
 
-.cta__fineprint {
-  font-size: 12px;
-  letter-spacing: 0.14em;
+/* ── Contact card ────────────────────────────────────── */
+.cta__contact-card {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: box-shadow 0.3s ease, transform 0.1s ease-out;
+}
+
+.cta__contact-card.tilt {
+  box-shadow: 0 20px 60px rgba(255, 85, 34, 0.2);
+}
+
+.cta__card-avatar {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.cta__card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.cta__card-kicker {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: #ff5522;
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.cta__card-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.cta__card-bio {
+  font-size: 0.875rem;
+  color: #8a8f98;
+  line-height: 1.65;
+  margin-bottom: 18px;
+  max-width: 50ch;
+}
+
+.cta__card-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cta__contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  font-size: 0.8125rem;
   font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  transition: border-color 0.18s ease, background 0.18s ease;
+  white-space: nowrap;
+}
+
+.cta__contact-pill:hover {
+  border-color: #ff5522;
+  background: rgba(255, 85, 34, 0.1);
+}
+
+.cta__contact-pill svg {
+  color: #ff5522;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 860px) {
+  .cta__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .cta__contact-card {
+    max-width: 540px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta__contact-card {
+    flex-direction: column;
+  }
 }
