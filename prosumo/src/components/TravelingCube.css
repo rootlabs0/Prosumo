@@ -102,6 +102,7 @@
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
   overflow: hidden;
   transition: border-color 0.45s ease, box-shadow 0.5s ease;
+  container-type: size;
 }
 
 .tc-face.is-active {
@@ -146,7 +147,7 @@
 }
 
 .tc-face__ve-heading {
-  font-size: clamp(2.1rem, 4.8vw, 3rem);
+  font-size: clamp(2.1rem, 4.8cqw, 3rem);
   font-weight: 800;
   line-height: 1.05;
   color: #fff;
@@ -154,7 +155,7 @@
 }
 
 .tc-face__ve-desc {
-  font-size: clamp(1.08rem, 1.8vw, 1.23rem);
+  font-size: clamp(1.08rem, 1.8cqw, 1.23rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 400;
@@ -190,7 +191,7 @@
 }
 
 .tc-face__ve-stat-value {
-  font-size: clamp(2.1rem, 4.5vw, 2.85rem);
+  font-size: clamp(2.1rem, 4.5cqw, 2.85rem);
   font-weight: 800;
   color: #fff;
   line-height: 1;
@@ -198,7 +199,7 @@
 }
 
 .tc-face__ve-stat-label {
-  font-size: clamp(0.975rem, 1.65vw, 1.125rem);
+  font-size: clamp(0.975rem, 1.65cqw, 1.125rem);
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.4;
   margin-top: 3px;
@@ -241,14 +242,14 @@
 
 .tc-face__title {
   color: #fff;
-  font-size: clamp(1.5rem, 3.3vw, 1.8rem);
+  font-size: clamp(1.5rem, 3.3cqw, 1.8rem);
   font-weight: 600;
   line-height: 1.25;
   margin-bottom: 6px;
 }
 
 .tc-face__desc {
-  font-size: clamp(1.17rem, 1.95vw, 1.32rem);
+  font-size: clamp(1.17rem, 1.95cqw, 1.32rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 300;

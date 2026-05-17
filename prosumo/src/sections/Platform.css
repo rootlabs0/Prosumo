@@ -22,10 +22,11 @@
   z-index: 10; /* must exceed tc-stage's z-index: 5 so heading/dots paint above the fixed overlay */
 }
 
-/* Left heading column — top-left of the sticky viewport */
+/* Left heading column — vertically centered in the sticky viewport */
 .cube-label {
   position: absolute;
-  top: clamp(72px, 10vh, 110px);
+  top: 50%;
+  transform: translateY(-50%);
   left: clamp(24px, 4vw, 80px);
   display: flex;
   flex-direction: column;
@@ -39,9 +40,9 @@
   opacity: 1;
 }
 
-/* Override .h-section size — 30 % larger than the global clamp */
+/* Single-line heading — sized to fit "Co děláme?" on one line */
 .cube-label__title.h-section {
-  font-size: clamp(5.28rem, 4.576vw, 3.9rem);
+  font-size: clamp(3.4rem, 4.2vw, 5rem);
 }
 
 .cube-label .eyebrow {
@@ -51,7 +52,7 @@
 .cube-label__title {
   color: #fff;
   line-height: 1.0;
-  font-weight: 300 !important;
+  font-weight: 400 !important;
 }
 
 .cube-label__accent {
@@ -111,14 +112,14 @@
   white-space: normal;
   word-break: break-word;
   font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-  font-size: clamp(0.875rem, 1.54vw, 1.47rem);
+  font-size: clamp(0.82rem, 1.25vw, 1.15rem);
   line-height: 1.65;
   font-weight: 400;
   letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.45);
   pointer-events: none;
   user-select: none;
-  max-width: 100%;
+  max-width: 72%;
 }
 
 @keyframes cube-word-in {

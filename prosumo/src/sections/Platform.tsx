@@ -35,8 +35,7 @@ export default function Industries({
         {/* Left heading + description column */}
         <div className="cube-label">
           <h2 className="h-section cube-label__title">
-            Co<br />
-            <span className="cube-label__accent">děláme?</span>
+            Co <span className="cube-label__accent">děláme?</span>
           </h2>
           <p className="cube-bg-word">
             PROSUMO s.r.o. vyvíjí pokročilé algoritmy pro optimalizaci energetických toků a agregaci flexibility. Cloudová platforma PROSUMO vytváří zastřešující vrstvu pro EMS, RTU a MaR, kterým poskytujeme přesné predikce a optimalizační podklady, na jejichž základě řídí lokální energetiku. Naše technologie jsou stavěny na kombinaci hlubokých znalostí z oblasti energetiky, umělé inteligence a kybernetické bezpečnosti.
