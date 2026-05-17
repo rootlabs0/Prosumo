@@ -20,8 +20,9 @@ export const translations = {
   },
 
   hero: {
-    headline1: { cs: 'Propojujeme svět', en: 'Connecting the world' } as Bilingual<string>,
-    headline2: { cs: 'Energií.', en: 'of Energy.' } as Bilingual<string>,
+    headline1: { cs: 'Propojujeme', en: 'We connect' } as Bilingual<string>,
+    headline2: { cs: 'Svět', en: 'the world' } as Bilingual<string>,
+    headline3: { cs: 'Energií.', en: 'of energy.' } as Bilingual<string>,
     subline: {
       cs: 'Využijte sílu predikcí, diagnostiky a flexibility k dosažení vyšších výnosů a lepší návratnosti vašich energetických systémů.',
       en: 'Harness the power of forecasting, diagnostics and flexibility to increase returns and improve the performance of your energy systems.',
@@ -183,8 +184,8 @@ export const translations = {
 
   architecture: {
     eyebrow: { cs: 'Architektura', en: 'Architecture' } as Bilingual<string>,
-    heading1: { cs: 'Jak se', en: 'How to' } as Bilingual<string>,
-    heading2: { cs: 'připojit', en: 'connect' } as Bilingual<string>,
+    heading1: { cs: 'Architektura', en: 'Architecture' } as Bilingual<string>,
+    heading2: { cs: '', en: '' } as Bilingual<string>,
     body1: {
       cs: 'Cloudová platforma PROSUMO.cloud se připojuje k odběrným místům prostřednictvím dvou typů rozhraní. Tam, kde zákazník provozuje EMS EnergoStation, je MQTT gateway i řídicí logika integrována přímo v tomto systému a odběrné místo se napojuje na cloud bez dalšího hardwaru. U ostatních odběrných míst — s libovolnou RTU, EMS nebo MaR — slouží jako datový most zařízení ProsumoBox, které komunikuje s lokálním řídicím systémem přes Modbus TCP a s cloudem přes MQTT/HTTPS.',
       en: 'The PROSUMO.cloud platform connects to consumption sites through two types of interfaces. Where the customer operates EMS EnergoStation, the MQTT gateway and control logic are integrated directly within that system, and the site connects to the cloud without additional hardware. At other sites — with any RTU, EMS or SCADA — the ProsumoBox device serves as a data bridge, communicating with the local control system via Modbus TCP and with the cloud via MQTT/HTTPS.',

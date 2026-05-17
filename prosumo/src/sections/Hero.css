@@ -80,14 +80,15 @@
   color: #ffffff;
 }
 
-.hero__cta .btn--solid:hover { background: #e61e1e; }
+.hero__cta .btn--solid:hover { background: #ff5522; }
 
 .hero__cta .btn--ghost {
-  color: #111111;
-  border-color: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  background: transparent;
+  border-color: #ffffff;
 }
 
-.hero__cta .btn--ghost:hover { border-color: #111111; }
+.hero__cta .btn--ghost:hover { border-color: rgba(255,255,255,0.6); color: rgba(255,255,255,0.6); }
 
 /* ── Hero cube anchor (layout placeholder) ──────────── */
 /* Empty spacer that reserves the right-column slot where the TravelingCube

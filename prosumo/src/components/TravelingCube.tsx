@@ -7,55 +7,154 @@ gsap.registerPlugin(ScrollTrigger)
 
 const STROKE = 'rgba(255,255,255,0.85)'
 const FAINT = 'rgba(255,255,255,0.22)'
+const ACCENT = '#ff5522'
 
 function FactorySVG() {
   return (
     <svg viewBox="0 0 360 240" role="img" aria-label="Factory cross-section">
       <line x1="20" y1="200" x2="340" y2="200" stroke={STROKE} strokeWidth="1" />
       <path d="M40 200 L40 130 L120 130 L120 100 L200 100 L200 130 L320 130 L320 200 Z" fill="none" stroke={STROKE} strokeWidth="1" />
-      <path d="M40 130 L60 110 L80 130 L100 110 L120 130" fill="none" stroke={STROKE} strokeWidth="1" />
-      <path d="M200 130 L220 110 L240 130 L260 110 L280 130 L300 110 L320 130" fill="none" stroke={STROKE} strokeWidth="1" />
+      <path d="M40 130 L60 110 L80 130 L100 110 L120 130" fill="none" stroke={ACCENT} strokeWidth="1" />
+      <path d="M200 130 L220 110 L240 130 L260 110 L280 130 L300 110 L320 130" fill="none" stroke={ACCENT} strokeWidth="1" />
       <rect x="140" y="60" width="20" height="40" fill="none" stroke={STROKE} strokeWidth="1" />
-      <circle cx="80" cy="190" r="3" fill="none" stroke={STROKE} strokeWidth="1" />
-      <circle cx="160" cy="190" r="3" fill="none" stroke={STROKE} strokeWidth="1" />
-      <circle cx="240" cy="190" r="3" fill="none" stroke={STROKE} strokeWidth="1" />
+      {/* Grey garage door — centre section */}
+      <rect x="128" y="148" width="64" height="52" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+      <line x1="128" y1="161" x2="192" y2="161" stroke="rgba(255,255,255,0.25)" strokeWidth="0.75" />
+      <line x1="128" y1="174" x2="192" y2="174" stroke="rgba(255,255,255,0.25)" strokeWidth="0.75" />
+      <line x1="128" y1="187" x2="192" y2="187" stroke="rgba(255,255,255,0.25)" strokeWidth="0.75" />
+      {/* Grey windows — left wing */}
+      <rect x="52"  y="148" width="20" height="16" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+      <rect x="82"  y="148" width="20" height="16" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+      {/* Grey windows — right wing */}
+      <rect x="214" y="148" width="20" height="16" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+      <rect x="248" y="148" width="20" height="16" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+      <rect x="282" y="148" width="20" height="16" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
     </svg>
   )
 }
 
 function CRESVG() {
   return (
-    <svg viewBox="0 0 360 240" role="img" aria-label="Office building cross-section">
+    <svg viewBox="0 0 360 240" role="img" aria-label="Energy optimisation graph">
+      {/* Horizontal grid */}
+      <line x1="50" y1="60"  x2="320" y2="60"  stroke={FAINT} strokeWidth="0.75" />
+      <line x1="50" y1="100" x2="320" y2="100" stroke={FAINT} strokeWidth="0.75" />
+      <line x1="50" y1="140" x2="320" y2="140" stroke={FAINT} strokeWidth="0.75" />
+      <line x1="50" y1="180" x2="320" y2="180" stroke={FAINT} strokeWidth="0.75" />
+      {/* Axes */}
+      <line x1="60" y1="30" x2="60" y2="205" stroke={STROKE} strokeWidth="1" />
+      <line x1="55" y1="200" x2="325" y2="200" stroke={STROKE} strokeWidth="1" />
+      {/* Consumption curve */}
+      <path
+        d="M60,170 C90,150 115,158 140,138 C165,118 190,88 220,82 C250,76 280,110 310,98"
+        fill="none" stroke={STROKE} strokeWidth="1.5"
+      />
+      {/* Optimised forecast — dashed accent */}
+      <path
+        d="M60,170 C92,148 116,152 140,130 C164,108 192,80 220,75 C248,70 282,105 310,92"
+        fill="none" stroke="#ff5522" strokeWidth="1" strokeDasharray="5 3"
+      />
+      {/* Node dots on consumption curve */}
+      <circle cx="140" cy="138" r="3.5" fill="none" stroke={STROKE} strokeWidth="1" />
+      <circle cx="220" cy="82"  r="3.5" fill="none" stroke={STROKE} strokeWidth="1" />
+      <circle cx="310" cy="98"  r="3.5" fill="none" stroke={STROKE} strokeWidth="1" />
+    </svg>
+  )
+}
+
+
+
+function FVESolarSVG() {
+  const panel = (x: number, y: number, color: string) => (
+    <>
+      <rect x={x} y={y} width="165" height="270" fill="none" stroke={color} strokeWidth="1.5" />
+      <line x1={x+55}  y1={y}    x2={x+55}  y2={y+270} stroke={FAINT} strokeWidth="1" />
+      <line x1={x+110} y1={y}    x2={x+110} y2={y+270} stroke={FAINT} strokeWidth="1" />
+      <line x1={x}     y1={y+68}  x2={x+165} y2={y+68}  stroke={FAINT} strokeWidth="1" />
+      <line x1={x}     y1={y+135} x2={x+165} y2={y+135} stroke={FAINT} strokeWidth="1" />
+      <line x1={x}     y1={y+202} x2={x+165} y2={y+202} stroke={FAINT} strokeWidth="1" />
+    </>
+  )
+  return (
+    <svg viewBox="0 0 800 600" role="img" aria-label="Solar panels">
+      <g transform="rotate(-45 400 300)">
+        {/* Row 1 */}
+        {panel(110, 60,  STROKE)}
+        {panel(295, 60,  ACCENT)}
+        {panel(480, 60,  STROKE)}
+        {/* Row 2 */}
+        {panel(110, 350, STROKE)}
+        {panel(295, 350, STROKE)}
+      </g>
+    </svg>
+  )
+}
+
+function EnergCommunitySVG() {
+  return (
+    <svg viewBox="0 0 360 240" role="img" aria-label="Energy community buildings">
       <line x1="20" y1="220" x2="340" y2="220" stroke={STROKE} strokeWidth="1" />
-      <rect x="120" y="40" width="120" height="180" fill="none" stroke={STROKE} strokeWidth="1" />
+      <rect x="120" y="40" width="120" height="180" fill="none" stroke={ACCENT} strokeWidth="1" />
       {Array.from({ length: 8 }).map((_, i) => (
         <line key={i} x1="120" y1={60 + i * 20} x2="240" y2={60 + i * 20} stroke={FAINT} strokeWidth="0.75" />
       ))}
       <rect x="60" y="140" width="60" height="80" fill="none" stroke={STROKE} strokeWidth="1" />
+      <line x1="120" y1="140" x2="120" y2="220" stroke={ACCENT} strokeWidth="1" />
       <rect x="240" y="120" width="60" height="100" fill="none" stroke={STROKE} strokeWidth="1" />
-      <rect x="150" y="28" width="60" height="12" fill="none" stroke={STROKE} strokeWidth="1" />
+      <line x1="240" y1="120" x2="240" y2="220" stroke={ACCENT} strokeWidth="1" />
     </svg>
   )
 }
 
 function DataCenterSVG() {
   return (
-    <svg viewBox="0 0 360 240" role="img" aria-label="Server rack isometric">
-      <path d="M60 200 L180 240 L300 200 L180 160 Z" fill="none" stroke={FAINT} strokeWidth="1" />
-      <path d="M110 180 L160 200 L160 110 L110 90 Z" fill="none" stroke={STROKE} strokeWidth="1" />
-      <path d="M110 90 L160 110 L210 90 L160 70 Z" fill="none" stroke={STROKE} strokeWidth="1" />
-      <path d="M210 90 L210 180 L160 200 L160 110 Z" fill="none" stroke={STROKE} strokeWidth="1" />
-      <path d="M100 80 L100 60 L260 60 L260 80" fill="none" stroke="#ff5522" strokeWidth="0.75" strokeDasharray="3 3" />
-      <circle cx="180" cy="60" r="2.5" fill="#ff5522" />
+    <svg viewBox="0 0 360 240" role="img" aria-label="Village silhouette">
+      {/* Ground line */}
+      <line x1="30" y1="200" x2="330" y2="200" stroke={STROKE} strokeWidth="1.5" strokeLinecap="round" />
+
+      {/* Far-left small house */}
+      <rect x="38" y="162" width="44" height="38" fill={STROKE} rx="1" />
+      <polygon points="38,162 60,140 82,162" fill={STROKE} />
+      {/* door */}
+      <rect x="51" y="178" width="18" height="22" fill="#161616" rx="9" />
+
+      {/* Left-mid house */}
+      <rect x="90" y="148" width="54" height="52" fill={STROKE} rx="1" />
+      <polygon points="90,148 117,122 144,148" fill={STROKE} />
+      {/* door */}
+      <rect x="104" y="166" width="26" height="34" fill="#161616" rx="13" />
+
+      {/* Centre tall house */}
+      <rect x="148" y="110" width="64" height="90" fill={STROKE} rx="1" />
+      <polygon points="148,110 180,72 212,110" fill={STROKE} />
+      {/* chimney */}
+      <rect x="194" y="78" width="10" height="22" fill={STROKE} />
+      {/* windows */}
+      <rect x="161" y="125" width="16" height="18" fill="#161616" rx="2" />
+      <rect x="183" y="125" width="16" height="18" fill="#161616" rx="2" />
+      {/* door */}
+      <rect x="166" y="162" width="28" height="38" fill="#161616" rx="14" />
+
+      {/* Right-mid house */}
+      <rect x="216" y="148" width="54" height="52" fill={STROKE} rx="1" />
+      <polygon points="216,148 243,122 270,148" fill={STROKE} />
+      {/* door */}
+      <rect x="230" y="166" width="26" height="34" fill="#161616" rx="13" />
+
+      {/* Far-right small house */}
+      <rect x="278" y="162" width="44" height="38" fill={STROKE} rx="1" />
+      <polygon points="278,162 300,140 322,162" fill={STROKE} />
+      {/* door */}
+      <rect x="291" y="178" width="18" height="22" fill="#161616" rx="9" />
     </svg>
   )
 }
 
 const SLIDES = [
-  { id: 'manufacturing', number: '01', label: 'Flexibilita', title: 'Poskytování flexibility', description: 'Prosumo optimalizuje spotřebu energie na výrobních linkách, kompresorech a klimatizaci — snižuje náklady na elektřinu bez dopadu na výrobu.', Svg: FactorySVG },
+  { id: 'manufacturing', number: '01', label: 'Flexibilita', title: 'Poskytování flexibility', description: 'Vypočítáme objem dostupné regulační energie na odběrném místě a provedeme její ocenění. Zároveň propojíme odběrné místo vybavené RTU, EMS nebo MaR s agregátorem/obchodníkem a tím umožníme získat další příjem pro zákazníka.', Svg: FactorySVG },
   { id: 've', number: '', label: '', title: '', description: '', Svg: () => null },
-  { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby a AI diagnostika', description: 'Od kancelářských věží po obchodní komplexy, Prosumo rozvrhuje zátěže budov dle cen SPOT a přináší měřitelné úspory na každém účtu za energii.', Svg: CRESVG },
-  { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', description: 'Prosumo poskytuje prediktivní řízení potřebné pro provoz hyperscale a kolokačních datových center na maximální efektivitu — s plným přehledem o PUE, zátěži a tarifu.', Svg: DataCenterSVG },
+  { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby a AI diagnostika', description: 'Meteorologické modely doplňujeme o data z přesných lokálních snímačů a tím získáváme přesnějších předpověď výroby FVE. Porovnáním modelů a skutečné výroby dokážeme diagnostikovat problém až na úrovni stringu.', Svg: FVESolarSVG },
+  { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', description: 'Prosumo cloud poskytuje informace ohledně dostupné energie v energetické komunitě, čímž umožnuje tuto energií v rámci komunity efektivně využít.', Svg: EnergCommunitySVG },
 ]
 
 export { SLIDES }
@@ -253,33 +352,18 @@ export default function TravelingCube({
             {SLIDES.map((slide, i) => (
               <div key={slide.id} className={`tc-face tc-face--${i + 1}`}>
                 {i === 1 ? (
-                  // Face 2 — orange VirtualniEnergetik panel
-                  <div className="tc-face__ve">
-                    <div className="tc-face__ve-left">
-                      <p className="tc-face__ve-eyebrow">Náš přístup</p>
-                      <h3 className="tc-face__ve-heading">Virtuální<br />energetik</h3>
-                      <p className="tc-face__ve-desc">
-                        Vypočítáváme dostupnou flexibilitu na každém odběrném místě,
-                        oceníme ji a propojíme operátory přímo s agregátory —
-                        přeměňujeme volatilitu sítě na příležitost k výnosu.
-                      </p>
-                      <a href="#cta" className="tc-face__ve-cta">Zjistit více →</a>
+                  // Face 2 — Virtuální Energetik
+                  <>
+                    <div className="tc-face__art">
+                      <CRESVG />
                     </div>
-                    <div className="tc-face__ve-right">
-                      <div className="tc-face__ve-stat">
-                        <p className="tc-face__ve-stat-value">38%</p>
-                        <p className="tc-face__ve-stat-label">průměrná úspora nákladů na elektřinu</p>
-                      </div>
-                      <div className="tc-face__ve-stat">
-                        <p className="tc-face__ve-stat-value">2&thinsp;400+</p>
-                        <p className="tc-face__ve-stat-label">nasazených odběrných míst</p>
-                      </div>
-                      <div className="tc-face__ve-stat">
-                        <p className="tc-face__ve-stat-value">&lt;15 min</p>
-                        <p className="tc-face__ve-stat-label">od zapojení k první aktivní flexibilitě</p>
-                      </div>
+                    <div className="tc-face__content">
+                      <p className="tc-face__number eyebrow">{SLIDES[2].number} / 03</p>
+
+                      <h3 className="tc-face__title h-card">Virtuální Energetik</h3>
+                      <p className="tc-face__desc">{SLIDES[2].description}</p>
                     </div>
-                  </div>
+                  </>
                 ) : (
                   <>
                     <div className="tc-face__art">
@@ -287,7 +371,7 @@ export default function TravelingCube({
                     </div>
                     <div className="tc-face__content">
                       <p className="tc-face__number eyebrow">{slide.number} / 03</p>
-                      <p className="tc-face__label eyebrow">{slide.label}</p>
+
                       <h3 className="tc-face__title h-card">{slide.title}</h3>
                       <p className="tc-face__desc">{slide.description}</p>
                     </div>

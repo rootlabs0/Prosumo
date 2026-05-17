@@ -222,7 +222,7 @@
 }
 
 .tc-face__content {
-  padding: clamp(20px, 3vw, 32px);
+  padding: clamp(8px, 1.5vw, 16px) clamp(20px, 3vw, 32px) clamp(20px, 3vw, 32px);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -242,9 +242,9 @@
 
 .tc-face__title {
   color: #fff;
-  font-size: clamp(1.5rem, 3.3cqw, 1.8rem);
+  font-size: clamp(2rem, 13.2cqw, 2.2rem) !important;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.15;
   margin-bottom: 6px;
 }
 

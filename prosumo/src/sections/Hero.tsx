@@ -24,9 +24,9 @@ export default function Hero() {
       <div ref={innerRef} className="hero__inner container">
         <div className="hero__text">
           <h1 className="h-display hero__headline">
-            Propojujeme<br />
-            Svět<br />
-            <span className="accent">Energií.</span>
+            {T.headline1[lang]}<br />
+            {T.headline2[lang]}<br />
+            <span className="accent">{T.headline3[lang]}</span>
           </h1>
 
           <p className="hero__subline">{T.subline[lang]}</p>
