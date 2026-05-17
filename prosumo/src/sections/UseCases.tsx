@@ -63,12 +63,12 @@ export default function CTA() {
             <h3 className="cta__card-name">Zdeněk Zatloukal</h3>
             <p className="cta__card-bio">{T.contactCard.bio[lang]}</p>
             <div className="cta__card-contacts">
-              <a href="mailto:zdenek.zatloukal@prosumo.cz" className="cta__contact-pill">
+              <a href="mailto:zdenek.zatloukal@prosumo.eu" className="cta__contact-pill">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.2"/>
                   <path d="M1 4.5L7 8.5L13 4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                zdenek.zatloukal@prosumo.cz
+                zdenek.zatloukal@prosumo.eu
               </a>
               <a href="tel:+420722774041" className="cta__contact-pill">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

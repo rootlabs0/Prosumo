@@ -10,6 +10,9 @@
 
 .architecture__heading {
   margin-bottom: 56px;
+  font-size: clamp(5rem, 7.2vw, 8.4rem);
+  font-weight: 400;
+  line-height: 1.0;
 }
 
 .architecture__accent {

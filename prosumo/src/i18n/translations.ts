@@ -188,8 +188,8 @@ export const translations = {
 
   architecture: {
     eyebrow: { cs: 'Architektura', en: 'Architecture' } as Bilingual<string>,
-    heading1: { cs: 'Jak se', en: 'How to' } as Bilingual<string>,
-    heading2: { cs: 'připojit', en: 'connect' } as Bilingual<string>,
+    heading1: { cs: 'Architektura', en: 'Architecture' } as Bilingual<string>,
+    heading2: { cs: '', en: '' } as Bilingual<string>,
     body1: {
       cs: 'Cloudová platforma PROSUMO.cloud se připojuje k odběrným místům prostřednictvím dvou typů rozhraní. Tam, kde zákazník provozuje EMS EnergoStation, je MQTT gateway i řídicí logika integrována přímo v tomto systému a odběrné místo se napojuje na cloud bez dalšího hardwaru. U ostatních odběrných míst — s libovolnou RTU, EMS nebo MaR — slouží jako datový most zařízení ProsumoBox, které komunikuje s lokálním řídicím systémem přes Modbus TCP a s cloudem přes MQTT/HTTPS.',
       en: 'The PROSUMO.cloud platform connects to consumption sites through two types of interfaces. Where the customer operates EMS EnergoStation, the MQTT gateway and control logic are integrated directly within that system, and the site connects to the cloud without additional hardware. At other sites — with any RTU, EMS or SCADA — the ProsumoBox device serves as a data bridge, communicating with the local control system via Modbus TCP and with the cloud via MQTT/HTTPS.',
@@ -201,11 +201,11 @@ export const translations = {
   },
 
   cta: {
-    heading1: { cs: 'Řekněte nám více', en: 'Tell us more' } as Bilingual<string>,
-    heading2: { cs: 'o vašem projektu.', en: 'about your project.' } as Bilingual<string>,
+    heading1: { cs: 'Spojte se', en: 'Connect' } as Bilingual<string>,
+    heading2: { cs: 's námi.', en: 'with us.' } as Bilingual<string>,
     sub: {
-      cs: 'Domluvte si bezplatnou konzultaci. Projdeme vaši infrastrukturu a navrhneme plán nasazení přesně na míru.',
-      en: "Book a free consultation. We'll review your infrastructure and design a deployment plan tailored to your needs.",
+      cs: 'Pokud potřebujete propojit váš systém s agregátorem, navrhnout energetický plán pro váš projekt nebo kontinuálně monitorovat a optimalizovat vaši energetiku.',
+      en: "If you need to connect your system to an aggregator, design an energy plan for your project, or continuously monitor and optimize your energy usage.",
     } as Bilingual<string>,
     btn1: { cs: 'Kontaktujte nás', en: 'Request Demo' } as Bilingual<string>,
     btn2: { cs: 'Stáhnout přehled', en: 'Download Datasheet' } as Bilingual<string>,

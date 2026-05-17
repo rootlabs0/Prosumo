@@ -10,9 +10,8 @@ export default function Architecture() {
   return (
     <section id="architektura" className="section section--light architecture">
       <div className="container">
-        <p className="eyebrow architecture__eyebrow">{T.eyebrow[lang]}</p>
         <h2 className="h-section architecture__heading">
-          {T.heading1[lang]} <span className="architecture__accent">{T.heading2[lang]}</span>
+          {T.heading1[lang]}
         </h2>
 
         <div className="architecture__layout">

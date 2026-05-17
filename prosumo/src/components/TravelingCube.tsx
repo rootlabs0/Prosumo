@@ -154,7 +154,7 @@ function DataCenterSVG() {
 const SLIDES = [
   { id: 'manufacturing', number: '01', label: 'Flexibilita', title: 'Poskytování flexibility', description: 'Vypočítáme objem dostupné regulační energie na odběrném místě a provedeme její ocenění. Zároveň propojíme odběrné místo vybavené RTU, EMS nebo MaR s agregátorem/obchodníkem a tím umožníme získat další příjem pro zákazníka.', Svg: FactorySVG },
   { id: 've', number: '', label: '', title: '', description: '', Svg: () => null },
-  { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby a AI diagnostika', description: 'Meteorologické modely doplňujeme o data z přesných lokálních snímačů a tím získáváme přesnějších předpověď výroby FVE. Porovnáním modelů a skutečné výroby dokážeme diagnostikovat problém až na úrovni stringu.', Svg: FVESolarSVG },
+  { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby FVE & AI diagnostika', description: 'Meteorologické modely doplňujeme o data z přesných lokálních snímačů a tím získáváme přesnějších předpověď výroby FVE. Porovnáním modelů a skutečné výroby dokážeme diagnostikovat problém až na úrovni stringu.', Svg: FVESolarSVG },
   { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', description: 'Prosumo cloud poskytuje informace ohledně dostupné energie v energetické komunitě, čímž umožnuje tuto energií v rámci komunity efektivně využít.', Svg: EnergCommunitySVG },
 ]
 
