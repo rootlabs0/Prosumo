@@ -81,10 +81,10 @@ function FVESolarSVG() {
         {/* Row 1 */}
         {panel(110, 60,  STROKE)}
         {panel(295, 60,  ACCENT)}
-        {panel(480, 60,  STROKE)}
         {/* Row 2 */}
         {panel(110, 350, STROKE)}
         {panel(295, 350, STROKE)}
+        {panel(480, 350, STROKE)}
       </g>
     </svg>
   )
@@ -187,6 +187,7 @@ export default function TravelingCube({
   const isAnimating3Ref = useRef(false)
   const isActive3Ref = useRef(false)
   const [visible, setVisible] = useState(true)
+  const [isLarge, setIsLarge] = useState(false)
 
   useEffect(() => {
     let touchStartY = 0
@@ -379,15 +380,19 @@ export default function TravelingCube({
           faceIndexRef.current = 0
           isActive3Ref.current = true
           onCurrentChange(0)
+          setIsLarge(true)
         },
         onLeave: () => {
           isActive3Ref.current = false
+          setIsLarge(false)
         },
         onEnterBack: () => {
           isActive3Ref.current = true
+          setIsLarge(true)
         },
         onLeaveBack: () => {
           isActive3Ref.current = false
+          setIsLarge(false)
           gsap.set(cube, { rotateX: 0, rotateY: 0, rotateZ: 0 })
           // Do NOT restart idle here — Phase 2 onEnterBack already paused it and
           // Phase 2 onLeaveBack will restart it cleanly once the scrub completes.
@@ -453,7 +458,7 @@ export default function TravelingCube({
       </div>
 
       {/* Cube layer — z-index 7, above the ghost word */}
-      <div ref={cubeLayerRef} className={`tc-cube-layer${!visible ? ' is-hidden' : ''}`} aria-hidden="true">
+      <div ref={cubeLayerRef} className={`tc-cube-layer${!visible ? ' is-hidden' : ''}${isLarge ? ' tc-cube-layer--large' : ''}`} aria-hidden="true">
       <div ref={wrapRef} className="tc-stage__wrap">
         {/* Radial glow bloom behind the cube */}
         <div className="tc-stage__glow" />
@@ -468,10 +473,9 @@ export default function TravelingCube({
                       <CRESVG />
                     </div>
                     <div className="tc-face__content">
-                      <p className="tc-face__number eyebrow">{SLIDES[2].number} / 03</p>
-
                       <h3 className="tc-face__title h-card">Virtuální Energetik</h3>
                       <p className="tc-face__desc">{SLIDES[2].description}</p>
+                      <button className="tc-face__cta">Vědět více</button>
                     </div>
                   </>
                 ) : (
@@ -480,10 +484,9 @@ export default function TravelingCube({
                       <slide.Svg />
                     </div>
                     <div className="tc-face__content">
-                      <p className="tc-face__number eyebrow">{slide.number} / 03</p>
-
                       <h3 className="tc-face__title h-card">{slide.title}</h3>
                       <p className="tc-face__desc">{slide.description}</p>
+                      <button className="tc-face__cta">Vědět více</button>
                     </div>
                   </>
                 )}

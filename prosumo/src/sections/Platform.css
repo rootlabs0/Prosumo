@@ -97,7 +97,7 @@
 
 .cube-nav__dot.is-active {
   background: #ff5522;
-  transform: scale(1.3);
+  transform: scale(1.5);
 }
 
 .cube-nav__dot:focus-visible {

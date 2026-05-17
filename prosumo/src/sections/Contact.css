@@ -1,6 +1,5 @@
 .footer {
   background: var(--bg);
-  border-top: 1px solid var(--border);
   padding-top: 64px;
   padding-bottom: 32px;
   position: relative;
@@ -12,6 +11,8 @@
   grid-template-columns: 1fr;
   gap: 64px;
   padding-bottom: 56px;
+  border-top: 1px solid var(--border);
+  padding-top: 64px;
 }
 
 .footer__wordmark {

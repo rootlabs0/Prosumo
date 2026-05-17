@@ -23,16 +23,21 @@ export default function Footer() {
             </div>
             <div className="footer__section">
               <p className="footer__label">{T.phone[lang]}</p>
-              <p className="footer__text"><a href="tel:+420417631390">+420 417 631 390</a></p>
+              <p className="footer__text"><a href="tel:+420417631390">+420 722 774 041</a></p>
             </div>
+            <div className="footer__section"></div>
             <div className="footer__section">
               <p className="footer__label">{T.email[lang]}</p>
-              <p className="footer__text"><a href="mailto:prosumo@prosumo.cz">prosumo@prosumo.cz</a></p>
+              <p className="footer__text"><a href="mailto:prosumo@prosumo.eu">prosumo@prosumo.eu</a></p>
             </div>
             <div className="footer__section">
               <p className="footer__text">IČO: 09608192</p>
               <p className="footer__text">DIČ: CZ09608192</p>
               <p className="footer__text">{T.registerRef[lang]}<br />{T.courtRef[lang]}</p>
+            </div>
+            <div className="footer__section">
+              <p className="footer__label">LinkedIn</p>
+              <p className="footer__text"><a href="https://www.linkedin.com/company/prosumo" target="_blank" rel="noopener noreferrer">Prosumo s.r.o.</a></p>
             </div>
           </div>
         </div>

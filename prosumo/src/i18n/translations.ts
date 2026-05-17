@@ -6,17 +6,15 @@ export const translations = {
   nav: {
     links: {
       cs: [
-        { label: 'Platforma', href: '#industries' },
-        { label: 'Služby', href: '#services' },
-        { label: 'O nás', href: '#cta' },
+        { label: 'Produkty', href: '#industries' },
+        { label: 'Obchod', href: '#services' },
       ],
       en: [
-        { label: 'Platform', href: '#industries' },
-        { label: 'Services', href: '#services' },
-        { label: 'About', href: '#cta' },
+        { label: 'Products', href: '#industries' },
+        { label: 'Shop', href: '#services' },
       ],
     } as Bilingual<{ label: string; href: string }[]>,
-    cta: { cs: 'Kontaktujte nás', en: 'Request Demo' } as Bilingual<string>,
+    cta: { cs: 'Kontaktujte nás', en: 'Get in touch' } as Bilingual<string>,
   },
 
   hero: {
@@ -41,7 +39,7 @@ export const translations = {
         { value: '99.97%', label: 'uptime' },
       ],
     } as Bilingual<{ value: string; label: string }[]>,
-    cta1: { cs: 'Kontaktujte nás', en: 'Request Demo' } as Bilingual<string>,
+    cta1: { cs: 'Kontaktujte nás', en: 'Get in touch' } as Bilingual<string>,
     cta2: { cs: 'Jak to funguje', en: 'See How It Works' } as Bilingual<string>,
   },
 
@@ -203,7 +201,7 @@ export const translations = {
       cs: 'Prosumo tuto inteligenci odemkne. Zarezervujte si 30minutovou schůzku s naším týmem společně zmapujeme plán nasazení pro vaši infrastrukturu.',
       en: "Prosumo unlocks that intelligence. Book a 30-minute session with our team we'll map a deployment plan for your infrastructure.",
     } as Bilingual<string>,
-    btn1: { cs: 'Kontaktujte nás', en: 'Request Demo' } as Bilingual<string>,
+    btn1: { cs: 'Kontaktujte nás', en: 'Get in touch' } as Bilingual<string>,
     btn2: { cs: 'Stáhnout přehled', en: 'Download Datasheet' } as Bilingual<string>,
   },
 
