@@ -19,6 +19,7 @@
   gap: clamp(32px, 5vw, 80px);
   padding-inline: clamp(24px, 4vw, 80px);
   z-index: 20; /* must exceed tc-stage (5), tc-cube-layer (7), and Architecture/Contact (15) */
+  pointer-events: none; /* pass clicks through to the fixed cube layer beneath */
 }
 
 /* Left heading column — vertically centered in the sticky viewport */
@@ -59,11 +60,13 @@
 }
 
 /* Center anchor placeholder — the TravelingCube overlays this slot.
-   Mirrors the cube's max base size so layout reserves the right footprint. */
+   Mirrors the cube's max base size so layout reserves the right footprint.
+   pointer-events: none so clicks pass through to the fixed cube layer above. */
 .platform__cube-anchor {
   flex-shrink: 0;
   width: clamp(420px, 60vmin, 600px);
   height: clamp(420px, 60vmin, 600px);
+  pointer-events: none;
 }
 
 /* Right-side clickable progress dots */
@@ -168,11 +171,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     background: #0d0b0a;
-    padding: clamp(48px, 10vw, 80px) 24px clamp(56px, 10vw, 80px);
+    min-height: 100vh;
+    padding: 88px 24px 64px;
     gap: 20px;
     color: #fff;
+    position: relative;
+    z-index: 8; /* sit above the fixed cube layer (z-index: 7) */
   }
 
   .platform__mobile-header .cube-label__title {

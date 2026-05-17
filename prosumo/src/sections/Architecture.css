@@ -69,6 +69,7 @@
 
   .architecture__visual {
     position: static;
+    overflow-x: auto;
   }
 
   .architecture__heading {

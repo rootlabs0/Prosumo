@@ -389,3 +389,38 @@
   background: #c8c8c8;
   transform: translateX(3px);
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE — shrink text and allow labels to wrap
+══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 600px) {
+  .pdiag {
+    font-size: 0.7rem;
+  }
+
+  .pdiag__col-label {
+    white-space: normal;
+    word-break: break-word;
+    font-size: 0.62rem;
+    line-height: 1.2;
+  }
+
+  .pdiag__node-title {
+    font-size: 0.68rem;
+  }
+
+  .pdiag__node-note,
+  .pdiag__device,
+  .pdiag__modbus-row {
+    font-size: 0.58rem;
+  }
+
+  .pdiag__cloud-title {
+    font-size: 0.875rem;
+  }
+
+  .pdiag__cloud-sub {
+    font-size: 0.56rem;
+  }
+}

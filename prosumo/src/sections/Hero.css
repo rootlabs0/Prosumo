@@ -103,6 +103,8 @@
   .hero { height: auto; min-height: 100vh; }
   .hero__inner { padding-top: 110px; padding-bottom: 64px; flex-direction: column; gap: 40px; }
   .hero__text { padding: 0 24px; }
+  .hero__headline { font-size: clamp(2.5rem, 9.5vw, 3.5rem) !important; }
+  .hero__subline { font-size: 0.9375rem; }
   .hero__metrics { gap: 14px 24px; font-size: 0.9375rem; }
   .hero__cube-anchor { width: 100%; max-width: 340px; height: 340px; margin: 0 auto; }
 }

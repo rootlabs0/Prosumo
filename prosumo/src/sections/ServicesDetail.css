@@ -1,0 +1,115 @@
+/* ── Page wrapper ──────────────────────────────────────────────── */
+.sd {
+  min-height: 100vh;
+  background: #0d0b0a;
+  color: #fff;
+}
+
+/* ── Header ────────────────────────────────────────────────────── */
+.sd__header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 clamp(24px, 5vw, 80px);
+  height: 64px;
+  background: #0d0b0a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sd__back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9375rem;
+  font-family: inherit;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color 0.2s ease;
+}
+
+.sd__back:hover {
+  color: #fff;
+}
+
+.sd__header-label {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Body ──────────────────────────────────────────────────────── */
+.sd__body {
+  padding-bottom: clamp(64px, 10vh, 120px);
+}
+
+/* ── Sections ──────────────────────────────────────────────────── */
+.sd__section {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.sd__section:last-child {
+  border-bottom: none;
+}
+
+.sd__section-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(48px, 8vw, 96px) clamp(24px, 5vw, 80px);
+}
+
+.sd__eyebrow {
+  display: block;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff5522;
+  margin-bottom: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sd__title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: #fff;
+  margin: 0 0 clamp(28px, 4vw, 48px);
+  letter-spacing: -0.02em;
+}
+
+/* ── Text content ──────────────────────────────────────────────── */
+.sd__text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sd__text p {
+  margin: 0;
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ── Mobile adjustments ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sd__header {
+    height: 56px;
+  }
+
+  .sd__section-inner {
+    padding: 40px 24px;
+  }
+
+  .sd__text p {
+    font-size: 0.9375rem;
+  }
+}

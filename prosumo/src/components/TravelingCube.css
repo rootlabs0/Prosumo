@@ -75,6 +75,13 @@
   opacity: 0.85;
 }
 
+@media (max-width: 768px) {
+  .tc-stage__glow {
+    inset: -20px;
+    filter: blur(48px);
+  }
+}
+
 .tc-stage__scene {
   width: 100%;
   height: 100%;
@@ -126,8 +133,8 @@
 .tc-face__ve {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(16px, 3vw, 28px);
-  padding: clamp(24px, 4vw, 36px);
+  gap: 5cqw;
+  padding: 7cqw;
   height: 100%;
   align-content: center;
 }
@@ -136,11 +143,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 2.2cqw;
 }
 
 .tc-face__ve-eyebrow {
-  font-size: 15px;
+  font-size: 2.8cqw;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -148,7 +155,7 @@
 }
 
 .tc-face__ve-heading {
-  font-size: clamp(2.1rem, 4.8cqw, 3rem);
+  font-size: 6.2cqw;
   font-weight: 800;
   line-height: 1.05;
   color: #fff;
@@ -156,7 +163,7 @@
 }
 
 .tc-face__ve-desc {
-  font-size: clamp(1.08rem, 1.8cqw, 1.23rem);
+  font-size: 3.2cqw;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 400;
@@ -165,12 +172,12 @@
 .tc-face__ve-cta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 18px;
+  gap: 1.1cqw;
+  padding: 1.5cqw 3.3cqw;
   border: 1.5px solid rgba(255, 255, 255, 0.85);
   color: #fff;
   text-decoration: none;
-  font-size: 1.17rem;
+  font-size: 3.5cqw;
   font-weight: 600;
   letter-spacing: 0.02em;
   border-radius: 2px;
@@ -186,13 +193,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(12px, 2vw, 20px);
+  gap: 3.7cqw;
   border-left: 1.5px solid rgba(255, 255, 255, 0.25);
-  padding-left: clamp(12px, 2vw, 20px);
+  padding-left: 3.7cqw;
 }
 
 .tc-face__ve-stat-value {
-  font-size: clamp(2.1rem, 4.5cqw, 2.85rem);
+  font-size: 6.2cqw;
   font-weight: 800;
   color: #fff;
   line-height: 1;
@@ -200,10 +207,10 @@
 }
 
 .tc-face__ve-stat-label {
-  font-size: clamp(0.975rem, 1.65cqw, 1.125rem);
+  font-size: 2.8cqw;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.4;
-  margin-top: 3px;
+  margin-top: 0.6cqw;
 }
 
 /* ── Face content ──────────────────────────────────────── */
@@ -212,60 +219,60 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 clamp(20px, 3vw, 32px) clamp(8px, 1.5vw, 14px);
+  padding: 0 6cqw 2.5cqw;
   opacity: 0.9;
 }
 
 .tc-face__art svg {
   width: 80%;
   height: auto;
-  max-height: 176px;
+  max-height: 33cqh;
 }
 
 .tc-face__content {
-  padding: clamp(4px, 0.8vw, 8px) clamp(20px, 3vw, 32px) clamp(20px, 3vw, 32px);
+  padding: 1.5cqw 6cqw 6cqw;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 1cqw;
 }
 
 .tc-face__number {
   color: #ff5522;
   opacity: 0.75;
-  font-size: 15px;
+  font-size: 2.8cqw;
 }
 
 .tc-face__label {
   color: rgba(255, 255, 255, 0.55);
-  font-size: 15px;
-  margin-bottom: 4px;
+  font-size: 2.8cqw;
+  margin-bottom: 0.7cqw;
 }
 
 .tc-face__title {
   color: #fff;
-  font-size: clamp(2rem, 13.2cqw, 2.2rem) !important;
+  font-size: 6cqw !important;
   font-weight: 600;
   line-height: 1.15;
-  margin-bottom: 6px;
+  margin-bottom: 1cqw;
 }
 
 .tc-face__desc {
-  font-size: clamp(1.17rem, 1.95cqw, 1.32rem);
+  font-size: 3.5cqw;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 300;
 }
 
 .tc-face__cta {
-  margin-top: 10px;
+  margin-top: 2cqw;
   align-self: flex-start;
   background: transparent;
   border: 1.5px solid #ff5522;
   color: #fff;
-  font-size: clamp(0.95rem, 1.6cqw, 1.08rem);
+  font-size: 2.8cqw;
   font-weight: 500;
   letter-spacing: 0.03em;
-  padding: 7px 18px;
+  padding: 1.3cqw 3.3cqw;
   border-radius: 2px;
   cursor: pointer;
   transition: background 0.2s ease, opacity 0.3s ease;

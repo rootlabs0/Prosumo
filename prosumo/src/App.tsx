@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Lenis from 'lenis'
 import { LangProvider } from './context/LangContext'
 import Nav from './components/Nav'
@@ -8,15 +9,33 @@ import Industries from './sections/Platform'
 import Architecture from './sections/Architecture'
 import CTA from './sections/UseCases'
 import Footer from './sections/Contact'
+import ServicesDetail, { type ServiceSection } from './sections/ServicesDetail'
 import useReveal from './hooks/useReveal'
 
 export default function App() {
+  return (
+    <LangProvider>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/sluzby" element={<ServicesDetail />} />
+      </Routes>
+    </LangProvider>
+  )
+}
+
+function LandingPage() {
   useReveal()
+
+  const navigate = useNavigate()
 
   const [current, setCurrent] = useState(0)
   const handleCurrentChange = useCallback((i: number) => {
     setCurrent(prev => (prev === i ? prev : i))
   }, [])
+
+  const handleLearnMore = useCallback((section: ServiceSection) => {
+    navigate('/sluzby#' + section)
+  }, [navigate])
 
   const lenisRef = useRef<Lenis | null>(null)
 
@@ -41,7 +60,7 @@ export default function App() {
   }, [])
 
   return (
-    <LangProvider>
+    <>
       <Nav />
       <main>
         <Hero />
@@ -53,7 +72,7 @@ export default function App() {
 
       {/* Fixed-position cube that travels from hero-right slot into the
           platform-center slot as the user scrolls. */}
-      <TravelingCube current={current} onCurrentChange={handleCurrentChange} scrollTo={scrollTo} />
-    </LangProvider>
+      <TravelingCube current={current} onCurrentChange={handleCurrentChange} scrollTo={scrollTo} onLearnMore={handleLearnMore} />
+    </>
   )
 }

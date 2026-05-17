@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
+import type { ServiceSection } from '../sections/ServicesDetail'
 import './TravelingCube.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -168,14 +169,23 @@ export { SLIDES }
  * Phase 3 (platform pinned): rotateY snaps between 4 faces driven by scroll;
  *                            dots are clickable to scroll to each snap point.
  */
+const FACE_SECTION: ServiceSection[] = [
+  'flexibility',
+  'prediction',
+  'prediction',
+  'community',
+]
+
 export default function TravelingCube({
   current,
   onCurrentChange,
   scrollTo,
+  onLearnMore,
 }: {
   current: number
   onCurrentChange: (i: number) => void
   scrollTo: (target: number, opts?: object) => void
+  onLearnMore: (section: ServiceSection) => void
 }) {
   const cubeRef = useRef<HTMLDivElement>(null)
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -487,7 +497,7 @@ export default function TravelingCube({
                     <div className="tc-face__content">
                       <h3 className="tc-face__title h-card">Virtuální Energetik</h3>
                       <p className="tc-face__desc">Váš expert na energie, který neúnavně kontroluje, že vše ve vaší firmě funguje správně, hospodárně a efektivně. Hlídá spotřebu, smlouvy, investice i provozní rizika — 24 hodin denně, na datech, bez závislosti na jednom člověku.</p>
-                      <button className="tc-face__cta">Vědět více</button>
+                      <button className="tc-face__cta" onClick={() => onLearnMore(FACE_SECTION[i])}>Vědět více</button>
                     </div>
                   </>
                 ) : (
@@ -498,7 +508,7 @@ export default function TravelingCube({
                     <div className="tc-face__content">
                       <h3 className="tc-face__title h-card">{slide.title}</h3>
                       <p className="tc-face__desc">{slide.description}</p>
-                      <button className="tc-face__cta">Vědět více</button>
+                      <button className="tc-face__cta" onClick={() => onLearnMore(FACE_SECTION[i])}>Vědět více</button>
                     </div>
                   </>
                 )}
