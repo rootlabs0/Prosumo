@@ -45,8 +45,8 @@ function DataCenterSVG() {
       <path d="M110 180 L160 200 L160 110 L110 90 Z" fill="none" stroke={STROKE} strokeWidth="1" />
       <path d="M110 90 L160 110 L210 90 L160 70 Z" fill="none" stroke={STROKE} strokeWidth="1" />
       <path d="M210 90 L210 180 L160 200 L160 110 Z" fill="none" stroke={STROKE} strokeWidth="1" />
-      <path d="M100 80 L100 60 L260 60 L260 80" fill="none" stroke="#e8411a" strokeWidth="0.75" strokeDasharray="3 3" />
-      <circle cx="180" cy="60" r="2.5" fill="#e8411a" />
+      <path d="M100 80 L100 60 L260 60 L260 80" fill="none" stroke="#ff5522" strokeWidth="0.75" strokeDasharray="3 3" />
+      <circle cx="180" cy="60" r="2.5" fill="#ff5522" />
     </svg>
   )
 }
@@ -170,7 +170,7 @@ export default function TravelingCube({
       transitionTl
         .fromTo(
           wrap,
-          { '--cube-scale': 0.54 },
+          { '--cube-scale': 0.648 },
           { '--cube-scale': 1, ease: 'none' },
           0,
         )

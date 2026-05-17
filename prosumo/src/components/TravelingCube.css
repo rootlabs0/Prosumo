@@ -40,7 +40,7 @@
 .tc-stage__wrap {
   --cube-tx: 24vw;
   --cube-ty: 0vh;
-  --cube-scale: 0.64;
+  --cube-scale: 0.768;
   --cube-base: clamp(420px, 60vmin, 600px);
 
   opacity: 0; /* GSAP fades this in at 1.6s to sync with hero content entrance */
@@ -66,7 +66,7 @@
     from 0deg at 50% 50%,
     #ff5522 0deg,
     #3b82f6 80deg,
-    #06b6d4 150deg,
+    #3b82f6 150deg,
     #3b82f6 220deg,
     #ff5522 290deg,
     #ff5522 360deg
@@ -114,8 +114,8 @@
 .tc-face--1 { transform: rotateX(0deg)    translateZ(calc(var(--cube-base) / 2)); }
 .tc-face--2 {
   transform: rotateX(90deg) translateZ(calc(var(--cube-base) / 2));
-  background: #ff5522;
-  border-color: transparent;
+  background: #161616;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 .tc-face--3 { transform: rotateX(180deg)  translateZ(calc(var(--cube-base) / 2)); }
 .tc-face--4 { transform: rotateX(270deg)  translateZ(calc(var(--cube-base) / 2)); }
@@ -228,7 +228,7 @@
 }
 
 .tc-face__number {
-  color: #e8411a;
+  color: #ff5522;
   opacity: 0.75;
   font-size: 15px;
 }
