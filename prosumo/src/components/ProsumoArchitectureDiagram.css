@@ -16,7 +16,7 @@
 }
 
 .pdiag__cloud {
-  background: #ff5522;
+  background: #EB001B;
   color: #fff;
   border-radius: 8px;
   padding: 10px 28px;
@@ -271,7 +271,7 @@
   flex-shrink: 0;
 }
 
-.pdiag__dot--orange { background: #ff5522; }
+.pdiag__dot--orange { background: #EB001B; }
 .pdiag__dot--salmon { background: #f7c4bb; border: 1px solid #e0a090; }
 .pdiag__dot--black  { background: #111; }
 .pdiag__dot--dark   { background: #4a4a4a; }

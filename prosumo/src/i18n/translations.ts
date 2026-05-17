@@ -7,20 +7,19 @@ export const translations = {
     links: {
       cs: [
         { label: 'Naše řešení', href: '#industries' },
-        { label: 'Služby', href: '#services' },
-        { label: 'O nás', href: '#cta' },
+        { label: 'Obchod', href: 'https://eshop.prosumo.eu' },
       ],
       en: [
         { label: 'Our Solutions', href: '#industries' },
-        { label: 'Services', href: '#services' },
-        { label: 'About', href: '#cta' },
+        { label: 'Shop', href: 'https://eshop.prosumo.eu' },
       ],
     } as Bilingual<{ label: string; href: string }[]>,
     cta: { cs: 'Kontaktujte nás', en: 'Request Demo' } as Bilingual<string>,
   },
 
   hero: {
-    headline1: { cs: 'Propojujeme svět', en: 'We Connect The World' } as Bilingual<string>,
+    headline1: { cs: 'Propojujeme', en: 'We Connect' } as Bilingual<string>,
+    headline1b: { cs: 'Svět', en: 'The World' } as Bilingual<string>,
     headline2: { cs: 'Energií.', en: 'Of Energy' } as Bilingual<string>,
     subline: {
       cs: 'Využijte sílu predikcí, diagnostiky a flexibility k dosažení vyšších výnosů a lepší návratnosti vašich energetických systémů.',
@@ -41,7 +40,7 @@ export const translations = {
       ],
     } as Bilingual<{ value: string; label: string }[]>,
     cta1: { cs: 'Kontaktujte nás', en: 'Request Demo' } as Bilingual<string>,
-    cta2: { cs: 'Jak to funguje', en: 'See How It Works' } as Bilingual<string>,
+    cta2: { cs: 'Chci vědět vice', en: 'See more' } as Bilingual<string>,
   },
 
   platform: {

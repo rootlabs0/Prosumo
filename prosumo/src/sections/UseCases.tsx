@@ -76,7 +76,7 @@ export default function CTA() {
                 </svg>
                 +420 722 774 041
               </a>
-              <a href="#" className="cta__contact-pill" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/zdenek-zatloukal-26a953175/" className="cta__contact-pill" target="_blank" rel="noopener noreferrer">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.2"/>
                   <circle cx="3.75" cy="4.25" r="0.65" fill="currentColor"/>

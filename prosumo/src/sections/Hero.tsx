@@ -24,7 +24,7 @@ export default function Hero() {
       <div ref={innerRef} className="hero__inner container">
         <div className="hero__text">
           <h1 className="h-display hero__headline">
-            {T.headline1[lang]}<br />
+            {T.headline1[lang]}{T.headline1b[lang] ? <><br />{T.headline1b[lang]}</> : null}<br />
             <span className="accent">{T.headline2[lang]}</span>
           </h1>
 

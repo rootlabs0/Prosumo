@@ -82,7 +82,7 @@ export default function Nav() {
         </a>
         <nav className="nav__links" aria-label="Primary">
           {T.links[lang].map(l => (
-            <a key={l.href} href={l.href}>{l.label}</a>
+            <a key={l.href} href={l.href} {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{l.label}</a>
           ))}
         </nav>
         <button
@@ -113,7 +113,7 @@ export default function Nav() {
         <div id="nav-mobile-menu" className="nav__mobile-menu">
           <nav className="nav__mobile-links">
             {T.links[lang].map(l => (
-              <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
+              <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{l.label}</a>
             ))}
           </nav>
           <div className="nav__mobile-bottom">

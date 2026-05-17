@@ -64,12 +64,12 @@
   /* Full-surround conic gradient — purple → blue → cyan → blue → purple, all 360° */
   background: conic-gradient(
     from 0deg at 50% 50%,
-    #ff5522 0deg,
+    #EB001B 0deg,
     #ff0000 80deg,
     #ff0000 150deg,
-    #ff5522 220deg,
-    #ff5522 290deg,
-    #ff5522 360deg
+    #EB001B 220deg,
+    #EB001B 290deg,
+    #EB001B 360deg
   );
   filter: blur(72px);
   opacity: 0.85;
@@ -237,7 +237,7 @@
 }
 
 .tc-face__number {
-  color: #ff5522;
+  color: #EB001B;
   opacity: 0.75;
   font-size: 2.8cqw;
 }
@@ -267,7 +267,7 @@
   margin-top: 2cqw;
   align-self: flex-start;
   background: transparent;
-  border: 1.5px solid #ff5522;
+  border: 1.5px solid #EB001B;
   color: #fff;
   font-size: 2.8cqw;
   font-weight: 500;

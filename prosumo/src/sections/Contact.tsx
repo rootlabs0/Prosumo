@@ -37,7 +37,7 @@ export default function Footer() {
             </div>
             <div className="footer__section">
               <p className="footer__label">LinkedIn</p>
-              <p className="footer__text"><a href="https://www.linkedin.com/company/prosumo" target="_blank" rel="noopener noreferrer">Prosumo s.r.o.</a></p>
+              <p className="footer__text"><a href="https://www.linkedin.com/company/prosumo/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer">Prosumo s.r.o.</a></p>
             </div>
           </div>
         </div>

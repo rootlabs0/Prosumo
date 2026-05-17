@@ -41,7 +41,7 @@
 }
 
 .cta__buttons .btn--solid {
-  background: var(--accent, #ff5522);
+  background: var(--accent, #EB001B);
   color: #ffffff;
   border: none;
 }
@@ -64,7 +64,7 @@
 }
 
 .cta__contact-card.tilt {
-  box-shadow: 0 20px 60px rgba(255, 85, 34, 0.2);
+  box-shadow: 0 20px 60px rgba(235, 0, 27, 0.2);
 }
 
 .cta__card-avatar {
@@ -86,7 +86,7 @@
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #ff5522;
+  color: #EB001B;
   margin-bottom: 5px;
   line-height: 1.4;
 }
@@ -131,12 +131,12 @@
 }
 
 .cta__contact-pill:hover {
-  border-color: #ff5522;
-  background: rgba(255, 85, 34, 0.1);
+  border-color: #EB001B;
+  background: rgba(235, 0, 27, 0.1);
 }
 
 .cta__contact-pill svg {
-  color: #ff5522;
+  color: #EB001B;
   flex-shrink: 0;
 }
 

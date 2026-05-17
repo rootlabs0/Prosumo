@@ -117,12 +117,12 @@
 .nav__cta {
   padding: 10px 18px;
   font-size: 0.875rem;
-  background: #ff5522 !important;
+  background: #EB001B !important;
   color: #ffffff !important;
   margin-left: 12px;
 }
 
-.nav__cta:hover { background: #e64a1e !important; }
+.nav__cta:hover { background: #EB001B !important; }
 
 /* Hamburger hidden on desktop */
 .nav__hamburger {
@@ -240,7 +240,7 @@
   .nav__mobile-cta {
     padding: 10px 18px;
     font-size: 0.875rem;
-    background: #ff5522 !important;
+    background: #EB001B !important;
     color: #ffffff !important;
     margin-left: auto;
   }

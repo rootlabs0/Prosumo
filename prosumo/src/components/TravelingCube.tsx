@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const STROKE = 'rgba(255,255,255,0.85)'
 const FAINT = 'rgba(255,255,255,0.22)'
-const ACCENT = '#ff5522'
+const ACCENT = '#EB001B'
 
 function FactorySVG() {
   return (
@@ -53,7 +53,7 @@ function CRESVG() {
       {/* Optimised forecast — dashed accent */}
       <path
         d="M60,170 C92,148 116,152 140,130 C164,108 192,80 220,75 C248,70 282,105 310,92"
-        fill="none" stroke="#ff5522" strokeWidth="1" strokeDasharray="5 3"
+        fill="none" stroke="#EB001B" strokeWidth="1" strokeDasharray="5 3"
       />
       {/* Node dots on consumption curve */}
       <circle cx="140" cy="138" r="3.5" fill="none" stroke={STROKE} strokeWidth="1" />
