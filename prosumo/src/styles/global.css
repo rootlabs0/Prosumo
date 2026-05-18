@@ -95,22 +95,22 @@ img, svg {
 }
 
 .h-display {
-  font-weight: 800;
-  font-size: clamp(2.4rem, 5.6vw, 5.2rem);
+  font-weight: 300;
+  font-size: clamp(3.4rem, 4.2vw, 5rem);
   line-height: 0.98;
   letter-spacing: -0.025em;
 }
 
 .h-section {
-  font-weight: 800;
-  font-size: clamp(2rem, 4.4vw, 3.75rem);
+  font-weight: 300;
+  font-size: clamp(3.4rem, 4.2vw, 5rem);
   line-height: 1.02;
   letter-spacing: -0.022em;
 }
 
 .h-card {
-  font-weight: 700;
-  font-size: 1.125rem;
+  font-weight: 300;
+  font-size: clamp(3.4rem, 4.2vw, 5rem);
   letter-spacing: -0.01em;
   line-height: 1.25;
 }

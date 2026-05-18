@@ -13,6 +13,11 @@
   opacity: 0;
 }
 
+/* Active during platform phase — prevent browser scroll on touch */
+.tc-stage.is-active {
+  touch-action: none;
+}
+
 /* Cube + glow — sits above the ghost word (z-index 6) */
 .tc-cube-layer {
   position: fixed;
