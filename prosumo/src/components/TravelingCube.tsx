@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import type { ServiceSection } from '../sections/ServicesDetail'
+import { useLang } from '../context/LangContext'
 import './TravelingCube.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -152,10 +153,10 @@ function DataCenterSVG() {
 }
 
 const SLIDES = [
-  { id: 'manufacturing', number: '01', label: 'Flexibilita', title: 'Poskytování flexibility', description: 'Vypočítáme objem dostupné regulační energie na odběrném místě a provedeme její ocenění. Zároveň propojíme odběrné místo vybavené RTU, EMS nebo MaR s agregátorem/obchodníkem a tím umožníme získat další příjem pro zákazníka.', Svg: FactorySVG },
+  { id: 'manufacturing', number: '01', label: 'Flexibilita', title: 'Poskytování flexibility', titleEn: 'Providing flexibility', description: 'Vypočítáme objem dostupné regulační energie na odběrném místě a provedeme její ocenění. Zároveň propojíme odběrné místo vybavené RTU, EMS nebo MaR s agregátorem/obchodníkem a tím umožníme získat další příjem pro zákazníka.', descriptionEn: 'We will calculate the volume of available balancing energy at the consumption point and determine its value. At the same time, we will connect the consumption point equipped with an RTU, EMS, or MaR system to an aggregator or energy trader, thereby enabling the customer to generate additional revenue.', Svg: FactorySVG },
   { id: 've', number: '', label: '', title: '', description: '', Svg: () => null },
-  { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby FVE & AI diagnostika', description: 'Meteorologické modely doplňujeme o data z přesných lokálních snímačů a tím získáváme přesnějších předpověď výroby FVE. Porovnáním modelů a skutečné výroby dokážeme diagnostikovat problém až na úrovni stringu.', Svg: FVESolarSVG },
-  { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', description: 'Prosumo cloud poskytuje informace ohledně dostupné energie v energetické komunitě, čímž umožnuje tuto energií v rámci komunity efektivně využít.', Svg: EnergCommunitySVG },
+  { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby FVE & AI diagnostika', titleEn: 'Production Forecasting and PV System Diagnostics', description: 'Meteorologické modely doplňujeme o data z přesných lokálních snímačů a tím získáváme přesnějších předpověď výroby FVE. Porovnáním modelů a skutečné výroby dokážeme diagnostikovat problém až na úrovni stringu.', descriptionEn: 'We supplement meteorological models with data from precise local sensors, thereby obtaining more accurate forecasts of PV plant output. By comparing the models with actual output, we can diagnose problems down to the string level.', Svg: FVESolarSVG },
+  { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', titleEn: 'Energy communities', description: 'Prosumo cloud poskytuje informace ohledně dostupné energie v energetické komunitě, čímž umožnuje tuto energií v rámci komunity efektivně využít.', descriptionEn: 'Prosumo Cloud provides information about the energy available within the energy community, thereby enabling the community to use that energy efficiently.', Svg: EnergCommunitySVG },
 ]
 
 export { SLIDES }
@@ -198,6 +199,7 @@ export default function TravelingCube({
   const isActive3Ref = useRef(false)
   const [visible, setVisible] = useState(true)
   const [isLarge, setIsLarge] = useState(false)
+  const { lang } = useLang()
 
   useEffect(() => {
     let touchStartY = 0
@@ -495,9 +497,9 @@ export default function TravelingCube({
                       <CRESVG />
                     </div>
                     <div className="tc-face__content">
-                      <h3 className="tc-face__title h-card">Virtuální Energetik</h3>
-                      <p className="tc-face__desc">Váš expert na energie, který neúnavně kontroluje, že vše ve vaší firmě funguje správně, hospodárně a efektivně. Hlídá spotřebu, smlouvy, investice i provozní rizika — 24 hodin denně, na datech, bez závislosti na jednom člověku.</p>
-                      <button className="tc-face__cta" onClick={() => onLearnMore(FACE_SECTION[i])}>Vědět více</button>
+                      <h3 className="tc-face__title h-card">{lang === 'en' ? 'Energomanager' : 'Virtuální Energetik'}</h3>
+                      <p className="tc-face__desc">{lang === 'en' ? 'Your energy expert, who never sleeps. EnergoManager tirelessly monitors everything in your company to ensure it\'s running smoothly, economically, and efficiently. It keeps track of consumption, contracts, investments, and operational risks — 24 hours a day, based on data, without relying on any single person.' : 'Váš expert na energie, který neúnavně kontroluje, že vše ve vaší firmě funguje správně, hospodárně a efektivně. Hlídá spotřebu, smlouvy, investice i provozní rizika — 24 hodin denně, na datech, bez závislosti na jednom člověku.'}</p>
+                      <a className="tc-face__cta" href="https://www.energomanager.com" target="_blank" rel="noopener noreferrer">{lang === 'en' ? 'View more' : 'Vědět více'}</a>
                     </div>
                   </>
                 ) : (
@@ -506,9 +508,9 @@ export default function TravelingCube({
                       <slide.Svg />
                     </div>
                     <div className="tc-face__content">
-                      <h3 className="tc-face__title h-card">{slide.title}</h3>
-                      <p className="tc-face__desc">{slide.description}</p>
-                      <button className="tc-face__cta" onClick={() => onLearnMore(FACE_SECTION[i])}>Vědět více</button>
+                      <h3 className="tc-face__title h-card">{lang === 'en' && slide.titleEn ? slide.titleEn : slide.title}</h3>
+                      <p className="tc-face__desc">{lang === 'en' && slide.descriptionEn ? slide.descriptionEn : slide.description}</p>
+                      <button className="tc-face__cta" onClick={() => onLearnMore(FACE_SECTION[i])}>{lang === 'en' ? 'View more' : 'Vědět více'}</button>
                     </div>
                   </>
                 )}
