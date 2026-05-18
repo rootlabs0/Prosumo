@@ -59,6 +59,9 @@ function LandingPage() {
     lenisRef.current?.scrollTo(target, opts as Parameters<Lenis['scrollTo']>[1])
   }, [])
 
+  const stopScroll = useCallback(() => lenisRef.current?.stop(), [])
+  const startScroll = useCallback(() => lenisRef.current?.start(), [])
+
   return (
     <>
       <Nav />
@@ -72,7 +75,7 @@ function LandingPage() {
 
       {/* Fixed-position cube that travels from hero-right slot into the
           platform-center slot as the user scrolls. */}
-      <TravelingCube current={current} onCurrentChange={handleCurrentChange} scrollTo={scrollTo} onLearnMore={handleLearnMore} />
+      <TravelingCube current={current} onCurrentChange={handleCurrentChange} scrollTo={scrollTo} onLearnMore={handleLearnMore} stopScroll={stopScroll} startScroll={startScroll} />
     </>
   )
 }

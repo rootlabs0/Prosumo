@@ -182,11 +182,15 @@ export default function TravelingCube({
   onCurrentChange,
   scrollTo,
   onLearnMore,
+  stopScroll,
+  startScroll,
 }: {
   current: number
   onCurrentChange: (i: number) => void
   scrollTo: (target: number, opts?: object) => void
   onLearnMore: (section: ServiceSection) => void
+  stopScroll: () => void
+  startScroll: () => void
 }) {
   const cubeRef = useRef<HTMLDivElement>(null)
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -230,14 +234,18 @@ export default function TravelingCube({
       wheelAccumulator = 0
       const newIndex = faceIndexRef.current + dir
 
-      // Scrolling back past face 0 — let Lenis handle the upward exit naturally.
-      if (newIndex < 0) return
+      // Scrolling back past face 0 — unlock Lenis and let it handle the upward exit.
+      if (newIndex < 0) {
+        startScroll()
+        return
+      }
 
-      // Scrolling past the last face — exit forward with a single smooth scroll.
+      // Scrolling past the last face — unlock Lenis and exit forward.
       if (newIndex > SLIDES.length - 1) {
         e.stopImmediatePropagation()
         e.preventDefault()
         isActive3Ref.current = false
+        startScroll()
         const platformEl = document.getElementById('industries')
         if (platformEl) {
           const target = platformEl.offsetTop + platformEl.offsetHeight - window.innerHeight + 2
@@ -405,18 +413,42 @@ export default function TravelingCube({
           isActive3Ref.current = true
           onCurrentChange(0)
           setIsLarge(true)
+          stopScroll() // Lock Lenis — user must cycle all faces before scrolling past
         },
         onLeave: () => {
           isActive3Ref.current = false
           setIsLarge(false)
+          startScroll() // Unlock Lenis on natural forward exit
+          // Re-anchor both layers into document flow at their exact visual position
+          // so they scroll away naturally instead of staying glued to the viewport.
+          ;[stageRef.current, cubeLayerRef.current].forEach(el => {
+            if (!el) return
+            const top = el.getBoundingClientRect().top + window.scrollY
+            el.style.position = 'absolute'
+            el.style.top = `${top}px`
+            el.style.left = '0'
+            el.style.width = '100%'
+            el.style.height = '100vh'
+          })
         },
         onEnterBack: () => {
           isActive3Ref.current = true
           setIsLarge(true)
+          stopScroll() // Lock again when re-entering from below
+          // Clear all inline styles so CSS position: fixed takes over again
+          ;[stageRef.current, cubeLayerRef.current].forEach(el => {
+            if (!el) return
+            el.style.position = ''
+            el.style.top = ''
+            el.style.left = ''
+            el.style.width = ''
+            el.style.height = ''
+          })
         },
         onLeaveBack: () => {
           isActive3Ref.current = false
           setIsLarge(false)
+          startScroll() // Unlock Lenis on backward exit
           gsap.set(cube, { rotateX: 0, rotateY: 0, rotateZ: 0 })
           // Do NOT restart idle here — Phase 2 onEnterBack already paused it and
           // Phase 2 onLeaveBack will restart it cleanly once the scrub completes.
@@ -436,7 +468,7 @@ export default function TravelingCube({
       document.removeEventListener('touchstart', handleTouchStart)
       document.removeEventListener('touchend', handleTouchEnd)
     }
-  }, [onCurrentChange, scrollTo])
+  }, [onCurrentChange, scrollTo, stopScroll, startScroll])
 
   // Highlight active face with accent border (CSS toggle)
   useEffect(() => {
