@@ -236,6 +236,7 @@ export default function TravelingCube({
 
       // Scrolling back past face 0 — unlock Lenis and let it handle the upward exit.
       if (newIndex < 0) {
+        isActive3Ref.current = false
         startScroll()
         return
       }
@@ -277,6 +278,13 @@ export default function TravelingCube({
       touchStartY = e.touches[0].clientY
     }
 
+    // Prevent native browser scroll while the cube is cycling faces.
+    // Must be non-passive so we can call preventDefault().
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isActive3Ref.current) return
+      e.preventDefault()
+    }
+
     const handleTouchEnd = (e: TouchEvent) => {
       if (!isActive3Ref.current || isAnimating3Ref.current) return
       const deltaY = touchStartY - e.changedTouches[0].clientY
@@ -285,7 +293,26 @@ export default function TravelingCube({
       if (!cube) return
       const dir = deltaY > 0 ? 1 : -1
       const newIndex = faceIndexRef.current + dir
-      if (newIndex < 0 || newIndex > SLIDES.length - 1) return
+
+      // Swiped back past first face — exit backward
+      if (newIndex < 0) {
+        isActive3Ref.current = false
+        startScroll()
+        return
+      }
+
+      // Swiped past last face — exit forward
+      if (newIndex > SLIDES.length - 1) {
+        isActive3Ref.current = false
+        startScroll()
+        const platformEl = document.getElementById('industries')
+        if (platformEl) {
+          const target = platformEl.offsetTop + platformEl.offsetHeight - window.innerHeight + 2
+          scrollTo(target, { duration: 0.9 })
+        }
+        return
+      }
+
       faceIndexRef.current = newIndex
       isAnimating3Ref.current = true
       onCurrentChange(newIndex)
@@ -460,12 +487,14 @@ export default function TravelingCube({
 
     document.addEventListener('wheel', handleWheel, { capture: true, passive: false })
     document.addEventListener('touchstart', handleTouchStart, { passive: true })
+    document.addEventListener('touchmove', handleTouchMove, { passive: false })
     document.addEventListener('touchend', handleTouchEnd, { passive: true })
 
     return () => {
       ctx.revert()
       document.removeEventListener('wheel', handleWheel, { capture: true })
       document.removeEventListener('touchstart', handleTouchStart)
+      document.removeEventListener('touchmove', handleTouchMove)
       document.removeEventListener('touchend', handleTouchEnd)
     }
   }, [onCurrentChange, scrollTo, stopScroll, startScroll])
