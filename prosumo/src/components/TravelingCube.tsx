@@ -273,6 +273,9 @@ export default function TravelingCube({
       })
     }
 
+    let lastScrollY = window.scrollY
+    let blockedScrollPos = 0
+
     const handleTouchStart = (e: TouchEvent) => {
       if (!isActive3Ref.current) return
       touchStartY = e.touches[0].clientY
@@ -283,6 +286,18 @@ export default function TravelingCube({
     const handleTouchMove = (e: TouchEvent) => {
       if (!isActive3Ref.current) return
       e.preventDefault()
+    }
+
+    // Lock scroll when in cube section — any scroll attempt is blocked.
+    const handleScroll = () => {
+      if (!isActive3Ref.current) {
+        lastScrollY = window.scrollY
+        return
+      }
+      // User tried to scroll while in cube — snap back to the blocked position
+      if (window.scrollY !== blockedScrollPos) {
+        window.scrollTo(0, blockedScrollPos)
+      }
     }
 
     const handleTouchEnd = (e: TouchEvent) => {
@@ -437,6 +452,7 @@ export default function TravelingCube({
           idleTweenRef.current?.pause()
           gsap.set(cube, { rotateY: 0, rotateZ: 0, rotateX: 0 })
           faceIndexRef.current = 0
+          blockedScrollPos = window.scrollY // Capture position where we're locking scroll
           isActive3Ref.current = true
           onCurrentChange(0)
           setIsLarge(true)
@@ -489,6 +505,7 @@ export default function TravelingCube({
     document.addEventListener('touchstart', handleTouchStart, { passive: true })
     document.addEventListener('touchmove', handleTouchMove, { passive: false })
     document.addEventListener('touchend', handleTouchEnd, { passive: true })
+    window.addEventListener('scroll', handleScroll, { passive: false })
 
     return () => {
       ctx.revert()
@@ -496,6 +513,7 @@ export default function TravelingCube({
       document.removeEventListener('touchstart', handleTouchStart)
       document.removeEventListener('touchmove', handleTouchMove)
       document.removeEventListener('touchend', handleTouchEnd)
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [onCurrentChange, scrollTo, stopScroll, startScroll])
 
