@@ -142,6 +142,18 @@
   display: none;
 }
 
+.footer__credit {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.18s ease;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.footer__credit:hover {
+  color: var(--text);
+}
+
 @media (max-width: 900px) {
   .footer__inner { grid-template-columns: 1fr; gap: 40px; }
 }

@@ -47,6 +47,7 @@ export default function Footer() {
 
       <div className="container footer__bottom">
         <span>© {new Date().getFullYear()} Prosumo s.r.o. {T.rights[lang]}</span>
+        <a href="https://www.rootlabs.studio" target="_blank" rel="noopener noreferrer" className="footer__credit">Made by Rootlabs</a>
       </div>
     </footer>
   )
