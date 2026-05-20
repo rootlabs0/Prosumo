@@ -57,7 +57,7 @@ export default function CTA() {
 
         {/* Right: contact person card */}
         <div className="cta__contact-card reveal" ref={cardRef}>
-          <img src="/ZZ.jpg" alt="Zdeněk Zatloukal" className="cta__card-avatar" />
+          <img src={`${import.meta.env.BASE_URL}ZZ.jpg`} alt="Zdeněk Zatloukal" className="cta__card-avatar" />
           <div className="cta__card-content">
             <p className="cta__card-kicker">{T.contactCard.kicker[lang]}</p>
             <h3 className="cta__card-name">Zdeněk Zatloukal</h3>
