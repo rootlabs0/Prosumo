@@ -76,7 +76,7 @@ export default function Nav() {
   return (
     <header ref={headerRef} className={`nav${scrolled ? ' is-scrolled' : ''}${dark ? ' is-dark' : ''}${menuOpen ? ' menu-open' : ''}`}>
       <div className="nav__inner container">
-        <a href="#top" className="nav__brand">
+        <a href="/" className="nav__brand">
           <img src={dark ? logoWhite : logoBlack} alt="Prosumo" className="nav__logo" />
           <span className="nav__brand-name">Prosumo</span>
         </a>

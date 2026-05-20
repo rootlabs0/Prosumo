@@ -283,6 +283,10 @@
   transition: background 0.2s ease, opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
+  /* Own compositor layer — parent scale changes never cause a reflow here */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .tc-cube-layer--large .tc-face__cta {

@@ -210,6 +210,7 @@ export default function TravelingCube({
     let wheelAccumulator = 0
 
     const handleWheel = (e: WheelEvent) => {
+      if ((e.target as Element).closest?.('nav')) return
       if (!isActive3Ref.current) return
 
       // During animation: swallow the event entirely so neither the page nor
@@ -284,6 +285,7 @@ export default function TravelingCube({
     // Prevent native browser scroll while the cube is cycling faces.
     // Must be non-passive so we can call preventDefault().
     const handleTouchMove = (e: TouchEvent) => {
+      if ((e.target as Element).closest?.('nav')) return
       if (!isActive3Ref.current) return
       e.preventDefault()
     }
@@ -338,6 +340,23 @@ export default function TravelingCube({
         overwrite: 'auto',
         onComplete: () => { isAnimating3Ref.current = false },
       })
+    }
+
+    // ── Reusable listener attach / detach ────────────────────────────────
+    const attachCubeListeners = () => {
+      document.addEventListener('wheel', handleWheel, { capture: true, passive: false })
+      document.addEventListener('touchstart', handleTouchStart, { passive: true })
+      document.addEventListener('touchmove', handleTouchMove, { passive: false })
+      document.addEventListener('touchend', handleTouchEnd, { passive: true })
+      window.addEventListener('scroll', handleScroll, { passive: false })
+    }
+
+    const detachCubeListeners = () => {
+      document.removeEventListener('wheel', handleWheel, { capture: true })
+      document.removeEventListener('touchstart', handleTouchStart)
+      document.removeEventListener('touchmove', handleTouchMove)
+      document.removeEventListener('touchend', handleTouchEnd)
+      window.removeEventListener('scroll', handleScroll)
     }
 
     const ctx = gsap.context(() => {
@@ -455,6 +474,9 @@ export default function TravelingCube({
           blockedScrollPos = window.scrollY // Capture position where we're locking scroll
           isActive3Ref.current = true
           onCurrentChange(0)
+          // Snap the transition timeline to its final state so any remaining
+          // scrub lag (up to 1.2 s) is killed before the CTA becomes visible.
+          transitionTl.progress(1)
           setIsLarge(true)
           stopScroll() // Lock Lenis — user must cycle all faces before scrolling past
         },
@@ -478,6 +500,12 @@ export default function TravelingCube({
           isActive3Ref.current = true
           setIsLarge(true)
           stopScroll() // Lock again when re-entering from below
+          // Re-attach cube listeners in case they were torn down by a nav CTA click
+          attachCubeListeners()
+          // Start at the last face so the user can scroll back through all faces
+          faceIndexRef.current = SLIDES.length - 1
+          onCurrentChange(SLIDES.length - 1)
+          blockedScrollPos = window.scrollY
           // Clear all inline styles so CSS position: fixed takes over again
           ;[stageRef.current, cubeLayerRef.current].forEach(el => {
             if (!el) return
@@ -501,19 +529,43 @@ export default function TravelingCube({
       })
     }, stageRef)
 
-    document.addEventListener('wheel', handleWheel, { capture: true, passive: false })
-    document.addEventListener('touchstart', handleTouchStart, { passive: true })
-    document.addEventListener('touchmove', handleTouchMove, { passive: false })
-    document.addEventListener('touchend', handleTouchEnd, { passive: true })
-    window.addEventListener('scroll', handleScroll, { passive: false })
+    // ── Direct capture-phase listener on the "Get in touch" CTA ──────────
+    // Fires before wheel/touch/scroll lock handlers can intercept.
+    // Stops the native anchor-scroll, tears down the lock, then drives the
+    // scroll manually so Lenis owns it from the start.
+    const navCtaEl = document.querySelector<HTMLElement>('.nav__cta')
+
+    const releaseAndScroll = () => {
+      // 1. Gate off the scroll-snap handler immediately
+      isActive3Ref.current = false
+      // 2. Re-enable Lenis
+      startScroll()
+      // 3. Clear any CSS overflow lock Lenis may have applied
+      document.body.style.overflow = ''
+      // 4. Remove all cube listeners so nothing can intercept the scroll
+      detachCubeListeners()
+      // 5. Let Lenis finish re-enabling (one RAF), then scroll
+      requestAnimationFrame(() => {
+        const ctaEl = document.getElementById('cta')
+        if (ctaEl) scrollTo(ctaEl.offsetTop, { duration: 0.9 })
+      })
+    }
+
+    const handleNavCtaClick = (e: MouseEvent) => {
+      if (!isActive3Ref.current) return
+      // Stop the browser from processing the href so our manual scroll wins
+      e.preventDefault()
+      e.stopPropagation()
+      releaseAndScroll()
+    }
+
+    if (navCtaEl) navCtaEl.addEventListener('click', handleNavCtaClick, { capture: true })
+    attachCubeListeners()
 
     return () => {
       ctx.revert()
-      document.removeEventListener('wheel', handleWheel, { capture: true })
-      document.removeEventListener('touchstart', handleTouchStart)
-      document.removeEventListener('touchmove', handleTouchMove)
-      document.removeEventListener('touchend', handleTouchEnd)
-      window.removeEventListener('scroll', handleScroll)
+      if (navCtaEl) navCtaEl.removeEventListener('click', handleNavCtaClick, { capture: true })
+      detachCubeListeners()
     }
   }, [onCurrentChange, scrollTo, stopScroll, startScroll])
 
