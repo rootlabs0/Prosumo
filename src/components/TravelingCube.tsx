@@ -155,7 +155,7 @@ function DataCenterSVG() {
 const SLIDES = [
   { id: 'manufacturing', number: '01', label: 'Flexibilita', title: 'Poskytování flexibility', titleEn: 'Providing flexibility', description: 'Vypočítáme objem dostupné regulační energie na odběrném místě a provedeme její ocenění. Zároveň propojíme odběrné místo vybavené RTU, EMS nebo MaR s agregátorem/obchodníkem a tím umožníme získat další příjem pro zákazníka.', descriptionEn: 'We will calculate the volume of available balancing energy at the consumption point and determine its value. At the same time, we will connect the consumption point equipped with an RTU, EMS, or MaR system to an aggregator or energy trader, thereby enabling the customer to generate additional revenue.', Svg: FactorySVG },
   { id: 've', number: '', label: '', title: '', description: '', Svg: () => null },
-  { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby FVE & AI diagnostika', titleEn: 'Production Forecasting and PV System Diagnostics', description: 'Meteorologické modely doplňujeme o data z přesných lokálních snímačů a tím získáváme přesnější předpověď výroby FVE. Porovnáním modelů a skutečné výroby dokážeme diagnostikovat problém až na úrovni stringu.', descriptionEn: 'We supplement meteorological models with data from precise local sensors, thereby obtaining more accurate forecasts of PV plant output. By comparing the models with actual output, we can diagnose problems down to the string level.', Svg: FVESolarSVG },
+  { id: 'cre', number: '02', label: 'Virtuální Energetik', title: 'Predikce výroby FVE', titleEn: 'Production Forecasting and PV System Diagnostics', description: 'Přesná předpověď toho, kolik elektrické energie vaše FVE vyrobí v nadcházejících hodinách až dnech. Využívá lokální senzory ozáření, satelitní data a AI modely kalibrované na vaší lokalitě i sousedních instalacích.', descriptionEn: 'An accurate forecast of how much electricity your solar power system will generate in the coming hours and days. It uses local irradiance sensors, satellite data, and AI models calibrated for your location and neighboring installations.', Svg: FVESolarSVG },
   { id: 'datacenters', number: '03', label: 'Energetické Komunity', title: 'Energetické komunity', titleEn: 'Energy communities', description: 'Prosumo cloud poskytuje informace ohledně dostupné energie v energetické komunitě, čímž umožnuje tuto energií v rámci komunity efektivně využít.', descriptionEn: 'Prosumo Cloud provides information about the energy available within the energy community, thereby enabling the community to use that energy efficiently.', Svg: EnergCommunitySVG },
 ]
 
@@ -622,15 +622,15 @@ export default function TravelingCube({
             {SLIDES.map((slide, i) => (
               <div key={slide.id} className={`tc-face tc-face--${i + 1}`}>
                 {i === 1 ? (
-                  // Face 2 — Virtuální Energetik
+                  // Face 2 — AI Diagnostika
                   <>
                     <div className="tc-face__art">
                       <CRESVG />
                     </div>
                     <div className="tc-face__content">
-                      <h3 className="tc-face__title h-card">{lang === 'en' ? 'Energomanager' : 'Virtuální Energetik'}</h3>
-                      <p className="tc-face__desc">{lang === 'en' ? 'Your energy expert, who never sleeps. EnergoManager tirelessly monitors everything in your company to ensure it\'s running smoothly, economically, and efficiently. It keeps track of consumption, contracts, investments, and operational risks — 24 hours a day, based on data, without relying on any single person.' : 'Váš expert na energie, který neúnavně kontroluje, že vše ve vaší firmě funguje správně, hospodárně a efektivně. Hlídá spotřebu, smlouvy, investice i provozní rizika — 24 hodin denně, na datech, bez závislosti na jednom člověku.'}</p>
-                      <a className="tc-face__cta" href="https://www.energomanager.com" target="_blank" rel="noopener noreferrer">{lang === 'en' ? 'View more' : 'Vědět více'}</a>
+                      <h3 className="tc-face__title h-card">{lang === 'en' ? 'AI diagnosis' : 'AI diagnostika'}</h3>
+                      <p className="tc-face__desc">{lang === 'en' ? 'Automatic monitoring of your PV system\'s health by comparing actual and expected production. Detection of panel soiling, degradation, string faults, and other hidden issues without the need for manual inspection.' : 'Automatická kontrola zdraví vašeho FVE systému porovnáním skutečné a očekávané výroby. Detekce znečištění panelů, degradace, poruch stringů a dalších skrytých problémů bez nutnosti ruční kontroly. '}</p>
+                      <button className="tc-face__cta" onClick={() => window.open('https://www.energomanager.com', '_blank')}>{lang === 'en' ? 'View more' : 'Vědět více'}</button>
                     </div>
                   </>
                 ) : (

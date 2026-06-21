@@ -77,13 +77,93 @@ export default function ServicesDetail() {
             <div className="sd__text">
               {isEn ? (
                 <>
-                  <p>The Prosumo forecasting model receives real-time production data, based on which it continuously adjusts itself. For precise information on PV production, we use accurate irradiance sensors, which enable more accurate calculations for aggregators/traders and also serve as the basis for PV AI Diagnostics.</p>
-                  <p>Prosumo's AI Diagnostics can continuously evaluate whether each string within an installed PV system is functioning correctly and supplying an adequate amount of energy.</p>
+                  <h3>How the Service Works – The Principle</h3>
+                  <p>The system is built on a three-layer architecture, with the layers continuously communicating with one another and mutually enhancing each other's performance:</p>
+
+                  <h4>Layer 1 – Data Collection and Aggregation</h4>
+                  <p>The foundation of the system consists of local irradiance sensors (pyranometers) that measure the actual intensity of solar radiation at the installation site. This data is combined with:</p>
+                  <ul>
+                    <li>numerical weather predictions (NWP) and satellite cloud imagery</li>
+                    <li>historical production data from your PV system and neighboring installations in the same location</li>
+                    <li>data from photovoltaic inverters—power, voltage, and current of individual strings</li>
+                  </ul>
+
+                  <h4>Layer 2 – AI Models and Predictions</h4>
+                  <p>The collected data is processed using advanced AI models:</p>
+                  <ul>
+                    <li>LSTM (Long Short-Term Memory) neural networks model time series and capture local weather patterns with greater accuracy than standard meteorological services</li>
+                    <li>clustering groups similar PV installations and redistributes prediction corrections to installations without direct measurements</li>
+                    <li>A diagnostic module compares actual production with model expectations—deviations above a threshold are evaluated as potential faults</li>
+                    <li>The models continuously learn from the processed data (feedback) and refine their predictions over time</li>
+                  </ul>
+
+                  <h4>Layer 3 – Results and Integration</h4>
+                  <p>Results are delivered through all necessary channels:</p>
+                  <ul>
+                    <li>MQTT / REST API / Modbus TCP – production predictions are directly available to energy management systems and battery storage systems (without the need to modify existing equipment)</li>
+                    <li>Web interface with an overview of performance, predictions, and PV system status</li>
+                    <li>Automatic notifications (email, SMS) upon detection of anomalies or malfunctions</li>
+                  </ul>
+
+                  <h3>Solution Architecture</h3>
+                  <p>The system consists of hardware and software components that together ensure data collection, prediction calculations, and visualization of results. The configuration depends on whether you are already using a compatible control system:</p>
+
+                  <h4>ProsumoBox – Data Gateway</h4>
+                  <p>ProsumoBox is a compact industrial device installed directly at the customer's site. It performs two basic functions:</p>
+                  <ul>
+                    <li>collecting data from solar radiation sensors and the photovoltaic system (RTU or EMS)</li>
+                    <li>receiving predicted production values from the cloud platform and making them available to the customer's control system via a local communication interface</li>
+                  </ul>
+
+                  <h4>Solar Radiation Sensors</h4>
+                  <p>Calibrated pyranometers (solar radiation sensors) are connected to the ProsumoBox. For maximum prediction and diagnostic accuracy, we recommend installing two sensors: the first measures global horizontal irradiance (GHI), and the second measures irradiance in the plane of the panels (POA). Combining both values significantly improves the accuracy of predictions and fault detection.</p>
+
+                  <p><strong>Tip:</strong> If you are using the EnergoStation EMS or RTU, the ProsumoBox is not required. These devices have the necessary communication layer, and data collection takes place directly through them. This makes integration into your existing infrastructure significantly easier.</p>
                 </>
               ) : (
                 <>
-                  <p>Předpovědní model Prosumo dostává aktuální data z výroby, na základě kterých se průběžně upravuje. Pro přesné informace o výrobě FVE používáme přesné čidla osvitu, která umožnují jednak přesnější výpočty pro agregátory / obchodníky a zároveň slouží jako základ pro AI Diagnostiku FVE.</p>
-                  <p>AI Diagnostika Prosumo dokáže kontinuálně vyhodnocovat, zda každý string v rámci instalované FVE pracuje správně a dodává adekvátní množství energie.</p>
+                  <h3>Jak služba funguje – princip</h3>
+                  <p>Systém je postaven na třívrstvé architektuře, které spolu nepřetržitě komunikují a vzájemně se zlepšují:</p>
+
+                  <h4>Vrstva 1 – sběr a agregace dat</h4>
+                  <p>Základem systému jsou lokální senzory ozáření (pyranometry), které měří skutečnou intenzitu slunečního záření v místě instalace. Tato data jsou kombinována s:</p>
+                  <ul>
+                    <li>meteorologickými numerickými predikcemi (NWP) a satelitními snímky oblačnosti</li>
+                    <li>historickými daty výroby vaší FVE i sousedních instalací ve stejné lokalitě</li>
+                    <li>daty z fotoelektrických měničů (střídačů) – výkon, napětí, proud jednotlivých stringů</li>
+                  </ul>
+
+                  <h4>Vrstva 2 – AI modely a predikce</h4>
+                  <p>Sebraná data jsou zpracována pokročilými AI modely:</p>
+                  <ul>
+                    <li>LSTM neuronové sítě (Long Short-Term Memory) modelují časové řady a zachytávají lokální charakter počasí s přesností vyšší než běžné meteorologické služby</li>
+                    <li>shluková analýza (clustering) seskupuje podobné FVE instalace a redistribuuje korekce predikcí i na instalace bez přímého měření</li>
+                    <li>diagnostický modul porovnává skutečnou výrobu s modelovým očekáváním – odchylky nad prahem jsou vyhodnoceny jako potenciální závada</li>
+                    <li>modely se průběžně učí ze zpracovaných dat (zpětná vazba) a zpřesňují predikce v čase</li>
+                  </ul>
+
+                  <h4>Vrstva 3 – výsledky a integrace</h4>
+                  <p>Výsledky jsou dodávány všemi potřebnými kanály:</p>
+                  <ul>
+                    <li>MQTT / REST API / Modbus TCP – predikce výroby jsou přímo dostupné pro energetické řídicí systémy a bateriová úložiště (bez nutnosti změny existujícího vybavení)</li>
+                    <li>webové rozhraní s přehledem výkonu, predikcí a stavu FVE</li>
+                    <li>automatické notifikace (e-mail, SMS) při detekci anomálie nebo poruchy</li>
+                  </ul>
+
+                  <h3>Architektura řešení</h3>
+                  <p>Systém se skládá z hardwarové a softwarové části, které dohromady zajišťují sběr dat, výpočet predikce a vizualizaci výsledků. Způsob zapojení závisí na tom, zda již používáte kompatibilní řídicí systém:</p>
+
+                  <h4>ProsumoBox – datová brána (gateway)</h4>
+                  <p>ProsumoBox je kompaktní průmyslové zařízení instalované přímo u zákazníka. Zajišťuje dvě základní funkce:</p>
+                  <ul>
+                    <li>sběr dat ze senzorů solární radiace a z fotovoltaického systému (RTU nebo EMS)</li>
+                    <li>příjem predikovaných hodnot výroby z cloudové platformy a jejich zpřístupnění řídicímu systému zákazníka přes lokální komunikační rozhraní</li>
+                  </ul>
+
+                  <h4>Senzory solární radiace</h4>
+                  <p>K ProsumoBoxu se připojují kalibrované pyranometry (senzory solární radiace). Pro maximální přesnost predikce a diagnostiky doporučujeme instalaci <strong>2 senzorů</strong>: první měří celkové horizontální záření (GHI), druhý záření v rovině panelů (POA). Kombinace obou hodnot výrazně zpřesní predikci i detekci závad.</p>
+
+                  <p><strong>Tip:</strong> Pokud používáte <strong>EMS nebo RTU EnergoStation</strong>, ProsumoBox <strong>není potřeba</strong>. Tato zařízení disponují potřebnou komunikační vrstvou a sběr dat probíhá přímo přes ně. Integrace do stávající infrastruktury je tak výrazně jednodušší.</p>
                 </>
               )}
             </div>
