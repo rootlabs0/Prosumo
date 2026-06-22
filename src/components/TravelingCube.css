@@ -22,7 +22,7 @@
 .tc-cube-layer {
   position: fixed;
   inset: 0;
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 7;
   opacity: 1;
   transition: opacity 0.25s ease;
@@ -57,7 +57,7 @@
   transform: translate(-50%, -50%) translate(var(--cube-tx), var(--cube-ty)) scale(var(--cube-scale));
   transform-origin: center center;
   will-change: transform;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 /* Gradient glow — sits behind the cube, blends purple/blue like a neon border bloom */
@@ -93,7 +93,7 @@
   height: 100%;
   /* Perspective is applied via GSAP transformPerspective on the cube itself
      to avoid being flattened by the parent wrap's CSS transform. */
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .tc-stage__cube {
@@ -102,7 +102,7 @@
   height: 100%;
   transform-style: preserve-3d;
   will-change: transform;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 /* ── Faces — rotateX geometry (top/bottom walls, vertical barrel roll) ─ */
@@ -201,6 +201,8 @@
   border-radius: 2px;
   width: fit-content;
   transition: background 0.2s, color 0.2s;
+  /* Inherit pointer-events from parent — blocks on inactive faces */
+  pointer-events: inherit;
 }
 
 .tc-face__ve-cta:hover {
@@ -252,7 +254,12 @@
   display: flex;
   flex-direction: column;
   gap: 1cqw;
-  /* Ensure text and buttons are always selectable on active face */
+  /* Inherit pointer-events from parent face — only active face has auto */
+  pointer-events: inherit;
+}
+
+/* Only enable content interaction on active face */
+.tc-face.is-active .tc-face__content {
   pointer-events: auto;
 }
 
@@ -297,8 +304,8 @@
   cursor: pointer;
   transition: background 0.2s ease, opacity 0.3s ease;
   opacity: 0;
-  /* Inherit pointer-events from parent — will be auto on active face */
-  pointer-events: inherit;
+  /* Blocks on inactive faces, auto on active */
+  pointer-events: none;
   /* Own compositor layer — parent scale changes never cause a reflow here */
   will-change: transform;
   backface-visibility: hidden;
@@ -310,23 +317,32 @@
   opacity: 1 !important;
 }
 
-/* Disable all faces from interaction by default */
-.tc-cube-layer--large .tc-face {
-  pointer-events: none;
-}
-
-/* Re-enable interaction for active face and all its children */
-.tc-cube-layer--large .tc-face.is-active {
-  pointer-events: auto;
-}
-
-/* Ensure button is clickable on active face */
-.tc-cube-layer--large .tc-face.is-active .tc-face__cta {
-  pointer-events: auto !important;
-}
-
 .tc-face__cta:hover {
   background: rgba(255, 85, 34, 0.15);
+}
+
+/* ── Flat CTA overlay ─────────────────────────────────── */
+/* Lives outside the preserve-3d scene inside tc-stage__wrap.
+   Positioned to cover the visual face buttons (bottom-left of the cube).
+   Invisible — the face buttons are the visual; this handles the click. */
+.tc-cta-overlay {
+  position: absolute;
+  bottom: 6%;
+  left: 6%;
+  width: 36%;
+  height: 9%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 10;
+  /* Initially non-interactive — pointerEvents toggled via React inline style */
+}
+
+.tc-cta-overlay:focus-visible {
+  outline: 2px solid #EB001B;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* ── Reduced motion ───────────────────────────────────── */
