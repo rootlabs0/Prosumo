@@ -322,15 +322,18 @@
 }
 
 /* ── Flat CTA overlay ─────────────────────────────────── */
-/* Lives outside the preserve-3d scene inside tc-stage__wrap.
-   Positioned to cover the visual face buttons (bottom-left of the cube).
-   Invisible — the face buttons are the visual; this handles the click. */
+/* Lives outside the preserve-3d scene inside tc-stage__wrap so Chrome can
+   hit-test it reliably. Position and size are set every frame via JS from the
+   active face button’s getBoundingClientRect() (see syncOverlay in
+   TravelingCube.tsx), so it tracks the button’s true rendered position through
+   the 3D rotation, scale and perspective — on every face and in every language. */
 .tc-cta-overlay {
   position: absolute;
-  bottom: 6%;
-  left: 6%;
-  width: 36%;
-  height: 9%;
+  /* Initial geometry — overridden by JS on every face change */
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
   background: transparent;
   border: none;
   padding: 0;

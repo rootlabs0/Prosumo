@@ -177,6 +177,13 @@ const FACE_SECTION: ServiceSection[] = [
   'community',
 ]
 
+// The cube rotates rotateX(step*90), but every face also carries its own
+// rotateX(i*90), so the face actually facing the viewer at a given step is
+// (4 - step) % 4 — not the step index. Even steps (0,2) map to themselves;
+// odd steps (1,3) are swapped. is-active, the click-overlay and the content
+// animation must all follow this true front face.
+const FRONT_FACE = (step: number) => (4 - (step % 4)) % 4
+
 export default function TravelingCube({
   current,
   onCurrentChange,
@@ -197,6 +204,7 @@ export default function TravelingCube({
   const bgRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const cubeLayerRef = useRef<HTMLDivElement>(null)
+  const overlayRef = useRef<HTMLButtonElement>(null)
   const idleTweenRef = useRef<gsap.core.Tween | null>(null)
   const faceIndexRef = useRef(0)
   const isAnimating3Ref = useRef(false)
@@ -206,6 +214,32 @@ export default function TravelingCube({
   const { lang } = useLang()
 
   useEffect(() => {
+    // Keep the flat click-overlay glued to the visible button using its TRUE
+    // rendered geometry. getBoundingClientRect() reflects the 3D rotateX /
+    // translateZ / perspective and the wrap's scale — unlike offsetTop/Left, which
+    // ignore transforms and left the hot-zone stuck over face 1.
+    const syncOverlay = () => {
+      const overlay = overlayRef.current
+      const wrap = wrapRef.current
+      const cube = cubeRef.current
+      if (!overlay || !wrap || !cube) return
+      const faces = cube.querySelectorAll<HTMLElement>('.tc-face')
+      // The face facing the viewer is FRONT_FACE(step), not the step itself
+      // (each face carries its own rotateX(i*90)). See the [current] effect.
+      const cta = faces[FRONT_FACE(faceIndexRef.current)]?.querySelector<HTMLElement>('.tc-face__cta')
+      if (!cta) return
+      const wrapRect = wrap.getBoundingClientRect()
+      // wrap is only translated + scaled (never rotated), so divide screen-space
+      // deltas by the live scale to get wrap-local coords for the absolute overlay.
+      const scale = wrapRect.width / wrap.offsetWidth || 1
+      const r = cta.getBoundingClientRect()
+      overlay.style.left = `${(r.left - wrapRect.left) / scale}px`
+      overlay.style.top = `${(r.top - wrapRect.top) / scale}px`
+      overlay.style.width = `${r.width / scale}px`
+      overlay.style.height = `${r.height / scale}px`
+      overlay.style.bottom = 'auto'
+    }
+
     let touchStartY = 0
     let wheelAccumulator = 0
 
@@ -479,10 +513,14 @@ export default function TravelingCube({
           transitionTl.progress(1)
           setIsLarge(true)
           stopScroll() // Lock Lenis — user must cycle all faces before scrolling past
+          // Glue the click-overlay to the live button position every frame.
+          gsap.ticker.add(syncOverlay)
+          syncOverlay()
         },
         onLeave: () => {
           isActive3Ref.current = false
           setIsLarge(false)
+          gsap.ticker.remove(syncOverlay)
           startScroll() // Unlock Lenis on natural forward exit
           // Re-anchor both layers into document flow at their exact visual position
           // so they scroll away naturally instead of staying glued to the viewport.
@@ -515,10 +553,14 @@ export default function TravelingCube({
             el.style.width = ''
             el.style.height = ''
           })
+          // Glue the click-overlay to the live button position every frame.
+          gsap.ticker.add(syncOverlay)
+          syncOverlay()
         },
         onLeaveBack: () => {
           isActive3Ref.current = false
           setIsLarge(false)
+          gsap.ticker.remove(syncOverlay)
           startScroll() // Unlock Lenis on backward exit
           gsap.set(cube, { rotateX: 0, rotateY: 0, rotateZ: 0 })
           // Do NOT restart idle here — Phase 2 onEnterBack already paused it and
@@ -564,6 +606,7 @@ export default function TravelingCube({
 
     return () => {
       ctx.revert()
+      gsap.ticker.remove(syncOverlay) // gsap.context does not track ticker callbacks
       if (navCtaEl) navCtaEl.removeEventListener('click', handleNavCtaClick, { capture: true })
       detachCubeListeners()
     }
@@ -588,20 +631,25 @@ export default function TravelingCube({
       })
     }
 
+    // The face facing the viewer is FRONT_FACE(step), not the step itself.
+    const front = FRONT_FACE(current)
     faces.forEach((f, i) => {
-      f.classList.toggle('is-active', i === current)
+      f.classList.toggle('is-active', i === front)
     })
 
-    // Animate content of active face
-    const activeFace = faces[current]
+    // The click-overlay is kept aligned with the visible button by the gsap.ticker
+    // sync (syncOverlay), so no per-change positioning is needed here.
+
+    // Animate content of the visible (front) face
+    const activeFace = faces[front]
     if (!activeFace) return
     const art = activeFace.querySelector('.tc-face__art')
     const txt = activeFace.querySelectorAll<HTMLElement>('.tc-face__number, .tc-face__label, .tc-face__title, .tc-face__desc')
     if (art) gsap.fromTo(art, { scale: 0.9, opacity: 0.4 }, { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.4)', overwrite: true })
     if (txt.length) gsap.fromTo(txt, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.06, overwrite: true })
 
-    // Face 2 — animate VE panel elements
-    if (current === 1) {
+    // Energy-community face — animate VE panel elements when it is the front face
+    if (front === 1) {
       const veEls = activeFace.querySelectorAll<HTMLElement>('.tc-face__ve-eyebrow, .tc-face__ve-heading, .tc-face__ve-desc, .tc-face__ve-cta, .tc-face__ve-stat')
       gsap.fromTo(veEls, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.08, overwrite: true })
     }
@@ -625,6 +673,7 @@ export default function TravelingCube({
             layout origin at the cube top/bottom — outside the click area. This
             flat sibling lives in 2D space and is always correctly clickable. */}
         <button
+          ref={overlayRef}
           className="tc-cta-overlay"
           style={{ pointerEvents: isLarge ? 'auto' : 'none' }}
           onClick={() => onLearnMore(FACE_SECTION[current])}
